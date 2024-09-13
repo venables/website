@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   openGraph: {
     description: siteConfig.description,
     siteName: siteConfig.name,
-    title: "A sane way to start your next next.js project",
+    title: siteConfig.name,
     type: "website",
     url: fullURL()
   },
   title: {
-    default: `A sane way to start your next next.js project | ${siteConfig.name}`,
+    default: siteConfig.name,
     template: `%s | ${siteConfig.name}`
   },
   twitter: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     creator: siteConfig.author.twitter,
     description: siteConfig.description,
     site: siteConfig.handles.twitter,
-    title: "A sane way to start your next next.js project"
+    title: siteConfig.name
   }
 }
 
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
         className={cn(
           GeistSans.variable,
           GeistMono.variable,
-          "font-sans antialiased"
+          "font-mono antialiased"
         )}
       >
         <ThemeProvider attribute="class">

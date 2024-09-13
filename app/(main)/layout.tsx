@@ -5,7 +5,7 @@ import type { PropsWithChildren } from "react"
 
 export default function MainLayout({ children }: Readonly<PropsWithChildren>) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="container flex min-h-screen flex-col gap-8 py-8">
       <Header />
       {children}
       <Footer />

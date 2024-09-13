@@ -25,7 +25,8 @@ export default {
     extend: {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out"
+        "accordion-up": "accordion-up 0.2s ease-out",
+        swing: "swing 2s ease-in-out forwards"
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -93,6 +94,29 @@ export default {
           },
           to: {
             height: "0"
+          }
+        },
+        swing: {
+          "0%": {
+            transform: "rotate(0deg)"
+          },
+          "10%": {
+            transform: "rotate(20deg)"
+          },
+          "100%": {
+            transform: "rotate(12.5deg)"
+          },
+          "30%": {
+            transform: "rotate(7.5deg)"
+          },
+          "50%": {
+            transform: "rotate(15deg)"
+          },
+          "70%": {
+            transform: "rotate(11.5deg)"
+          },
+          "90%": {
+            transform: "rotate(12.5deg)"
           }
         }
       }

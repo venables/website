@@ -14,7 +14,8 @@ export const siteConfig = {
   },
 
   // A description of the project
-  description: "A sane way to start your next Next project.",
+  description:
+    "product-focused engineer, entrepreneur, advisor, and angel investor",
 
   // Social media handles for the project
   handles: {
@@ -25,15 +26,15 @@ export const siteConfig = {
   // Links related to the project
   links: {
     // The GitHub link for the project
-    github: "https://github.com/startkit-dev/next-cloudflare",
+    github: "https://github.com/venables",
 
     // The Twitter link for the project
     twitter: "https://twitter.com/mattyven"
   },
 
   // The name of the project
-  name: "StartKit",
+  name: "Matt Venables",
 
   // A short name for the project, useful for mobile devices
-  shortName: "StartKit"
+  shortName: "Matt Venables"
 }
