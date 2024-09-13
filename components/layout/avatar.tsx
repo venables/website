@@ -5,20 +5,10 @@ import { type HTMLAttributes, useState } from "react"
 
 import { cn } from "@/lib/utils/cn"
 
-import avatar from "./avatar.png"
-
 export type AvatarProps = HTMLAttributes<HTMLDivElement>
 
 export function Avatar({ className, ...props }: AvatarProps) {
   const [isSwinging, setIsSwinging] = useState(false)
-
-  const handleMouseEnter = () => {
-    setIsSwinging(true)
-  }
-
-  const handleAnimationEnd = () => {
-    // setIsSwinging(false)
-  }
 
   return (
     <span
@@ -27,11 +17,17 @@ export function Avatar({ className, ...props }: AvatarProps) {
         isSwinging && "animate-swing",
         className
       )}
-      onAnimationEnd={handleAnimationEnd}
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => {
+        setIsSwinging(true)
+      }}
       {...props}
     >
-      <Image alt="Matt Venables" className="aspect-square" src={avatar} fill />
+      <Image
+        alt="Matt Venables"
+        className="aspect-square"
+        src="/images/avatar.png"
+        fill
+      />
     </span>
   )
 }

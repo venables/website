@@ -3,6 +3,7 @@ import { GeistMono } from "geist/font/mono"
 import { GeistSans } from "geist/font/sans"
 import { ThemeProvider } from "next-themes"
 
+import { Analytics } from "@/components/layout/analytics"
 import { TailwindIndicator } from "@/components/layout/tailwind-indicator"
 import { siteConfig } from "@/config/site"
 import { fullURL } from "@/lib/url-fns/full-url"
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
       >
         <ThemeProvider attribute="class">
           {children}
+          <Analytics />
           <TailwindIndicator />
         </ThemeProvider>
       </body>

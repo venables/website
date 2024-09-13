@@ -1,3 +1,4 @@
+import { EnvelopeClosedIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 
 import { GithubIcon } from "@/components/icons/social/github-icon"
@@ -25,6 +26,11 @@ const SOCIAL_LINKS = [
     icon: LinkedInIcon,
     link: siteConfig.links.linkedin,
     title: "LinkedIn"
+  },
+  {
+    icon: EnvelopeClosedIcon,
+    link: `mailto:${siteConfig.author.email}`,
+    title: "Email"
   }
 ]
 

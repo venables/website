@@ -1,5 +1,5 @@
 import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev"
-import createMDX from "@next/mdx"
+import { withContentlayer } from "next-contentlayer2"
 
 import type { NextConfig } from "next"
 import "./env/client"
@@ -18,16 +18,8 @@ const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"]
 }
 
-const withMDX = createMDX({
-  // Add markdown plugins here, as desired
-  options: {
-    rehypePlugins: [],
-    remarkPlugins: []
-  }
-})
-
 if (process.env.NODE_ENV === "development") {
   void setupDevPlatform()
 }
 
-export default withMDX(nextConfig)
+export default withContentlayer(nextConfig)

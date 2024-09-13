@@ -1,7 +1,9 @@
-name = "startkit-next"
+name = "venables-website"
 compatibility_date = "2024-07-29"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
 
 [vars]
 NODE_VERSION = "20"
+NEXT_PUBLIC_HOST = "https://venabl.es"
+NEXT_PUBLIC_GA_MEASUREMENT_ID = "G-MH0RX39N6C"
