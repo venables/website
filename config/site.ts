@@ -28,6 +28,9 @@ export const siteConfig = {
     // The GitHub link for the project
     github: "https://github.com/venables",
 
+    // linkedin
+    linkedin: "https://www.linkedin.com/in/mattvenables/",
+
     // The Twitter link for the project
     twitter: "https://twitter.com/mattyven"
   },
