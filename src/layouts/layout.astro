@@ -14,8 +14,11 @@ type Props = RootLayoutProps
 const props = Astro.props
 ---
 
-<RootLayout class="min-h-screen font-sans text-sm leading-6 antialiased sm:text-[13px]" {...props}>
-  <div class="flex min-h-screen max-w-3xl flex-col gap-8 p-4 sm:px-22 sm:py-8">
+<RootLayout
+  class="min-h-svh font-sans text-sm leading-6 antialiased selection:bg-accent sm:text-[13px] dark:selection:text-background"
+  {...props}
+>
+  <div class="flex min-h-svh max-w-3xl flex-col gap-8 p-4 sm:px-22 sm:py-8">
     <Header title={props.title} />
     <main class="flex grow flex-col gap-12">
       <slot />
