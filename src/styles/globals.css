@@ -166,4 +166,12 @@
   a:active {
     @apply translate-y-px duration-75 select-none;
   }
+
+  .footnotes {
+    @apply text-xs;
+  }
+
+  .footnotes h2#footnote-label {
+    @apply !text-xs tracking-wider uppercase underline;
+  }
 }
