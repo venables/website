@@ -10,7 +10,7 @@ This is an **Astro** website with the following key technologies:
 - **TypeScript** with strict configuration
 - **Tailwind CSS v4** for styling
 - **MDX** for content authoring
-- **Vercel** for deployment
+- **Cloudflare** for deployment
 - **bun** as package manager
 
 ## Development Commands

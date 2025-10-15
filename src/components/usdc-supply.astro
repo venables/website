@@ -8,22 +8,7 @@ import { BubblesIcon } from "@lucide/astro"
 
 <script>
   import { decrypt } from "@/lib/decrypting-text"
-
-  async function getSupply() {
-    let supply = "many billion dollars"
-
-    try {
-      const response = await fetch("/data.json")
-      const data = (await response.json()) as { supply: string | null }
-      if (data.supply) {
-        supply = data.supply
-      }
-    } catch (e) {
-      console.warn("Oops, we couldn't fetch the USDC supply. Can devs do something?")
-    }
-
-    return supply
-  }
+  import { getSupply } from "@/lib/usdc-supply"
 
   const supply = await getSupply()
   document.querySelectorAll("[data-usdc-supply]").forEach((element) => {

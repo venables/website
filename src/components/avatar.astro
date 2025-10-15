@@ -1,0 +1,12 @@
+---
+import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
+import { cn } from "@/lib/utils"
+import { Image } from "astro:assets"
+import type { HTMLAttributes } from "astro/types"
+
+type Props = Pick<HTMLAttributes<"img">, "class" | "alt">
+
+const { class: className, alt = "Matt Venables" } = Astro.props
+---
+
+<Image src={avatar} alt={alt} class={cn("aspect-square h-auto w-full", className)} />

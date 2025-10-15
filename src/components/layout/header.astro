@@ -1,9 +1,8 @@
 ---
-import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
 import { siteConfig } from "@/config/site"
 import { CornerDownLeftIcon } from "@lucide/astro"
-import { Image } from "astro:assets"
 import type { HTMLAttributes } from "astro/types"
+import Avatar from "../avatar.astro"
 
 type Props = HTMLAttributes<"header"> & {
   title: string
@@ -16,18 +15,19 @@ const { title, ...props } = Astro.props
 ---
 
 <header {...props}>
-  <div class="h-6 leading-6 md:h-8">
+  <div class="h-6 md:h-8">
     {
       back && (
-        <a href="/" class="link -mt-6 inline-flex items-center gap-1 leading-6 hover:underline">
-          <CornerDownLeftIcon class="h-3 w-3" /> back
+        <a href="/" class="link -mt-6 inline-flex h-5 items-center gap-1">
+          <CornerDownLeftIcon class="h-3 w-3" />
+          <span>Matt Venables</span>
         </a>
       )
     }
   </div>
   <div class="flex items-center justify-between">
     <h1 class="font-display text-4xl md:text-5xl">
-      <a href={url.pathname}>{title}</a>
+      <a class="inline-block" href={url.pathname}>{title}</a>
     </h1>
     {
       back ? (
@@ -40,7 +40,7 @@ const { title, ...props } = Astro.props
           rel="noopener noreferrer"
           class="flex-shrink transition-transform hover:scale-130 hover:rotate-12 active:scale-110"
         >
-          <Image src={avatar} alt="Matt Venables" class="aspect-square h-auto w-full max-w-12" />
+          <Avatar class="max-w-12" />
         </a>
       )
     }
