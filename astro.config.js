@@ -10,5 +10,5 @@ export default defineConfig({
   site: "https://venabl.es",
   adapter: vercel(),
   vite: { plugins: [tailwindcss()] },
-  integrations: [sitemap(), mdx()]
+  integrations: [sitemap(), mdx()],
 })

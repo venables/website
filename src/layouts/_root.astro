@@ -1,10 +1,10 @@
 ---
-import { SEO } from "astro-seo"
 import GoogleAnalytics from "@/components/analytics/google-analytics.astro"
 import PostHog from "@/components/analytics/post-hog.astro"
 import { siteConfig } from "@/config/site"
-import type { RootLayoutProps } from "./_root.types"
+import { SEO } from "astro-seo"
 import type { HTMLAttributes } from "astro/types"
+import type { RootLayoutProps } from "./_root.types"
 
 type Props = HTMLAttributes<"body"> & RootLayoutProps
 
@@ -32,20 +32,20 @@ const { title, description, image, canonical, article, ...props } = Astro.props
           url: Astro.request.url,
           title,
           type: article ? "article" : "website",
-          image: image?.url ?? `${host}/og.png`
+          image: image?.url ?? `${host}/og.png`,
         },
         optional: {
           siteName: siteConfig.name,
           description: description ?? siteConfig.description,
-          locale: "en_US"
+          locale: "en_US",
         },
         article: article
           ? {
               publishedTime: article.date,
-              authors: [siteConfig.author.name]
+              authors: [siteConfig.author.name],
             }
           : undefined,
-        image: image
+        image: image,
       }}
       twitter={{
         creator: siteConfig.author.twitter,
@@ -53,7 +53,7 @@ const { title, description, image, canonical, article, ...props } = Astro.props
         site: siteConfig.handles.x,
         image: image?.url ?? `${host}/og.png`,
         title,
-        description: description ?? siteConfig.description
+        description: description ?? siteConfig.description,
       }}
     />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

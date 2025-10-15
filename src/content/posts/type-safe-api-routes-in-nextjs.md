@@ -26,7 +26,7 @@ export const GET = handler<ResponseData>((req) => {
   // This response much match ResponseData
   return NextResponse.json({
     result: "this response is type-checked",
-    over: 9000
+    over: 9000,
   })
 })
 ```
@@ -34,8 +34,8 @@ export const GET = handler<ResponseData>((req) => {
 Or, a more complete example with URL parameter types:
 
 ```ts
-import { handler } from "typed-route-handler"
 import { auth } from "@/auth"
+import { handler } from "typed-route-handler"
 
 type ResponseData = {
   result: string
@@ -65,7 +65,7 @@ export const GET = handler<ResponseData, Context>(async (req, context) => {
   // This response much match ResponseData
   return NextResponse.json({
     result: "this response is type-checked",
-    over: 9000
+    over: 9000,
   })
 })
 ```
@@ -81,7 +81,7 @@ import { z } from "zod"
 
 const bodySchema = z.object({
   name: z.string().min(3),
-  age: z.number()
+  age: z.number(),
 })
 
 /**
@@ -92,7 +92,7 @@ export const POST = handler(async (req) => {
   const { name, age } = bodySchema.parse(await req.json())
 
   return NextResponse.json({
-    ok: true
+    ok: true,
   })
 })
 ```

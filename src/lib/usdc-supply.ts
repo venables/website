@@ -2,7 +2,7 @@ import * as v from "valibot"
 
 const supplySchema = v.object({
   ok: v.literal(true),
-  data: v.object({ supply: v.object({ native: v.number() }) })
+  data: v.object({ supply: v.object({ native: v.number() }) }),
 })
 
 export async function fetchSupply() {

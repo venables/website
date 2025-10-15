@@ -24,14 +24,14 @@ const sha = import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "e71ec5571df242790b1
         year: "numeric",
         month: "long",
         day: "numeric",
-        timeZone: "America/New_York"
+        timeZone: "America/New_York",
       })
     }, {
       currentDate.toLocaleTimeString("en-US", {
         hour: "numeric",
         minute: "2-digit",
         timeZone: "America/New_York",
-        timeZoneName: "short"
+        timeZoneName: "short",
       })
     } (<a
       class="link underline decoration-dotted underline-offset-4"

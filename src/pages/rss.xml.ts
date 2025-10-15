@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss"
-import { getCollection } from "astro:content"
 import type { APIRoute } from "astro"
+import { getCollection } from "astro:content"
 
 export const GET: APIRoute = async (context) => {
   const allPosts = await getCollection("posts")
@@ -19,7 +19,7 @@ export const GET: APIRoute = async (context) => {
       description: post.data.description,
       pubDate: post.data.pubDate,
       link: `/${post.id}`,
-      content: post.body
-    }))
+      content: post.body,
+    })),
   })
 }

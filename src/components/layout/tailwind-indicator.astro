@@ -9,7 +9,7 @@ const { location = "bottom-left" } = Astro.props
 <div
   class:list={[
     `fixed bg-foreground/90 px-2 py-px text-xs text-background`,
-    location === "bottom-right" ? "right-0 bottom-0 rounded-tl-lg" : "bottom-0 left-0 rounded-tr-lg"
+    location === "bottom-right" ? "right-0 bottom-0 rounded-tl-lg" : "bottom-0 left-0 rounded-tr-lg",
   ]}
 >
   <span class="block sm:hidden">xs</span>
