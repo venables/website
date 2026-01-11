@@ -3,36 +3,31 @@ import { getCollection } from "astro:content"
 
 const allPosts = await getCollection("posts")
 const posts = allPosts.sort((a, b) => {
-  const dateA = new Date(a.data.pubDate ?? Date.now()).getTime()
-  const dateB = new Date(b.data.pubDate ?? Date.now()).getTime()
+  const dateA = a.data.pubDate?.getTime() ?? Date.now()
+  const dateB = b.data.pubDate?.getTime() ?? Date.now()
   return dateB - dateA
 })
+
+function formatDate(date: Date | undefined, options: Intl.DateTimeFormatOptions): string {
+  return (date ?? new Date()).toLocaleDateString("en-US", options)
+}
 ---
 
-<ul class="not-prose list-none space-y-2 ps-0 text-sm">
+<ul class="not-prose list-none space-y-3 ps-0 text-sm">
   {
     posts.map((post) => (
-      <li class="flex flex-row items-center justify-between gap-2">
-        <a href={`/${post.id}`} class="link min-w-0 truncate">
-          {post.data.title}
+      <li>
+        <a
+          href={`/${post.id}`}
+          class="block border border-foreground/20 bg-background p-3 no-underline shadow-[0_0_0_var(--foreground)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--foreground)] active:translate-x-0 active:translate-y-0 active:shadow-[0_0_0_var(--foreground)]"
+        >
+          <span class="flex items-start justify-between gap-4">
+            <span class="font-medium">{post.data.title}</span>
+            <span class="shrink-0 text-xs text-muted-foreground">
+              {formatDate(post.data.pubDate, { month: "short", year: "numeric" })}
+            </span>
+          </span>
         </a>
-
-        <span class="mr-2 flex-shrink-0 text-right text-xs whitespace-nowrap text-muted-foreground">
-          <span class="hidden sm:inline">
-            {new Date(post.data.pubDate ?? Date.now()).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </span>
-          <span class="inline sm:hidden">
-            {new Date(post.data.pubDate ?? Date.now()).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "2-digit",
-            })}
-          </span>
-        </span>
       </li>
     ))
   }

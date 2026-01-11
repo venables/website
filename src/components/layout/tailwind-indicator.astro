@@ -1,24 +1,12 @@
 ---
-interface Props {
-  location?: "bottom-right" | "bottom-left"
-}
 
-const { location = "bottom-left" } = Astro.props
 ---
 
-<div
-  class:list={[
-    `fixed bg-foreground/90 px-2 py-px text-xs text-background`,
-    location === "bottom-right" ? "right-0 bottom-0 rounded-tl-lg" : "bottom-0 left-0 rounded-tr-lg",
-  ]}
->
+<div class="fixed bottom-0 left-0 rounded-tr-lg bg-foreground/90 px-2 py-px text-xs text-background">
   <span class="block sm:hidden">xs</span>
   <span class="hidden sm:block md:hidden">sm</span>
   <span class="hidden md:block lg:hidden">md</span>
   <span class="hidden lg:block xl:hidden">lg</span>
   <span class="hidden xl:block 2xl:hidden">xl</span>
-  <span class="3xl:hidden hidden 2xl:block">2xl</span>
-  <span class="3xl:block 4xl:hidden hidden">3xl</span>
-  <span class="4xl:block 5xl:hidden hidden">4xl</span>
-  <span class="5xl:block hidden">5xl</span>
+  <span class="hidden 2xl:block">2xl</span>
 </div>

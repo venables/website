@@ -9,41 +9,38 @@
 @custom-variant the-net (&:is(.the-net *));
 
 :root {
-  --background: oklch(0.9768 0.0045 78.3); /* #F9F7F4 */
-  --foreground: oklch(0.1559 0.0053 145.31); /* #0b0d0b */
-  --accent: oklch(0.9485 0.2077 117.5); /* #e4ff34 */
-  --accent-foreground: oklch(0.9905 0.0162 142.56); /* #f6fff5 */
-  --border: var(--accent); /* oklch(0.92 0.004 286.32); */
+  --background: oklch(0.9768 0.0045 78.3);
+  --foreground: oklch(0.1559 0.0053 145.31);
+  --accent: oklch(0.92 0.01 80);
+  --border: oklch(0.85 0.01 80);
   --muted: hsl(240 4.8% 95.9%);
   --muted-foreground: hsl(240 3.8% 46.1%);
 
-  /* the-net */
-  --dark-color: #191f1d;
-  --mid-dark: #555a57;
-  --noise-texture: url(/images/the-net/noise.png);
-  --gif-texture: url(/images/the-net/static.gif);
-  --main-transition: all 0.2s ease-in-out;
+  --the-net-dark: #191f1d;
+  --the-net-mid: #555a57;
+  --the-net-noise: url(/images/the-net/noise.png);
+  --the-net-static: url(/images/the-net/static.gif);
 }
 
 .dark {
-  --background: oklch(0.1559 0.0053 145.31); /* #0b0d0b */
-  --foreground: oklch(0.9905 0.0162 142.56); /* #f6fff5 */
+  --background: oklch(0.1559 0.0053 145.31);
+  --foreground: oklch(0.9905 0.0162 142.56);
   --muted: hsl(240 3.7% 15.9%);
   --muted-foreground: hsl(240 5% 64.9%);
 }
 
 .party-mode,
 .party-mode.dark {
-  --background: oklch(0.9234 0.0674 149.53); /* #C7F3CE */
-  --foreground: oklch(0.1559 0.0053 145.31); /* #0b0d0b */
+  --background: oklch(0.9234 0.0674 149.53);
+  --foreground: oklch(0.1559 0.0053 145.31);
   --muted-foreground: hsl(240 3.8% 46.1%);
 }
 
 .the-net,
 .the-net.dark {
-  --background: oklch(0.1559 0.0053 145.31); /* #0b0d0b */
-  --foreground: oklch(0.9905 0.0162 142.56); /* #f6fff5 */
-  --muted-foreground: oklch(0.9485 0.2077 117.5); /* #e4ff34 */
+  --background: oklch(0.1559 0.0053 145.31);
+  --foreground: oklch(0.9905 0.0162 142.56);
+  --muted-foreground: oklch(0.9485 0.2077 117.5);
 }
 
 @theme inline {
@@ -53,7 +50,6 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -85,38 +81,38 @@
     width: 100%;
     background-image: linear-gradient(
       150deg,
-      var(--dark-color) 60.2%,
-      var(--mid-dark) 60.28%,
-      var(--mid-dark) 60.7%,
-      var(--dark-color) 60.78%,
-      var(--dark-color) 61.4%,
-      var(--mid-dark) 61.48%,
-      var(--mid-dark) 62.6%,
-      var(--dark-color) 62.68%,
-      var(--dark-color) 63.4%,
-      var(--mid-dark) 63.48%,
-      var(--mid-dark) 64.6%,
-      var(--dark-color) 64.68%,
-      var(--dark-color) 65.4%,
-      var(--mid-dark) 65.48%,
-      var(--mid-dark) 67.4%,
-      var(--dark-color) 67.48%,
-      var(--dark-color) 68.4%,
-      var(--mid-dark) 68.48%,
-      var(--mid-dark) 71.4%,
-      var(--dark-color) 71.48%,
-      var(--dark-color) 72.4%,
-      var(--mid-dark) 72.48%,
-      var(--mid-dark) 76.4%,
-      var(--dark-color) 76.48%,
-      var(--dark-color) 77.4%,
-      var(--mid-dark) 77.48%,
-      var(--mid-dark) 81.4%,
-      var(--dark-color) 81.48%,
-      var(--dark-color) 82.4%,
-      var(--mid-dark) 82.48%,
-      var(--mid-dark) 87.4%,
-      var(--dark-color) 87.48%
+      var(--the-net-dark) 60.2%,
+      var(--the-net-mid) 60.28%,
+      var(--the-net-mid) 60.7%,
+      var(--the-net-dark) 60.78%,
+      var(--the-net-dark) 61.4%,
+      var(--the-net-mid) 61.48%,
+      var(--the-net-mid) 62.6%,
+      var(--the-net-dark) 62.68%,
+      var(--the-net-dark) 63.4%,
+      var(--the-net-mid) 63.48%,
+      var(--the-net-mid) 64.6%,
+      var(--the-net-dark) 64.68%,
+      var(--the-net-dark) 65.4%,
+      var(--the-net-mid) 65.48%,
+      var(--the-net-mid) 67.4%,
+      var(--the-net-dark) 67.48%,
+      var(--the-net-dark) 68.4%,
+      var(--the-net-mid) 68.48%,
+      var(--the-net-mid) 71.4%,
+      var(--the-net-dark) 71.48%,
+      var(--the-net-dark) 72.4%,
+      var(--the-net-mid) 72.48%,
+      var(--the-net-mid) 76.4%,
+      var(--the-net-dark) 76.48%,
+      var(--the-net-dark) 77.4%,
+      var(--the-net-mid) 77.48%,
+      var(--the-net-mid) 81.4%,
+      var(--the-net-dark) 81.48%,
+      var(--the-net-dark) 82.4%,
+      var(--the-net-mid) 82.48%,
+      var(--the-net-mid) 87.4%,
+      var(--the-net-dark) 87.48%
     );
     box-sizing: border-box;
     animation: spawn 2s ease-in-out forwards;
@@ -126,7 +122,7 @@
     content: "";
     display: flex;
     position: fixed;
-    background-image: var(--noise-texture);
+    background-image: var(--the-net-noise);
     height: 100%;
     width: 100%;
     mix-blend-mode: overlay;
@@ -138,7 +134,7 @@
     content: "";
     display: flex;
     position: fixed;
-    background-image: var(--gif-texture);
+    background-image: var(--the-net-static);
     height: 100%;
     width: 100%;
     translate: 0px 0px;
@@ -156,11 +152,15 @@
   }
 
   a.link {
-    @apply px-px underline underline-offset-4;
+    @apply underline underline-offset-4 transition-colors duration-100;
   }
 
   a.link:hover {
-    @apply bg-accent text-foreground no-underline dark:text-background;
+    @apply bg-foreground text-background no-underline;
+  }
+
+  a.link:focus-visible {
+    @apply bg-foreground text-background no-underline outline-none;
   }
 
   a:active {

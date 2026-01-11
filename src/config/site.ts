@@ -8,6 +8,7 @@ export const siteConfig = {
     email: "mailto:m@venabl.es",
     github: "https://github.com/venables",
     linkedin: "https://www.linkedin.com/in/mattvenables",
+    signal: "https://signal.me/#eu/aSA1CvyLK9LjHZ33ALZGeImbao47nIpWHHOxPqnsP3IENWhsgOlMJZ2wt0_-wuOQ",
     x: "https://x.com/mattyven",
   },
 

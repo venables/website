@@ -14,31 +14,27 @@ const back = url.pathname !== "/"
 const { title, ...props } = Astro.props
 ---
 
-<header {...props}>
-  <div class="h-6 md:h-8">
-    {
-      back && (
-        <a href="/" class="link -mt-6 inline-flex h-5 items-center gap-1">
-          <CornerDownLeftIcon class="h-3 w-3" />
-          <span>Matt Venables</span>
-        </a>
-      )
-    }
-  </div>
+<header class="flex flex-col gap-4" {...props}>
+  {
+    back && (
+      <a href="/" class="link inline-flex w-fit items-center gap-1.5 text-muted-foreground">
+        <CornerDownLeftIcon class="h-3 w-3" />
+        <span>Matt Venables</span>
+      </a>
+    )
+  }
   <div class="flex items-center justify-between">
     <h1 class="font-display text-4xl md:text-5xl">
       <a class="inline-block" href={url.pathname}>{title}</a>
     </h1>
     {
-      back ? (
-        <span />
-      ) : (
+      !back && (
         <a
           href={siteConfig.links.x}
           target="_blank"
           data-party-mode
           rel="noopener noreferrer"
-          class="flex-shrink transition-transform hover:scale-130 hover:rotate-12 active:scale-110"
+          class="transition-transform duration-200 hover:scale-110 hover:rotate-6 active:scale-105"
         >
           <Avatar class="max-w-12" />
         </a>
