@@ -1,5 +1,8 @@
 {
-  "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/ed25519-2020/v1"],
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
   "id": "did:web:venabl.es",
   "alsoKnownAs": [
     "did:pkh:eip155:1:0x6FE2F9eB1c5b6E3c71a84373f03aBCC7Df13947C",

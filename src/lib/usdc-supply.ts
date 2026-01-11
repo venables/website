@@ -18,9 +18,13 @@ function formatNumber(num: number) {
   return num.toString()
 }
 
-type ObjectWithKey<TKey extends string> = Record<TKey, unknown> & Record<string, unknown>
+type ObjectWithKey<TKey extends string> = Record<TKey, unknown> &
+  Record<string, unknown>
 
-function isObjectWithKey<TKey extends string>(value: unknown, key: TKey): value is ObjectWithKey<TKey> {
+function isObjectWithKey<TKey extends string>(
+  value: unknown,
+  key: TKey
+): value is ObjectWithKey<TKey> {
   return typeof value === "object" && value !== null && key in value
 }
 
@@ -49,8 +53,7 @@ export async function getSupply() {
 
     const supply = parseSupply(await response.json())
     return supply ?? fallback
-  } catch (e) {
-    console.warn("Couldn't fetch the USDC supply. Can devs do something?", e)
+  } catch {
     return fallback
   }
 }

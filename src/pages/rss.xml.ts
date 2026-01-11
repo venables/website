@@ -1,10 +1,11 @@
-import rss from "@astrojs/rss"
 import type { APIRoute } from "astro"
+
+import rss from "@astrojs/rss"
 import { getCollection } from "astro:content"
 
 export const GET: APIRoute = async (context) => {
   const allPosts = await getCollection("posts")
-  const posts = allPosts.sort((a, b) => {
+  const posts = allPosts.toSorted((a, b) => {
     const dateA = new Date(a.data.pubDate ?? Date.now()).getTime()
     const dateB = new Date(b.data.pubDate ?? Date.now()).getTime()
     return dateB - dateA
@@ -19,7 +20,7 @@ export const GET: APIRoute = async (context) => {
       description: post.data.description,
       pubDate: post.data.pubDate,
       link: `/${post.id}`,
-      content: post.body,
-    })),
+      content: post.body
+    }))
   })
 }

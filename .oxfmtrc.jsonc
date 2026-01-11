@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": false,
+  "singleQuote": false,
+  "trailingComma": "none",
+  "tabWidth": 2,
+  "printWidth": 80,
+  "proseWrap": "always",
+  "experimentalSortImports": {},
+  "experimentalSortPackageJson": true,
+  "experimentalTailwindcss": {
+    // "stylesheet": "./src/styles/globals.css",
+    "functions": ["clxs", "cn"]
+  },
+  "ignorePatterns": [
+    "**/migrations/meta/**",
+    "*.gen.ts",
+    ".tanstack-start",
+    "tanstack-start.d.ts",
+    "worker-configuration.d.ts"
+  ]
+}

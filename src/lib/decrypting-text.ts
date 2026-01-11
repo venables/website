@@ -1,7 +1,8 @@
 /**
  * Credit: https://github.com/stevedylandev/stevedsimkins-dev-astro/blob/main/src/components/DecryptingHeader.astro
  */
-const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"
+const characters =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"
 
 export function decrypt(element: Element) {
   const text = element.getAttribute("data-text") ?? ""

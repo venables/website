@@ -10,5 +10,5 @@ export default defineConfig({
   site: "https://venabl.es",
   adapter: cloudflare(),
   vite: { plugins: [tailwindcss()] },
-  integrations: [sitemap(), mdx()],
+  integrations: [sitemap(), mdx()]
 })

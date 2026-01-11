@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content"
 
 const allPosts = await getCollection("posts")
-const posts = allPosts.sort((a, b) => {
+const posts = allPosts.toSorted((a, b) => {
   const dateA = a.data.pubDate?.getTime() ?? Date.now()
   const dateB = b.data.pubDate?.getTime() ?? Date.now()
   return dateB - dateA

@@ -1,16 +1,33 @@
 ---
 title: Type-safe API Routes in Next.js
-description: "Introducing 'typed-route-handler', the easiest way to add type-safety to Next.js Route Handlers"
+description:
+  "Introducing 'typed-route-handler', the easiest way to add type-safety to
+  Next.js Route Handlers"
 pubDate: 2024-01-09
 ---
 
-Since the release of Next.js 14, I have been converting all of my existing (and new) products to use the app directory and Server Components. The journey has been exciting, albeit with it's fair share of bumps in the road. But one of the features I've most enjoyed was the creation of **Route Handlers**. Built on web standards, these incredibly powerful handlers allow us to return _anything_ from a specific route -- a JSON API response, an image, a stream, React Components... _anything_!
+Since the release of Next.js 14, I have been converting all of my existing (and
+new) products to use the app directory and Server Components. The journey has
+been exciting, albeit with it's fair share of bumps in the road. But one of the
+features I've most enjoyed was the creation of **Route Handlers**. Built on web
+standards, these incredibly powerful handlers allow us to return _anything_ from
+a specific route -- a JSON API response, an image, a stream, React Components...
+_anything_!
 
-While these route handlers offer incredible flexibility, it also means they don't offer many guard-rails. In fact, these handlers are extremely minimal by default. And that's where they can bite you. Because you can return anything from these handlers, there's no contract that you're actually responding with the right thing, or even responding at all. And if you are responding with something, is it what you promised?
+While these route handlers offer incredible flexibility, it also means they
+don't offer many guard-rails. In fact, these handlers are extremely minimal by
+default. And that's where they can bite you. Because you can return anything
+from these handlers, there's no contract that you're actually responding with
+the right thing, or even responding at all. And if you are responding with
+something, is it what you promised?
 
 ## The missing API features for Next.js
 
-Enter `typed-route-handler`, a new node module I built for Next.js Route Handlers. It's a lightweight module that packs some serious Developer Experience (DX) and productivity punch. With a couple of lines, you can have a fully type-safe API endpoint, automatic validation handling, with request logging and timing.
+Enter `typed-route-handler`, a new node module I built for Next.js Route
+Handlers. It's a lightweight module that packs some serious Developer Experience
+(DX) and productivity punch. With a couple of lines, you can have a fully
+type-safe API endpoint, automatic validation handling, with request logging and
+timing.
 
 Here's a minimal example of how it works:
 
@@ -26,7 +43,7 @@ export const GET = handler<ResponseData>((req) => {
   // This response much match ResponseData
   return NextResponse.json({
     result: "this response is type-checked",
-    over: 9000,
+    over: 9000
   })
 })
 ```
@@ -65,23 +82,26 @@ export const GET = handler<ResponseData, Context>(async (req, context) => {
   // This response much match ResponseData
   return NextResponse.json({
     result: "this response is type-checked",
-    over: 9000,
+    over: 9000
   })
 })
 ```
 
 ## Going further with zod
 
-I'm a big user of `zod` for schema validation, and wanted to bring some of that power to `typed-route-handler`.
+I'm a big user of `zod` for schema validation, and wanted to bring some of that
+power to `typed-route-handler`.
 
-First and foremost, if you use zod within a handler, any validation errors will automatically get caught and returned to the client as such. This works even if you don't specify any return types. For example:
+First and foremost, if you use zod within a handler, any validation errors will
+automatically get caught and returned to the client as such. This works even if
+you don't specify any return types. For example:
 
 ```ts
 import { z } from "zod"
 
 const bodySchema = z.object({
   name: z.string().min(3),
-  age: z.number(),
+  age: z.number()
 })
 
 /**
@@ -92,21 +112,31 @@ export const POST = handler(async (req) => {
   const { name, age } = bodySchema.parse(await req.json())
 
   return NextResponse.json({
-    ok: true,
+    ok: true
   })
 })
 ```
 
-You can use zod with route parameters, search params, and basically everything else; it all will be properly handled by `typed-route-handler`.
+You can use zod with route parameters, search params, and basically everything
+else; it all will be properly handled by `typed-route-handler`.
 
 ## Making your APIs better
 
-Developing this, I realized this was **the missing API endpoint layer for Next.js**. By simply wrapping my existing API routes with `handler`, I got a slew of basic features that I would expect Next.js to ship with. Namely:
+Developing this, I realized this was **the missing API endpoint layer for
+Next.js**. By simply wrapping my existing API routes with `handler`, I got a
+slew of basic features that I would expect Next.js to ship with. Namely:
 
-- **Response type-checking:** Make sure your API endpoints are honoring their side of the contract.
-- **Request Parameter type-checking:** Your route can be defined with a `zod` schema, allowing you to validate and coerce URL parameters. You can validate a token is a uuid/cuid, or even coerce an ID to a number.
-- **Deep `zod` compatibility:** When you call a zod schema's `parse` method within a handler, any exceptions are caught and returned as a `400 Validation Error`
-- **Helpful error methods:** Following Next's `notFound()` standard, we exposed `unauthorized()` (HTTP 401) and `validationError()` (HTTP 400) methods, which are of type `never` so they can be used anywhere in the handler.
+- **Response type-checking:** Make sure your API endpoints are honoring their
+  side of the contract.
+- **Request Parameter type-checking:** Your route can be defined with a `zod`
+  schema, allowing you to validate and coerce URL parameters. You can validate a
+  token is a uuid/cuid, or even coerce an ID to a number.
+- **Deep `zod` compatibility:** When you call a zod schema's `parse` method
+  within a handler, any exceptions are caught and returned as a
+  `400 Validation Error`
+- **Helpful error methods:** Following Next's `notFound()` standard, we exposed
+  `unauthorized()` (HTTP 401) and `validationError()` (HTTP 400) methods, which
+  are of type `never` so they can be used anywhere in the handler.
 - And, at a more basic level, I get request logging and timing.
 
 ## Give it a try
@@ -118,6 +148,8 @@ npm i typed-route-handler
 pnpm add typed-route-handler
 ```
 
-[Check out the README for more examples](https://github.com/venables/typed-route-handler), and let me know what you think.
+[Check out the README for more examples](https://github.com/venables/typed-route-handler),
+and let me know what you think.
 
-The code is MIT-licensed and free to use. As always, pull requests and improvements are welcome!
+The code is MIT-licensed and free to use. As always, pull requests and
+improvements are welcome!

@@ -4,7 +4,7 @@ title: What I'm Doing Now
 description: 'My "now" page.'
 ---
 
-- enjoying the changing weather in new england.
-- probably playing outside with my kids.
-- exercising instead of drinking.
-- contemplating the mysteries of the universe. [feeling small](https://www.youtube.com/watch?v=DgqAAE9Aagc). and having a perpetual existential crisis.
+Last Updated: 2026-01-11
+
+- having fun with claude code
+- spending every free minute i can with my kids

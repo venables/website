@@ -12,7 +12,10 @@ const fingerprint = siteConfig.keys.pgp
 
     <section>
       <p>Fingerprint: <code>{fingerprint}</code></p>
-      <p>Download: <a href="/.well-known/pgp-key.asc">/.well-known/pgp-key.asc</a></p>
+      <p>
+        Download: <a href="/.well-known/pgp-key.asc"
+          >/.well-known/pgp-key.asc</a>
+      </p>
     </section>
 
     <section>
@@ -32,7 +35,11 @@ DD6woQCWXc+ADIQSn2KRnbXCT9KXkLPZJwUE
       </code></pre>
     </section>
 
-    <button onclick="navigator.clipboard.writeText(document.getElementById('pubkey').textContent)"> copy key </button>
+    <button
+      onclick="navigator.clipboard.writeText(document.getElementById('pubkey').textContent)"
+    >
+      copy key
+    </button>
     <br /><br />
     <a href="/">https://venabl.es</a>
   </main>

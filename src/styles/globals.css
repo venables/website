@@ -66,7 +66,7 @@
   }
 
   body {
-    @apply min-h-svh bg-background text-foreground;
+    @apply bg-background text-foreground min-h-svh;
   }
 
   .party-mode body {

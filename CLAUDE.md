@@ -1,6 +1,7 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
 
 ## Tech Stack
 
@@ -24,9 +25,9 @@ This is an **Astro** website with the following key technologies:
 
 **Quality assurance:**
 
-- `bun format` - Format code with Prettier
+- `bun format` - Format code with oxfmt
 - `bun format:check` - Check formatting without changes
-- `bun lint` - Lint with ESLint
+- `bun lint` - Lint with oxlint
 - `bun typecheck` - TypeScript type checking
 - `bun test` - Run tests
 
@@ -41,7 +42,8 @@ This is an **Astro** website with the following key technologies:
 **Content Management:**
 
 - Blog posts live in `src/content/posts/` as Markdown files
-- Content collections defined in `src/content.config.ts` using Astro's new glob loader
+- Content collections defined in `src/content.config.ts` using Astro's new glob
+  loader
 - RSS schema validation for all posts
 
 **Layouts:**
@@ -92,6 +94,6 @@ This is an **Astro** website with the following key technologies:
 
 **Code Quality:**
 
-- All code is formatted with Prettier and linted with ESLint
+- All code is formatted with oxfmt and linted with oxlint
 - TypeScript strict mode enabled
 - Run `bun check` before committing changes
