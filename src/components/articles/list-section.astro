@@ -5,10 +5,10 @@ interface Props {
   title?: string
 }
 
-const { title = "Some of my recent posts:" } = Astro.props
+const { title = "Recent posts" } = Astro.props
 ---
 
-<section class="mx-auto max-w-[78ch] space-y-2">
-  <p class="italic">{title}</p>
+<section class="mx-auto max-w-[78ch] space-y-4">
+  <p class="text-center font-bold uppercase tracking-[0.3em] text-muted-foreground text-sm transform -rotate-1">{title}</p>
   <ArticleList />
 </section>
