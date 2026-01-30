@@ -220,15 +220,28 @@ const description = "I build successful decentralized products."
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg) scale(1);
     max-width: 600px;
+    width: 90%;
     z-index: 1000;
     box-shadow:
       0 0 0 100vmax rgba(0, 0, 0, 0.7),
       8px 8px 0 var(--color-foreground),
       12px 12px 0 rgba(0, 0, 0, 0.2);
+    animation: maximize-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
 
   .about-card.maximized:hover {
     transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+
+  @keyframes maximize-in {
+    0% {
+      transform: translate(-50%, -50%) rotate(-1deg) scale(0.7);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      opacity: 1;
+    }
   }
 
   .about-card.glitch-out {
