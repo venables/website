@@ -25,6 +25,8 @@
 .dark {
   --background: oklch(0.1559 0.0053 145.31);
   --foreground: oklch(0.9905 0.0162 142.56);
+  --accent: oklch(0.25 0.01 80);
+  --border: oklch(0.3 0.01 80);
   --muted: hsl(240 3.7% 15.9%);
   --muted-foreground: hsl(240 5% 64.9%);
 }

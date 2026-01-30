@@ -39,9 +39,10 @@ const description = "I build successful decentralized products."
           <span class="divider-text">CONNECT</span>
         </div>
         <p class="contact">
-          Find me on <a href="https://github.com/venables" class="link">GitHub</a> or
-          <a href="https://x.com/mattyven" class="link">X</a>. Best way to reach me is
-          <a href="https://signal.me/#eu/aSA1CvyLK9LjHZ33ALZGeImbao47nIpWHHOxPqnsP3IENWhsgOlMJZ2wt0_-wuOQ" class="link">Signal</a>.
+          Find me on <a href={siteConfig.links.github} class="link">GitHub</a> or
+          <a href={siteConfig.links.x} class="link">X</a>. Reach me on
+          <a href={siteConfig.links.telegram} class="link">Telegram</a> or
+          <a href={siteConfig.links.signal} class="link">Signal</a>.
         </p>
       </div>
     </div>
@@ -231,16 +232,8 @@ const description = "I build successful decentralized products."
     transition: none;
   }
 
-  .about-card.maximized {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .about-card.growing {
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .about-card {
-    transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(var(--current-scale, 1));
+  .about-card.popping {
+    animation: pop 0.35s ease-out forwards;
   }
 
   .about-card.dragging {
@@ -302,6 +295,21 @@ const description = "I build successful decentralized products."
       transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(var(--current-scale, 1));
       opacity: 1;
       filter: none;
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(calc(var(--current-scale, 1) / 1.05));
+    }
+    15% {
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(calc(var(--current-scale, 1) / 1.05 * 0.97));
+    }
+    60% {
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(calc(var(--current-scale, 1) * 1.02));
+    }
+    100% {
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(var(--current-scale, 1));
     }
   }
 
@@ -433,11 +441,13 @@ const description = "I build successful decentralized products."
     function handleMaximize() {
       scale *= 1.05
       card.style.setProperty("--current-scale", String(scale))
-      card.classList.add("growing")
-      setTimeout(() => card.classList.remove("growing"), 400)
+      card.classList.remove("popping")
+      void card.offsetWidth
+      card.classList.add("popping")
     }
 
     async function handleClose() {
+      card.classList.remove("popping")
       card.classList.add("glitch-out")
       isMinimized = false
       scale = 1
@@ -448,7 +458,7 @@ const description = "I build successful decentralized products."
       card.style.removeProperty("--drag-x")
       card.style.removeProperty("--drag-y")
       drag?.reset()
-      card.classList.remove("glitch-out", "minimized", "maximized")
+      card.classList.remove("glitch-out", "minimized", "popping")
       card.classList.add("glitch-in")
 
       await delay(400)

@@ -23,10 +23,10 @@ function cycleValue(values: number[], index: number): number {
 <ul class="not-prose list-none space-y-4 ps-0">
   {
     posts.map((post, index) => (
-      <li style={`transform: rotate(${cycleValue(ROTATIONS, index)}deg) translateX(${cycleValue(OFFSETS, index)}px)`} class="bg-background transition-all duration-200 hover:scale-[1.02] hover:bg-accent">
+      <li style={`transform: rotate(${cycleValue(ROTATIONS, index)}deg) translateX(${cycleValue(OFFSETS, index)}px)`} class="bg-background transition-all duration-200 hover:scale-[1.02] hover:bg-accent dark:hover:bg-muted">
         <a
           href={`/${post.id}`}
-          class="group block border-2 border-foreground bg-background p-4 no-underline shadow-[4px_4px_0_var(--foreground)] transition-all duration-150 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--foreground)] hover:bg-accent/10 active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0_var(--foreground)]"
+          class="group block border-2 border-foreground bg-background p-4 no-underline shadow-[4px_4px_0_var(--foreground)] transition-all duration-150 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--foreground)] hover:bg-accent/10 active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0_var(--foreground)] dark:border-muted dark:shadow-[4px_4px_0_var(--muted)]"
         >
           <span class="flex items-start justify-between gap-4">
             <span class="text-base font-bold uppercase tracking-tight group-hover:tracking-wide transition-all duration-200">{post.data.title}</span>
