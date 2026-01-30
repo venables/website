@@ -218,6 +218,7 @@ const description = "I build successful decentralized products."
   .about-card.glitch-out {
     animation: glitch-out 0.3s ease-in forwards;
     pointer-events: none;
+    transition: none;
   }
 
   .about-card.glitch-in {
@@ -401,12 +402,12 @@ const description = "I build successful decentralized products."
           // Currently does nothing - reserved for future use
           // Button kept for retro window styling authenticity
         } else if (action === "close") {
-          // Reset any minimized state before glitching
+          // Add glitch class first to disable transitions, then remove minimized
+          card.classList.add("glitch-out")
           if (isMinimized) {
             card.classList.remove("minimized")
             isMinimized = false
           }
-          card.classList.add("glitch-out")
           setTimeout(() => {
             card.classList.remove("glitch-out")
             card.classList.add("glitch-in")
