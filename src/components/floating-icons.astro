@@ -1,5 +1,4 @@
 ---
-// FloatingIcons.astro - Draggable floating icons with physics via anime.js
 import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
 import { Image } from "astro:assets"
 import { siteConfig } from "@/config/site"
@@ -44,7 +43,6 @@ const icons: FloatingIcon[] = [
     target="_blank"
     rel="noopener noreferrer"
     class="icon avatar-icon floating"
-    data-party-mode
     data-not-draggable
     style="--offset-x: 8; --offset-y: 20; --rotation: -18; --scale: 2.8;"
   >
@@ -79,7 +77,7 @@ const icons: FloatingIcon[] = [
   }
 
   .icon.floating {
-    animation: float-random 20s infinite ease-in-out;
+    animation: float-random infinite ease-in-out;
     animation-delay: calc(var(--offset-x) * -0.8s);
     animation-duration: calc(22s + var(--offset-y) * 0.15s);
   }
@@ -87,7 +85,6 @@ const icons: FloatingIcon[] = [
   .icon.dragging {
     z-index: 100;
     opacity: 1;
-    cursor: grabbing;
   }
 
   .avatar-icon {
@@ -156,19 +153,19 @@ const icons: FloatingIcon[] = [
   const SHAKE_COUNT_REQUIRED = 3
   const SHAKE_COOLDOWN_MS = 1000
 
+  const DRAGGABLE_SELECTOR = ".icon:not([data-not-draggable])"
+
   function setupFloatingIcons() {
     const container = document.getElementById("floating-icons")
     if (!container) return
 
-    // Randomize initial positions across the hero area
     container.querySelectorAll<HTMLElement>(".icon").forEach((el) => {
       el.style.top = `${Math.random() * 50 + 5}%`
       el.style.left = `${Math.random() * 90 + 2}%`
     })
 
-    // Set up draggable physics for tossable icons
     container
-      .querySelectorAll<HTMLElement>(".icon:not([data-not-draggable])")
+      .querySelectorAll<HTMLElement>(DRAGGABLE_SELECTOR)
       .forEach((icon) => {
         createDraggable(icon, {
           container: "#floating-icons",
@@ -178,10 +175,8 @@ const icons: FloatingIcon[] = [
           releaseContainerFriction: 0.15,
           velocityMultiplier: 1.2,
           onGrab() {
-            // Capture visual position before killing animation to prevent jump
             const rect = icon.getBoundingClientRect()
             const containerRect = container.getBoundingClientRect()
-
             icon.classList.remove("floating")
             icon.style.left = `${rect.left - containerRect.left}px`
             icon.style.top = `${rect.top - containerRect.top}px`
@@ -193,7 +188,6 @@ const icons: FloatingIcon[] = [
         })
       })
 
-    // Avatar party mode
     container.querySelectorAll("[data-not-draggable]").forEach((el) => {
       el.addEventListener("mouseenter", () => {
         document.documentElement.classList.add("party-mode")
@@ -249,7 +243,7 @@ const icons: FloatingIcon[] = [
   function scatterIcons(container: HTMLElement) {
     const rect = container.getBoundingClientRect()
     container
-      .querySelectorAll<HTMLElement>(".icon:not([data-not-draggable])")
+      .querySelectorAll<HTMLElement>(DRAGGABLE_SELECTOR)
       .forEach((icon) => {
         icon.classList.remove("floating")
         icon.style.left = `${Math.random() * (rect.width - 40)}px`
