@@ -45,6 +45,7 @@ const icons: FloatingIcon[] = [
     rel="noopener noreferrer"
     class="icon avatar-icon floating"
     data-party-mode
+    data-not-draggable
     style="--offset-x: 8; --offset-y: 20; --rotation: -18; --scale: 2.8;"
   >
     <Image src={avatar} alt="Matt Venables" class="avatar-img" />
@@ -191,58 +192,8 @@ const icons: FloatingIcon[] = [
         })
       })
 
-    // Avatar: draggable but clickable
-    const avatarIcon = container.querySelector<HTMLElement>(".avatar-icon")
-    if (avatarIcon) {
-      let dragStartX = 0
-      let dragStartY = 0
-      let hasDragged = false
-      const CLICK_THRESHOLD = 5 // pixels
-
-      createDraggable(avatarIcon, {
-        container: "#floating-icons",
-        releaseStiffness: 40,
-        releaseDamping: 8,
-        releaseMass: 1,
-        releaseContainerFriction: 0.15,
-        velocityMultiplier: 1.2,
-        onGrab() {
-          const rect = avatarIcon.getBoundingClientRect()
-          const containerRect = container.getBoundingClientRect()
-          dragStartX = rect.left - containerRect.left
-          dragStartY = rect.top - containerRect.top
-          hasDragged = false
-
-          avatarIcon.classList.remove("floating")
-          avatarIcon.style.left = `${dragStartX}px`
-          avatarIcon.style.top = `${dragStartY}px`
-          avatarIcon.classList.add("dragging")
-        },
-        onRelease() {
-          avatarIcon.classList.remove("dragging")
-          const currentLeft = parseFloat(avatarIcon.style.left || "0")
-          const currentTop = parseFloat(avatarIcon.style.top || "0")
-          const dragDistance = Math.sqrt(
-            Math.pow(currentLeft - dragStartX, 2) +
-              Math.pow(currentTop - dragStartY, 2)
-          )
-          hasDragged = dragDistance > CLICK_THRESHOLD
-        },
-      })
-
-      // Handle click for navigation (only if not dragged)
-      avatarIcon.addEventListener("click", (e) => {
-        if (!hasDragged) {
-          // Allow default link behavior
-          return
-        }
-        // Prevent navigation if it was a drag
-        e.preventDefault()
-      })
-    }
-
     // Avatar party mode
-    container.querySelectorAll("[data-party-mode]").forEach((el) => {
+    container.querySelectorAll("[data-not-draggable]").forEach((el) => {
       el.addEventListener("mouseenter", () => {
         document.documentElement.classList.add("party-mode")
       })
