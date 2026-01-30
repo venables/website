@@ -219,19 +219,54 @@ const description = "I build successful decentralized products."
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(0deg) scale(1);
-    max-width: 600px;
-    width: 90%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(3);
+    width: 90vw;
+    max-width: none;
     z-index: 1000;
     box-shadow:
-      0 0 0 100vmax rgba(0, 0, 0, 0.7),
-      8px 8px 0 var(--color-foreground),
-      12px 12px 0 rgba(0, 0, 0, 0.2);
-    animation: maximize-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      0 0 0 100vmax rgba(0, 0, 0, 0.85),
+      24px 24px 0 var(--color-foreground),
+      48px 48px 0 rgba(0, 0, 0, 0.3);
+    animation: maximize-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
 
   .about-card.maximized:hover {
-    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    transform: translate(-50%, -50%) rotate(0deg) scale(3);
+  }
+
+  .about-card.maximized .card-header {
+    padding: 1.5rem 2rem;
+    font-size: 1.5rem;
+  }
+
+  .about-card.maximized .card-content {
+    padding: 3rem;
+  }
+
+  .about-card.maximized .details,
+  .about-card.maximized .contact {
+    font-size: 1.75rem;
+    line-height: 1.5;
+  }
+
+  .about-card.maximized .divider {
+    margin: 1rem 0;
+  }
+
+  .about-card.maximized .divider-text {
+    font-size: 1.25rem;
+  }
+
+  .about-card.maximized .window-buttons .btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .about-card.maximized .card-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
   }
 
   @keyframes maximize-in {
@@ -240,7 +275,7 @@ const description = "I build successful decentralized products."
       opacity: 0;
     }
     100% {
-      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      transform: translate(-50%, -50%) rotate(0deg) scale(3);
       opacity: 1;
     }
   }
