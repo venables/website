@@ -33,7 +33,7 @@ import { siteConfig } from "@/config/site"
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 5;
+    z-index: 50;
     overflow: visible;
   }
 
@@ -138,12 +138,12 @@ import { siteConfig } from "@/config/site"
 
   @media (max-width: 768px) {
     .icon {
-      font-size: calc(1.2rem * var(--size-multiplier, 1));
+      font-size: calc(2rem * var(--size-multiplier, 1));
     }
 
     .avatar-icon {
-      width: calc(2rem * var(--size-multiplier, 1));
-      height: calc(2rem * var(--size-multiplier, 1));
+      width: calc(3rem * var(--size-multiplier, 1));
+      height: calc(3rem * var(--size-multiplier, 1));
     }
   }
 </style>
@@ -153,7 +153,7 @@ import { siteConfig } from "@/config/site"
     const container = document.getElementById('floating-icons');
     if (!container) return;
 
-    const dragState = { icon: null, offsetX: 0, offsetY: 0 };
+    const dragState = { icon: null, offsetX: 0, offsetY: 0, containerRect: null };
     const physicsObjects = new Map();
     const velocityHistory = new Map();
     const FRICTION = 0.92;
@@ -162,7 +162,8 @@ import { siteConfig } from "@/config/site"
     const MAX_VELOCITY = 25;
 
     function setRandomPosition(el) {
-      el.style.top = Math.random() * 85 + 5 + '%';
+      // Start icons in hero area (top ~60% of viewport initially)
+      el.style.top = Math.random() * 50 + 5 + '%';
       el.style.left = Math.random() * 90 + 2 + '%';
     }
 
@@ -200,12 +201,12 @@ import { siteConfig } from "@/config/site"
       if (!icon || icon.hasAttribute('data-not-draggable')) return;
 
       dragState.icon = icon;
+      dragState.containerRect = container.getBoundingClientRect();
       const pos = getEventPos(e);
-      const containerRect = container.getBoundingClientRect();
       const iconPos = getIconPosition(icon);
       
-      dragState.offsetX = pos.clientX - containerRect.left - iconPos.x;
-      dragState.offsetY = pos.clientY - containerRect.top - iconPos.y;
+      dragState.offsetX = pos.clientX - dragState.containerRect.left - iconPos.x;
+      dragState.offsetY = pos.clientY - dragState.containerRect.top - iconPos.y;
       
       icon.classList.add('dragging');
       velocityHistory.set(icon, []);
@@ -221,14 +222,13 @@ import { siteConfig } from "@/config/site"
     }
 
     function drag(e) {
-      if (!dragState.icon) return;
+      if (!dragState.icon || !dragState.containerRect) return;
       e.preventDefault();
 
       const pos = getEventPos(e);
-      const containerRect = container.getBoundingClientRect();
       
-      const newX = pos.clientX - containerRect.left - dragState.offsetX;
-      const newY = pos.clientY - containerRect.top - dragState.offsetY;
+      const newX = pos.clientX - dragState.containerRect.left - dragState.offsetX;
+      const newY = pos.clientY - dragState.containerRect.top - dragState.offsetY;
       
       const currentPos = getIconPosition(dragState.icon);
       
@@ -295,19 +295,21 @@ import { siteConfig } from "@/config/site"
         const iconWidth = iconRect.width;
         const iconHeight = iconRect.height;
 
-        if (obj.x <= 0) {
-          obj.x = 0;
+        const padding = 20;
+        
+        if (obj.x < -padding) {
+          obj.x = -padding;
           obj.vx = Math.abs(obj.vx) * BOUNCE;
-        } else if (obj.x + iconWidth >= containerRect.width) {
-          obj.x = containerRect.width - iconWidth;
+        } else if (obj.x > containerRect.width - iconWidth + padding) {
+          obj.x = containerRect.width - iconWidth + padding;
           obj.vx = -Math.abs(obj.vx) * BOUNCE;
         }
 
-        if (obj.y <= 0) {
-          obj.y = 0;
+        if (obj.y < -padding) {
+          obj.y = -padding;
           obj.vy = Math.abs(obj.vy) * BOUNCE;
-        } else if (obj.y + iconHeight >= containerRect.height) {
-          obj.y = containerRect.height - iconHeight;
+        } else if (obj.y > containerRect.height - iconHeight + padding) {
+          obj.y = containerRect.height - iconHeight + padding;
           obj.vy = -Math.abs(obj.vy) * BOUNCE;
         }
 
@@ -325,6 +327,53 @@ import { siteConfig } from "@/config/site"
       if (physicsObjects.size > 0) {
         requestAnimationFrame(physicsLoop);
       }
+    }
+
+    // Shake detection for mobile - scatter icons when phone is shaken
+    if (window.matchMedia('(pointer: coarse)').matches && 'ondevicemotion' in window) {
+      let lastX = 0, lastY = 0, lastZ = 0;
+      let shakeTimeout = null;
+      let shakeCount = 0;
+      
+      window.addEventListener('devicemotion', (e) => {
+        const acc = e.accelerationIncludingGravity;
+        if (!acc) return;
+        
+        const deltaX = Math.abs(acc.x - lastX);
+        const deltaY = Math.abs(acc.y - lastY);
+        const deltaZ = Math.abs(acc.z - lastZ);
+        
+        lastX = acc.x;
+        lastY = acc.y;
+        lastZ = acc.z;
+        
+        const totalDelta = deltaX + deltaY + deltaZ;
+        
+        if (totalDelta > 15) {
+          shakeCount++;
+          
+          if (shakeCount >= 3 && !shakeTimeout) {
+            shakeCount = 0;
+            
+            // Scatter all icons
+            container.querySelectorAll('.icon:not([data-not-draggable])').forEach(icon => {
+              const rect = container.getBoundingClientRect();
+              const randomVx = (Math.random() - 0.5) * 40;
+              const randomVy = (Math.random() - 0.5) * 40;
+              const x = parseFloat(icon.style.left) || Math.random() * rect.width;
+              const y = parseFloat(icon.style.top) || Math.random() * rect.height;
+              
+              physicsObjects.set(icon, { vx: randomVx, vy: randomVy, x, y });
+            });
+            
+            requestAnimationFrame(physicsLoop);
+            
+            shakeTimeout = setTimeout(() => {
+              shakeTimeout = null;
+            }, 1000);
+          }
+        }
+      });
     }
   })();
 </script>

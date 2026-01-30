@@ -3,6 +3,7 @@
 import "@fontsource-variable/jetbrains-mono"
 import "@fontsource-variable/geist-mono"
 import "@/styles/globals.css"
+import FloatingIcons from "@/components/floating-icons.astro"
 import Footer from "@/components/layout/footer.astro"
 import TailwindIndicator from "@/components/layout/tailwind-indicator.astro"
 import TheNet from "@/components/layout/the-net.astro"
@@ -18,14 +19,13 @@ const props = Astro.props
   class="min-h-svh font-sans text-sm leading-6 antialiased selection:bg-accent sm:text-[13px] dark:selection:text-background"
   {...props}
 >
-  <div class="relative flex min-h-svh flex-col">
-    <div class="relative z-10 flex flex-col gap-12 p-6 sm:p-12">
-      <main class="flex grow flex-col gap-12">
-        <slot />
-      </main>
-      <Footer />
-      <TheNet />
-    </div>
+  <div class="relative z-10 flex min-h-svh flex-col p-6 sm:p-12">
+    <FloatingIcons />
+    <main class="flex grow flex-col gap-12">
+      <slot />
+    </main>
+    <Footer />
+    <TheNet />
   </div>
   {import.meta.env.DEV && <TailwindIndicator />}
 </RootLayout>
