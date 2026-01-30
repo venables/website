@@ -1,6 +1,6 @@
 ---
 // FloatingIcons.astro - Draggable floating icons with physics via anime.js
-import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
+import avatar from "@/assets/images/matt-venables/avatar.png"
 import { Image } from "astro:assets"
 import { siteConfig } from "@/config/site"
 
@@ -79,9 +79,9 @@ const icons: FloatingIcon[] = [
   }
 
   .icon.floating {
-    animation: float-random 15s infinite ease-in-out;
-    animation-delay: calc(var(--offset-x) * -0.5s);
-    animation-duration: calc(16s + var(--offset-y) * 0.5s);
+    animation: float-random 20s infinite ease-in-out;
+    animation-delay: calc(var(--offset-x) * -0.8s);
+    animation-duration: calc(22s + var(--offset-y) * 0.15s);
   }
 
   .icon.dragging {
@@ -100,6 +100,7 @@ const icons: FloatingIcon[] = [
     border-radius: 50%;
     cursor: pointer;
     text-decoration: none;
+    background: transparent;
     transition: transform 0.2s ease-out, filter 0.2s ease-out;
   }
 

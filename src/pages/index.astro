@@ -19,16 +19,32 @@ const description = "I build successful decentralized products."
   </section>
 
   <section class="about">
-    <p class="details">
-      I am co-founder and CTO of <a href="https://catena.xyz" class="link">Catena Labs</a>,
-      giving AI agents financial superpowers. Previously helped create
-      <a href="https://usdc.cool" class="link">USDC</a> at Circle.
-    </p>
-    <p class="contact">
-      Find me on <a href="https://github.com/venables" class="link">GitHub</a> or 
-      <a href="https://x.com/mattyven" class="link">X</a>. Best way to reach me is 
-      <a href="https://signal.me/#eu/aSA1CvyLK9LjHZ33ALZGeImbao47nIpWHHOxPqnsP3IENWhsgOlMJZ2wt0_-wuOQ" class="link">Signal</a>.
-    </p>
+    <div class="about-card">
+      <div class="card-header">
+        <span class="card-icon">i</span>
+        <span class="card-title">ABOUT.ME</span>
+        <div class="window-buttons">
+          <button class="btn minimize" data-action="minimize">_</button>
+          <button class="btn maximize" data-action="maximize">□</button>
+          <button class="btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="card-content">
+        <p class="details">
+          I am co-founder and CTO of <a href="https://catena.xyz" class="link">Catena Labs</a>,
+          giving AI agents financial superpowers. Previously helped create
+          <a href="https://usdc.cool" class="link">USDC</a> at Circle.
+        </p>
+        <div class="divider">
+          <span class="divider-text">CONNECT</span>
+        </div>
+        <p class="contact">
+          Find me on <a href="https://github.com/venables" class="link">GitHub</a> or
+          <a href="https://x.com/mattyven" class="link">X</a>. Best way to reach me is
+          <a href="https://signal.me/#eu/aSA1CvyLK9LjHZ33ALZGeImbao47nIpWHHOxPqnsP3IENWhsgOlMJZ2wt0_-wuOQ" class="link">Signal</a>.
+        </p>
+      </div>
+    </div>
   </section>
 
   <ArticleListSection />
@@ -108,17 +124,242 @@ const description = "I build successful decentralized products."
   .about {
     max-width: 78ch;
     margin: 0 auto;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+  }
+
+  .about-card {
+    background: var(--color-background);
+    border: 3px solid var(--color-foreground);
+    box-shadow:
+      4px 4px 0 var(--color-foreground),
+      8px 8px 0 rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transform: rotate(-1deg);
+    transition: transform 0.3s ease-out;
+  }
+
+  .about-card:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  .card-header {
+    background: var(--color-foreground);
+    color: var(--color-background);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: "JetBrains Mono Variable", monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .card-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .card-title {
+    flex: 1;
+  }
+
+  .window-buttons {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .window-buttons .btn {
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    border: none;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.1s ease, filter 0.1s ease;
+  }
+
+  .window-buttons .btn:hover {
+    transform: scale(1.15);
+    filter: brightness(1.1);
+  }
+
+  .window-buttons .btn:active {
+    transform: scale(0.95);
+  }
+
+  .about-card.minimized .card-content {
+    display: none;
+  }
+
+  .about-card.minimized {
+    transform: rotate(-2deg) scale(0.95);
+    opacity: 0.8;
+  }
+
+  .about-card.maximized {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    max-width: 600px;
+    z-index: 1000;
+    box-shadow:
+      0 0 0 100vmax rgba(0, 0, 0, 0.7),
+      8px 8px 0 var(--color-foreground),
+      12px 12px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .about-card.maximized:hover {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+
+  .about-card.glitch-out {
+    animation: glitch-out 0.3s ease-in forwards;
+  }
+
+  .about-card.glitch-in {
+    animation: glitch-in 0.4s ease-out forwards;
+  }
+
+  @keyframes glitch-out {
+    0% {
+      transform: rotate(-1deg) scale(1);
+      opacity: 1;
+      filter: none;
+    }
+    20% {
+      transform: rotate(2deg) scale(1.05) translateX(5px);
+      filter: hue-rotate(90deg) saturate(2);
+    }
+    40% {
+      transform: rotate(-3deg) scale(0.95) translateX(-8px);
+      filter: hue-rotate(180deg) invert(1);
+    }
+    60% {
+      transform: rotate(4deg) scale(1.02) translateX(3px);
+      filter: hue-rotate(270deg) blur(2px);
+    }
+    80% {
+      transform: rotate(-5deg) scale(0.9) translateX(-5px);
+      filter: hue-rotate(45deg) contrast(2);
+      opacity: 0.5;
+    }
+    100% {
+      transform: rotate(10deg) scale(0);
+      opacity: 0;
+      filter: hue-rotate(360deg) blur(10px);
+    }
+  }
+
+  @keyframes glitch-in {
+    0% {
+      transform: rotate(10deg) scale(0);
+      opacity: 0;
+      filter: hue-rotate(360deg) blur(10px);
+    }
+    30% {
+      transform: rotate(-5deg) scale(1.1);
+      opacity: 0.7;
+      filter: hue-rotate(180deg) saturate(2);
+    }
+    60% {
+      transform: rotate(3deg) scale(0.95);
+      opacity: 0.9;
+      filter: hue-rotate(90deg);
+    }
+    100% {
+      transform: rotate(-1deg) scale(1);
+      opacity: 1;
+      filter: none;
+    }
+  }
+
+  .card-content {
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .details,
   .contact {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    color: var(--color-foreground);
+    text-align: left;
+    margin: 0;
+  }
+
+  .contact {
+    font-size: 0.95rem;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-foreground) 0px,
+      var(--color-foreground) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    opacity: 0.4;
+  }
+
+  .divider-text {
+    font-family: "JetBrains Mono Variable", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
     color: var(--color-muted-foreground);
+    letter-spacing: 0.15em;
+    background: var(--color-background);
+    padding: 0 0.5rem;
+  }
+
+  .link {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .link:hover {
+    text-decoration-style: solid;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    padding: 0 0.25rem;
+    margin: 0 -0.25rem;
   }
 
   @media (max-width: 768px) {
@@ -137,5 +378,65 @@ const description = "I build successful decentralized products."
     .name-line:last-child {
       --name-float-y: 4px;
     }
+
+    .about-card {
+      transform: rotate(-0.5deg);
+    }
+
+    .card-content {
+      padding: 1.25rem;
+    }
+
+    .details,
+    .contact {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
   }
 </style>
+
+<script>
+  function setupWindowButtons() {
+    const card = document.querySelector(".about-card")
+    const content = card?.querySelector(".card-content")
+    const buttons = card?.querySelectorAll(".window-buttons .btn")
+
+    if (!card || !content || !buttons) return
+
+    let isMinimized = false
+    let isMaximized = false
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const action = btn.getAttribute("data-action")
+
+        if (action === "minimize") {
+          if (isMaximized) {
+            card.classList.remove("maximized")
+            isMaximized = false
+          }
+          isMinimized = !isMinimized
+          card.classList.toggle("minimized", isMinimized)
+        } else if (action === "maximize") {
+          if (isMinimized) {
+            card.classList.remove("minimized")
+            isMinimized = false
+          }
+          isMaximized = !isMaximized
+          card.classList.toggle("maximized", isMaximized)
+        } else if (action === "close") {
+          card.classList.add("glitch-out")
+          setTimeout(() => {
+            card.classList.remove("glitch-out")
+            card.classList.add("glitch-in")
+            setTimeout(() => {
+              card.classList.remove("glitch-in")
+            }, 400)
+          }, 2000)
+        }
+      })
+    })
+  }
+
+  setupWindowButtons()
+</script>
