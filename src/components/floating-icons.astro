@@ -154,6 +154,12 @@ import { siteConfig } from "@/config/site"
     if (!container) return;
 
     const dragState = { icon: null, offsetX: 0, offsetY: 0 };
+    const physicsObjects = new Map();
+    const velocityHistory = new Map();
+    const FRICTION = 0.92;
+    const BOUNCE = 0.4;
+    const STOP_THRESHOLD = 0.5;
+    const MAX_VELOCITY = 25;
 
     function setRandomPosition(el) {
       el.style.top = Math.random() * 85 + 5 + '%';
@@ -179,18 +185,34 @@ import { siteConfig } from "@/config/site"
       return e.type.includes('touch') ? e.touches[0] : e;
     }
 
+    function getIconPosition(icon) {
+      const containerRect = container.getBoundingClientRect();
+      const iconRect = icon.getBoundingClientRect();
+      return {
+        x: iconRect.left - containerRect.left,
+        y: iconRect.top - containerRect.top
+      };
+    }
+
     function startDrag(e) {
       e.preventDefault();
       const icon = e.target.closest('.icon');
       if (!icon || icon.hasAttribute('data-not-draggable')) return;
 
       dragState.icon = icon;
-      icon.classList.add('dragging');
-
       const pos = getEventPos(e);
-      const rect = icon.getBoundingClientRect();
-      dragState.offsetX = pos.clientX - rect.left;
-      dragState.offsetY = pos.clientY - rect.top;
+      const containerRect = container.getBoundingClientRect();
+      const iconPos = getIconPosition(icon);
+      
+      dragState.offsetX = pos.clientX - containerRect.left - iconPos.x;
+      dragState.offsetY = pos.clientY - containerRect.top - iconPos.y;
+      
+      icon.classList.add('dragging');
+      velocityHistory.set(icon, []);
+
+      if (physicsObjects.has(icon)) {
+        physicsObjects.delete(icon);
+      }
 
       document.addEventListener('mousemove', drag);
       document.addEventListener('mouseup', endDrag);
@@ -203,22 +225,106 @@ import { siteConfig } from "@/config/site"
       e.preventDefault();
 
       const pos = getEventPos(e);
-      const rect = container.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      
+      const newX = pos.clientX - containerRect.left - dragState.offsetX;
+      const newY = pos.clientY - containerRect.top - dragState.offsetY;
+      
+      const currentPos = getIconPosition(dragState.icon);
+      
+      const vx = newX - currentPos.x;
+      const vy = newY - currentPos.y;
+      
+      const history = velocityHistory.get(dragState.icon);
+      if (history) {
+        history.push({ vx, vy, time: performance.now() });
+        if (history.length > 5) history.shift();
+      }
 
-      dragState.icon.style.left = pos.clientX - rect.left - dragState.offsetX + 'px';
-      dragState.icon.style.top = pos.clientY - rect.top - dragState.offsetY + 'px';
-      dragState.icon.style.transform = 'none';
+      dragState.icon.style.left = newX + 'px';
+      dragState.icon.style.top = newY + 'px';
     }
 
-    function endDrag() {
+    function endDrag(e) {
       if (dragState.icon) {
-        dragState.icon.classList.remove('dragging');
+        const icon = dragState.icon;
+        icon.classList.remove('dragging');
+
+        const history = velocityHistory.get(icon);
+        if (history && history.length >= 2) {
+          const recent = history.slice(-3);
+          let avgVx = 0, avgVy = 0;
+          recent.forEach(h => { avgVx += h.vx; avgVy += h.vy; });
+          avgVx /= recent.length;
+          avgVy /= recent.length;
+          
+          const speed = Math.sqrt(avgVx * avgVx + avgVy * avgVy);
+          if (speed > 0.5) {
+            const clampedVx = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, avgVx * 1.2));
+            const clampedVy = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, avgVy * 1.2));
+            
+            physicsObjects.set(icon, {
+              vx: clampedVx,
+              vy: clampedVy,
+              x: parseFloat(icon.style.left),
+              y: parseFloat(icon.style.top)
+            });
+            requestAnimationFrame(physicsLoop);
+          }
+        }
+        
+        velocityHistory.delete(icon);
         dragState.icon = null;
       }
       document.removeEventListener('mousemove', drag);
       document.removeEventListener('mouseup', endDrag);
       document.removeEventListener('touchmove', drag);
       document.removeEventListener('touchend', endDrag);
+    }
+
+    function physicsLoop() {
+      if (physicsObjects.size === 0) return;
+
+      const containerRect = container.getBoundingClientRect();
+
+      physicsObjects.forEach((obj, icon) => {
+        obj.x += obj.vx;
+        obj.y += obj.vy;
+
+        const iconRect = icon.getBoundingClientRect();
+        const iconWidth = iconRect.width;
+        const iconHeight = iconRect.height;
+
+        if (obj.x <= 0) {
+          obj.x = 0;
+          obj.vx = Math.abs(obj.vx) * BOUNCE;
+        } else if (obj.x + iconWidth >= containerRect.width) {
+          obj.x = containerRect.width - iconWidth;
+          obj.vx = -Math.abs(obj.vx) * BOUNCE;
+        }
+
+        if (obj.y <= 0) {
+          obj.y = 0;
+          obj.vy = Math.abs(obj.vy) * BOUNCE;
+        } else if (obj.y + iconHeight >= containerRect.height) {
+          obj.y = containerRect.height - iconHeight;
+          obj.vy = -Math.abs(obj.vy) * BOUNCE;
+        }
+
+        obj.vx *= FRICTION;
+        obj.vy *= FRICTION;
+
+        icon.style.left = obj.x + 'px';
+        icon.style.top = obj.y + 'px';
+
+        if (Math.abs(obj.vx) < STOP_THRESHOLD && Math.abs(obj.vy) < STOP_THRESHOLD) {
+          physicsObjects.delete(icon);
+        }
+      });
+
+      if (physicsObjects.size > 0) {
+        requestAnimationFrame(physicsLoop);
+      }
     }
   })();
 </script>
