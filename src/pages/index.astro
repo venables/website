@@ -247,6 +247,7 @@ const description = "I build successful decentralized products."
 
   .about-card.glitch-out {
     animation: glitch-out 0.3s ease-in forwards;
+    pointer-events: none;
   }
 
   .about-card.glitch-in {
@@ -439,6 +440,15 @@ const description = "I build successful decentralized products."
           isMaximized = !isMaximized
           card.classList.toggle("maximized", isMaximized)
         } else if (action === "close") {
+          // Reset any minimized/maximized state before glitching
+          if (isMinimized) {
+            card.classList.remove("minimized")
+            isMinimized = false
+          }
+          if (isMaximized) {
+            card.classList.remove("maximized")
+            isMaximized = false
+          }
           card.classList.add("glitch-out")
           setTimeout(() => {
             card.classList.remove("glitch-out")
