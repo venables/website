@@ -1,26 +1,53 @@
 ---
-// FloatingIcons.astro - Draggable floating icons for 90s retro effect
+// FloatingIcons.astro - Draggable floating icons with physics via anime.js
 import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
 import { Image } from "astro:assets"
 import { siteConfig } from "@/config/site"
+
+interface FloatingIcon {
+  emoji: string
+  offsetX: number
+  offsetY: number
+  rotation: number
+  scale: number
+}
+
+const icons: FloatingIcon[] = [
+  { emoji: "\u{1F680}", offsetX: 12, offsetY: 8, rotation: -15, scale: 1.8 },
+  { emoji: "\u{1F4BE}", offsetX: -8, offsetY: 15, rotation: 22, scale: 0.6 },
+  { emoji: "\u{1F579}\u{FE0F}", offsetX: 20, offsetY: -12, rotation: -8, scale: 1.2 },
+  { emoji: "\u{1F4DF}", offsetX: -15, offsetY: 20, rotation: 35, scale: 0.8 },
+  { emoji: "\u{1F310}", offsetX: 25, offsetY: 5, rotation: -25, scale: 1.5 },
+  { emoji: "\u{26A1}", offsetX: -20, offsetY: -18, rotation: 12, scale: 0.9 },
+  { emoji: "\u{1F52E}", offsetX: 18, offsetY: 22, rotation: -30, scale: 1.4 },
+  { emoji: "\u{1F3AE}", offsetX: -25, offsetY: -10, rotation: 18, scale: 0.7 },
+  { emoji: "\u{1F4BF}", offsetX: 10, offsetY: 25, rotation: -12, scale: 1.6 },
+  { emoji: "\u{1F4E1}", offsetX: -12, offsetY: -22, rotation: 28, scale: 0.5 },
+  { emoji: "\u{1F6F8}", offsetX: 22, offsetY: -15, rotation: -20, scale: 1.8 },
+  { emoji: "\u{1F50B}", offsetX: -18, offsetY: 12, rotation: 15, scale: 0.8 },
+  { emoji: "\u{1F5A5}\u{FE0F}", offsetX: 15, offsetY: -25, rotation: -35, scale: 1.1 },
+  { emoji: "\u{2328}\u{FE0F}", offsetX: -22, offsetY: 18, rotation: 8, scale: 0.6 },
+]
 ---
 
 <div class="floating-icons" aria-hidden="true" id="floating-icons">
-  <div class="icon" data-icon="1" style="--random-x: 12; --random-y: 8; --random-rotation: -15; --size-multiplier: 1.8;">🚀</div>
-  <div class="icon" data-icon="2" style="--random-x: -8; --random-y: 15; --random-rotation: 22; --size-multiplier: 0.6;">💾</div>
-  <div class="icon" data-icon="3" style="--random-x: 20; --random-y: -12; --random-rotation: -8; --size-multiplier: 1.2;">🕹️</div>
-  <div class="icon" data-icon="4" style="--random-x: -15; --random-y: 20; --random-rotation: 35; --size-multiplier: 0.8;">📟</div>
-  <div class="icon" data-icon="5" style="--random-x: 25; --random-y: 5; --random-rotation: -25; --size-multiplier: 1.5;">🌐</div>
-  <div class="icon" data-icon="6" style="--random-x: -20; --random-y: -18; --random-rotation: 12; --size-multiplier: 0.9;">⚡</div>
-  <div class="icon" data-icon="7" style="--random-x: 18; --random-y: 22; --random-rotation: -30; --size-multiplier: 1.4;">🔮</div>
-  <div class="icon" data-icon="8" style="--random-x: -25; --random-y: -10; --random-rotation: 18; --size-multiplier: 0.7;">🎮</div>
-  <div class="icon" data-icon="9" style="--random-x: 10; --random-y: 25; --random-rotation: -12; --size-multiplier: 1.6;">💿</div>
-  <div class="icon" data-icon="10" style="--random-x: -12; --random-y: -22; --random-rotation: 28; --size-multiplier: 0.5;">📡</div>
-  <div class="icon" data-icon="11" style="--random-x: 22; --random-y: -15; --random-rotation: -20; --size-multiplier: 1.8;">🛸</div>
-  <div class="icon" data-icon="12" style="--random-x: -18; --random-y: 12; --random-rotation: 15; --size-multiplier: 0.8;">🔋</div>
-  <div class="icon" data-icon="13" style="--random-x: 15; --random-y: -25; --random-rotation: -35; --size-multiplier: 1.1;">🖥️</div>
-  <div class="icon" data-icon="14" style="--random-x: -22; --random-y: 18; --random-rotation: 8; --size-multiplier: 0.6;">⌨️</div>
-  <a href={siteConfig.links.x} target="_blank" rel="noopener noreferrer" class="icon avatar-icon" data-party-mode style="--random-x: 8; --random-y: 20; --random-rotation: -18; --size-multiplier: 2.8;" data-not-draggable>
+  {icons.map((icon) => (
+    <div
+      class="icon floating"
+      style={`--offset-x: ${icon.offsetX}; --offset-y: ${icon.offsetY}; --rotation: ${icon.rotation}; --scale: ${icon.scale};`}
+    >
+      {icon.emoji}
+    </div>
+  ))}
+  <a
+    href={siteConfig.links.x}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="icon avatar-icon floating"
+    data-party-mode
+    style="--offset-x: 8; --offset-y: 20; --rotation: -18; --scale: 2.8;"
+    data-not-draggable
+  >
     <Image src={avatar} alt="Matt Venables" class="avatar-img" />
   </a>
 </div>
@@ -39,31 +66,33 @@ import { siteConfig } from "@/config/site"
 
   .icon {
     position: absolute;
-    font-size: calc(2rem * var(--size-multiplier, 1));
+    font-size: calc(2rem * var(--scale, 1));
     opacity: 0.9;
     cursor: grab;
     pointer-events: auto;
     user-select: none;
-    transition: transform 0.1s ease-out;
-    animation: float-random 15s infinite ease-in-out;
-    animation-delay: calc(var(--random-x) * -0.5s);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .icon:active {
     cursor: grabbing;
-    animation-play-state: paused;
+  }
+
+  .icon.floating {
+    animation: float-random 15s infinite ease-in-out;
+    animation-delay: calc(var(--offset-x) * -0.5s);
+    animation-duration: calc(16s + var(--offset-y) * 0.5s);
   }
 
   .icon.dragging {
-    animation-play-state: paused;
     z-index: 100;
     opacity: 1;
+    cursor: grabbing;
   }
 
   .avatar-icon {
-    width: calc(3rem * var(--size-multiplier, 1));
-    height: calc(3rem * var(--size-multiplier, 1));
+    width: calc(3rem * var(--scale, 1));
+    height: calc(3rem * var(--scale, 1));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,289 +120,140 @@ import { siteConfig } from "@/config/site"
     transform: scale(1.1) rotate(4deg);
   }
 
-  /* Random initial positions across the entire viewport */
-  .icon[data-icon="1"] { top: 5%; left: 3%; animation-duration: 18s; }
-  .icon[data-icon="2"] { top: 15%; left: 85%; animation-duration: 22s; }
-  .icon[data-icon="3"] { top: 75%; left: 8%; animation-duration: 20s; }
-  .icon[data-icon="4"] { top: 85%; left: 90%; animation-duration: 25s; }
-  .icon[data-icon="5"] { top: 35%; left: 5%; animation-duration: 19s; }
-  .icon[data-icon="6"] { top: 10%; left: 45%; animation-duration: 24s; }
-  .icon[data-icon="7"] { top: 65%; left: 75%; animation-duration: 21s; }
-  .icon[data-icon="8"] { top: 25%; left: 92%; animation-duration: 17s; }
-  .icon[data-icon="9"] { top: 90%; left: 20%; animation-duration: 23s; }
-  .icon[data-icon="10"] { top: 45%; left: 3%; animation-duration: 26s; }
-  .icon[data-icon="11"] { top: 2%; left: 60%; animation-duration: 16s; }
-  .icon[data-icon="12"] { top: 55%; left: 95%; animation-duration: 28s; }
-  .icon[data-icon="13"] { top: 80%; left: 50%; animation-duration: 20s; }
-  .icon[data-icon="14"] { top: 30%; left: 15%; animation-duration: 22s; }
-  .avatar-icon { top: 50%; left: 40%; animation-duration: 18s; }
-
   @keyframes float-random {
     0%, 100% {
-      transform: 
-        translate(0, 0) 
-        rotate(calc(var(--random-rotation) * 0deg));
+      transform: translate(0, 0);
     }
     20% {
-      transform: 
-        translate(calc(var(--random-x) * 3px), calc(var(--random-y) * -2px)) 
-        rotate(calc(var(--random-rotation) * 0.5deg));
+      transform:
+        translate(calc(var(--offset-x) * 3px), calc(var(--offset-y) * -2px))
+        rotate(calc(var(--rotation) * 0.5deg));
     }
     40% {
-      transform: 
-        translate(calc(var(--random-x) * -2px), calc(var(--random-y) * 3px)) 
-        rotate(calc(var(--random-rotation) * -0.3deg));
+      transform:
+        translate(calc(var(--offset-x) * -2px), calc(var(--offset-y) * 3px))
+        rotate(calc(var(--rotation) * -0.3deg));
     }
     60% {
-      transform: 
-        translate(calc(var(--random-x) * 2px), calc(var(--random-y) * 2px)) 
-        rotate(calc(var(--random-rotation) * 0.7deg));
+      transform:
+        translate(calc(var(--offset-x) * 2px), calc(var(--offset-y) * 2px))
+        rotate(calc(var(--rotation) * 0.7deg));
     }
     80% {
-      transform: 
-        translate(calc(var(--random-x) * -3px), calc(var(--random-y) * -1px)) 
-        rotate(calc(var(--random-rotation) * -0.5deg));
-    }
-  }
-
-  @media (max-width: 768px) {
-    .icon {
-      font-size: calc(2rem * var(--size-multiplier, 1));
-    }
-
-    .avatar-icon {
-      width: calc(3rem * var(--size-multiplier, 1));
-      height: calc(3rem * var(--size-multiplier, 1));
+      transform:
+        translate(calc(var(--offset-x) * -3px), calc(var(--offset-y) * -1px))
+        rotate(calc(var(--rotation) * -0.5deg));
     }
   }
 </style>
 
-<script is:inline>
-  (function() {
-    const container = document.getElementById('floating-icons');
-    if (!container) return;
+<script>
+  import { createDraggable } from "animejs"
 
-    const dragState = { icon: null, offsetX: 0, offsetY: 0, containerRect: null };
-    const physicsObjects = new Map();
-    const velocityHistory = new Map();
-    const FRICTION = 0.92;
-    const BOUNCE = 0.4;
-    const STOP_THRESHOLD = 0.5;
-    const MAX_VELOCITY = 25;
+  const SHAKE_THRESHOLD = 15
+  const SHAKE_COUNT_REQUIRED = 3
+  const SHAKE_COOLDOWN_MS = 1000
 
-    function setRandomPosition(el) {
-      // Start icons in hero area (top ~60% of viewport initially)
-      el.style.top = Math.random() * 50 + 5 + '%';
-      el.style.left = Math.random() * 90 + 2 + '%';
+  function setupFloatingIcons() {
+    const container = document.getElementById("floating-icons")
+    if (!container) return
+
+    // Randomize initial positions across the hero area
+    container.querySelectorAll<HTMLElement>(".icon").forEach((el) => {
+      el.style.top = `${Math.random() * 50 + 5}%`
+      el.style.left = `${Math.random() * 90 + 2}%`
+    })
+
+    // Set up draggable physics for tossable icons
+    container
+      .querySelectorAll<HTMLElement>(".icon:not([data-not-draggable])")
+      .forEach((icon) => {
+        createDraggable(icon, {
+          container: "#floating-icons",
+          releaseStiffness: 40,
+          releaseDamping: 8,
+          releaseMass: 1,
+          releaseContainerFriction: 0.15,
+          velocityMultiplier: 1.2,
+          onGrab() {
+            // Capture visual position before killing animation to prevent jump
+            const rect = icon.getBoundingClientRect()
+            const containerRect = container.getBoundingClientRect()
+
+            icon.classList.remove("floating")
+            icon.style.left = `${rect.left - containerRect.left}px`
+            icon.style.top = `${rect.top - containerRect.top}px`
+            icon.classList.add("dragging")
+          },
+          onRelease() {
+            icon.classList.remove("dragging")
+          },
+        })
+      })
+
+    // Avatar party mode
+    container.querySelectorAll("[data-not-draggable]").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        document.documentElement.classList.add("party-mode")
+      })
+      el.addEventListener("mouseleave", () => {
+        document.documentElement.classList.remove("party-mode")
+      })
+    })
+
+    setupShakeDetection(container)
+  }
+
+  function setupShakeDetection(container: HTMLElement) {
+    if (
+      !window.matchMedia("(pointer: coarse)").matches ||
+      !("ondevicemotion" in window)
+    ) {
+      return
     }
 
-    function makeDraggable(el) {
-      setRandomPosition(el);
-      el.addEventListener('mousedown', startDrag);
-      el.addEventListener('touchstart', startDrag, { passive: false });
-    }
+    let lastX = 0
+    let lastY = 0
+    let lastZ = 0
+    let shakeTimeout: ReturnType<typeof setTimeout> | null = null
+    let shakeCount = 0
 
-    function makeAvatar(el) {
-      setRandomPosition(el);
-      el.addEventListener('mouseenter', () => document.documentElement.classList.add('party-mode'));
-      el.addEventListener('mouseleave', () => document.documentElement.classList.remove('party-mode'));
-    }
+    window.addEventListener("devicemotion", (e: DeviceMotionEvent) => {
+      const acc = e.accelerationIncludingGravity
+      if (!acc) return
 
-    container.querySelectorAll('.icon:not([data-not-draggable])').forEach(makeDraggable);
-    container.querySelectorAll('[data-not-draggable]').forEach(makeAvatar);
+      const deltaX = Math.abs((acc.x ?? 0) - lastX)
+      const deltaY = Math.abs((acc.y ?? 0) - lastY)
+      const deltaZ = Math.abs((acc.z ?? 0) - lastZ)
 
-    function getEventPos(e) {
-      return e.type.includes('touch') ? e.touches[0] : e;
-    }
+      lastX = acc.x ?? 0
+      lastY = acc.y ?? 0
+      lastZ = acc.z ?? 0
 
-    function getIconPosition(icon) {
-      const containerRect = container.getBoundingClientRect();
-      const iconRect = icon.getBoundingClientRect();
-      return {
-        x: iconRect.left - containerRect.left,
-        y: iconRect.top - containerRect.top
-      };
-    }
+      if (deltaX + deltaY + deltaZ > SHAKE_THRESHOLD) {
+        shakeCount++
 
-    function startDrag(e) {
-      e.preventDefault();
-      const icon = e.target.closest('.icon');
-      if (!icon || icon.hasAttribute('data-not-draggable')) return;
-
-      dragState.icon = icon;
-      dragState.containerRect = container.getBoundingClientRect();
-      const pos = getEventPos(e);
-      const iconPos = getIconPosition(icon);
-      
-      dragState.offsetX = pos.clientX - dragState.containerRect.left - iconPos.x;
-      dragState.offsetY = pos.clientY - dragState.containerRect.top - iconPos.y;
-      
-      icon.classList.add('dragging');
-      velocityHistory.set(icon, []);
-
-      if (physicsObjects.has(icon)) {
-        physicsObjects.delete(icon);
+        if (shakeCount >= SHAKE_COUNT_REQUIRED && !shakeTimeout) {
+          shakeCount = 0
+          scatterIcons(container)
+          shakeTimeout = setTimeout(() => {
+            shakeTimeout = null
+          }, SHAKE_COOLDOWN_MS)
+        }
       }
+    })
+  }
 
-      document.addEventListener('mousemove', drag);
-      document.addEventListener('mouseup', endDrag);
-      document.addEventListener('touchmove', drag, { passive: false });
-      document.addEventListener('touchend', endDrag);
-    }
+  function scatterIcons(container: HTMLElement) {
+    const rect = container.getBoundingClientRect()
+    container
+      .querySelectorAll<HTMLElement>(".icon:not([data-not-draggable])")
+      .forEach((icon) => {
+        icon.classList.remove("floating")
+        icon.style.left = `${Math.random() * (rect.width - 40)}px`
+        icon.style.top = `${Math.random() * (rect.height - 40)}px`
+      })
+  }
 
-    function drag(e) {
-      if (!dragState.icon || !dragState.containerRect) return;
-      e.preventDefault();
-
-      const pos = getEventPos(e);
-      
-      const newX = pos.clientX - dragState.containerRect.left - dragState.offsetX;
-      const newY = pos.clientY - dragState.containerRect.top - dragState.offsetY;
-      
-      const currentPos = getIconPosition(dragState.icon);
-      
-      const vx = newX - currentPos.x;
-      const vy = newY - currentPos.y;
-      
-      const history = velocityHistory.get(dragState.icon);
-      if (history) {
-        history.push({ vx, vy, time: performance.now() });
-        if (history.length > 5) history.shift();
-      }
-
-      dragState.icon.style.left = newX + 'px';
-      dragState.icon.style.top = newY + 'px';
-    }
-
-    function endDrag(e) {
-      if (dragState.icon) {
-        const icon = dragState.icon;
-        icon.classList.remove('dragging');
-
-        const history = velocityHistory.get(icon);
-        if (history && history.length >= 2) {
-          const recent = history.slice(-3);
-          let avgVx = 0, avgVy = 0;
-          recent.forEach(h => { avgVx += h.vx; avgVy += h.vy; });
-          avgVx /= recent.length;
-          avgVy /= recent.length;
-          
-          const speed = Math.sqrt(avgVx * avgVx + avgVy * avgVy);
-          if (speed > 0.5) {
-            const clampedVx = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, avgVx * 1.2));
-            const clampedVy = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, avgVy * 1.2));
-            
-            physicsObjects.set(icon, {
-              vx: clampedVx,
-              vy: clampedVy,
-              x: parseFloat(icon.style.left),
-              y: parseFloat(icon.style.top)
-            });
-            requestAnimationFrame(physicsLoop);
-          }
-        }
-        
-        velocityHistory.delete(icon);
-        dragState.icon = null;
-      }
-      document.removeEventListener('mousemove', drag);
-      document.removeEventListener('mouseup', endDrag);
-      document.removeEventListener('touchmove', drag);
-      document.removeEventListener('touchend', endDrag);
-    }
-
-    function physicsLoop() {
-      if (physicsObjects.size === 0) return;
-
-      const containerRect = container.getBoundingClientRect();
-
-      physicsObjects.forEach((obj, icon) => {
-        obj.x += obj.vx;
-        obj.y += obj.vy;
-
-        const iconRect = icon.getBoundingClientRect();
-        const iconWidth = iconRect.width;
-        const iconHeight = iconRect.height;
-
-        const padding = 20;
-        
-        if (obj.x < -padding) {
-          obj.x = -padding;
-          obj.vx = Math.abs(obj.vx) * BOUNCE;
-        } else if (obj.x > containerRect.width - iconWidth + padding) {
-          obj.x = containerRect.width - iconWidth + padding;
-          obj.vx = -Math.abs(obj.vx) * BOUNCE;
-        }
-
-        if (obj.y < -padding) {
-          obj.y = -padding;
-          obj.vy = Math.abs(obj.vy) * BOUNCE;
-        } else if (obj.y > containerRect.height - iconHeight + padding) {
-          obj.y = containerRect.height - iconHeight + padding;
-          obj.vy = -Math.abs(obj.vy) * BOUNCE;
-        }
-
-        obj.vx *= FRICTION;
-        obj.vy *= FRICTION;
-
-        icon.style.left = obj.x + 'px';
-        icon.style.top = obj.y + 'px';
-
-        if (Math.abs(obj.vx) < STOP_THRESHOLD && Math.abs(obj.vy) < STOP_THRESHOLD) {
-          physicsObjects.delete(icon);
-        }
-      });
-
-      if (physicsObjects.size > 0) {
-        requestAnimationFrame(physicsLoop);
-      }
-    }
-
-    // Shake detection for mobile - scatter icons when phone is shaken
-    if (window.matchMedia('(pointer: coarse)').matches && 'ondevicemotion' in window) {
-      let lastX = 0, lastY = 0, lastZ = 0;
-      let shakeTimeout = null;
-      let shakeCount = 0;
-      
-      window.addEventListener('devicemotion', (e) => {
-        const acc = e.accelerationIncludingGravity;
-        if (!acc) return;
-        
-        const deltaX = Math.abs(acc.x - lastX);
-        const deltaY = Math.abs(acc.y - lastY);
-        const deltaZ = Math.abs(acc.z - lastZ);
-        
-        lastX = acc.x;
-        lastY = acc.y;
-        lastZ = acc.z;
-        
-        const totalDelta = deltaX + deltaY + deltaZ;
-        
-        if (totalDelta > 15) {
-          shakeCount++;
-          
-          if (shakeCount >= 3 && !shakeTimeout) {
-            shakeCount = 0;
-            
-            // Scatter all icons
-            container.querySelectorAll('.icon:not([data-not-draggable])').forEach(icon => {
-              const rect = container.getBoundingClientRect();
-              const randomVx = (Math.random() - 0.5) * 40;
-              const randomVy = (Math.random() - 0.5) * 40;
-              const x = parseFloat(icon.style.left) || Math.random() * rect.width;
-              const y = parseFloat(icon.style.top) || Math.random() * rect.height;
-              
-              physicsObjects.set(icon, { vx: randomVx, vy: randomVy, x, y });
-            });
-            
-            requestAnimationFrame(physicsLoop);
-            
-            shakeTimeout = setTimeout(() => {
-              shakeTimeout = null;
-            }, 1000);
-          }
-        }
-      });
-    }
-  })();
+  setupFloatingIcons()
 </script>
