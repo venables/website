@@ -13,7 +13,7 @@ function formatDate(date: Date | undefined, options: Intl.DateTimeFormatOptions)
 }
 ---
 
-<ul class="not-prose list-none space-y-3 ps-0 text-sm">
+<ul class="not-prose list-none space-y-3 ps-0">
   {
     posts.map((post) => (
       <li>
@@ -22,7 +22,7 @@ function formatDate(date: Date | undefined, options: Intl.DateTimeFormatOptions)
           class="block border border-foreground/20 bg-background p-3 no-underline shadow-[0_0_0_var(--foreground)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--foreground)] active:translate-x-0 active:translate-y-0 active:shadow-[0_0_0_var(--foreground)]"
         >
           <span class="flex items-start justify-between gap-4">
-            <span class="font-medium">{post.data.title}</span>
+            <span class="text-base font-semibold">{post.data.title}</span>
             <span class="shrink-0 text-xs text-muted-foreground">
               {formatDate(post.data.pubDate, { month: "short", year: "numeric" })}
             </span>

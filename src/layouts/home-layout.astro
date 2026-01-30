@@ -1,0 +1,31 @@
+---
+// Homepage layout - Full width for 90s retro hero
+import "@fontsource-variable/jetbrains-mono"
+import "@fontsource-variable/geist-mono"
+import "@/styles/globals.css"
+import Footer from "@/components/layout/footer.astro"
+import TailwindIndicator from "@/components/layout/tailwind-indicator.astro"
+import TheNet from "@/components/layout/the-net.astro"
+import RootLayout from "@/layouts/_root.astro"
+import type { RootLayoutProps } from "@/layouts/_root.types"
+
+type Props = RootLayoutProps
+
+const props = Astro.props
+---
+
+<RootLayout
+  class="min-h-svh font-sans text-sm leading-6 antialiased selection:bg-accent sm:text-[13px] dark:selection:text-background"
+  {...props}
+>
+  <div class="relative flex min-h-svh flex-col">
+    <div class="relative z-10 flex flex-col gap-12 p-6 sm:p-12">
+      <main class="flex grow flex-col gap-12">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </div>
+  <TheNet />
+  {import.meta.env.DEV && <TailwindIndicator />}
+</RootLayout>

@@ -8,7 +8,7 @@ interface Props {
 const { title = "Some of my recent posts:" } = Astro.props
 ---
 
-<section class="space-y-2">
+<section class="mx-auto max-w-[78ch] space-y-2">
   <p class="italic">{title}</p>
   <ArticleList />
 </section>

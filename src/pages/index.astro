@@ -1,0 +1,143 @@
+---
+import ArticleListSection from "@/components/articles/list-section.astro"
+import FloatingIcons from "@/components/floating-icons.astro"
+import Layout from "@/layouts/home-layout.astro"
+import { siteConfig } from "@/config/site"
+
+const title = siteConfig.author.name
+const description = "I build successful decentralized products."
+---
+
+<Layout title={title} description={description}>
+  <section class="hero">
+    <FloatingIcons />
+    <div class="hero-content">
+      <p class="tagline">claude converser</p>
+      <h1 class="name">
+        <span class="name-line">Matt</span>
+        <span class="name-line">Venables</span>
+      </h1>
+    </div>
+  </section>
+
+  <section class="about">
+    <p class="details">
+      I am co-founder and CTO of <a href="https://catena.xyz" class="link">Catena Labs</a>,
+      giving AI agents financial superpowers. Previously helped create
+      <a href="https://usdc.cool" class="link">USDC</a> at Circle.
+    </p>
+    <p class="contact">
+      Find me on <a href="https://github.com/venables" class="link">GitHub</a> or 
+      <a href="https://x.com/mattyven" class="link">X</a>. Best way to reach me is 
+      <a href="https://signal.me/#eu/aSA1CvyLK9LjHZ33ALZGeImbao47nIpWHHOxPqnsP3IENWhsgOlMJZ2wt0_-wuOQ" class="link">Signal</a>.
+    </p>
+  </section>
+
+  <ArticleListSection />
+</Layout>
+
+<style>
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .tagline {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-muted-foreground);
+    transform: rotate(-3deg);
+    margin-bottom: 0.5rem;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.85;
+    margin: 0;
+  }
+
+  .name-line {
+    font-size: clamp(4rem, 15vw, 12rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    display: block;
+  }
+
+  .name-line:first-child {
+    --name-float-y: -8px;
+    --name-base-rotate: -2deg;
+    --name-base-x: -5%;
+    transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x));
+    color: var(--color-foreground);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+    animation: float-name 8s ease-in-out infinite;
+  }
+
+  .name-line:last-child {
+    --name-float-y: 6px;
+    --name-base-rotate: 2deg;
+    --name-base-x: 5%;
+    transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x));
+    color: var(--color-foreground);
+    animation: float-name 10s ease-in-out infinite;
+  }
+
+  @keyframes float-name {
+    0%, 100% {
+      transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x)) translateY(0);
+    }
+    50% {
+      transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x)) translateY(var(--name-float-y));
+    }
+  }
+
+  .about {
+    max-width: 78ch;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .details,
+  .contact {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-muted-foreground);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: 50vh;
+    }
+
+    .name-line {
+      font-size: clamp(3.5rem, 18vw, 6rem);
+    }
+
+    .name-line:first-child {
+      --name-float-y: -6px;
+    }
+
+    .name-line:last-child {
+      --name-float-y: 4px;
+    }
+  }
+</style>

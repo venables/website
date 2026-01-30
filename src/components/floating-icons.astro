@@ -1,0 +1,224 @@
+---
+// FloatingIcons.astro - Draggable floating icons for 90s retro effect
+import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
+import { Image } from "astro:assets"
+import { siteConfig } from "@/config/site"
+---
+
+<div class="floating-icons" aria-hidden="true" id="floating-icons">
+  <div class="icon" data-icon="1" style="--random-x: 12; --random-y: 8; --random-rotation: -15; --size-multiplier: 1.8;">🚀</div>
+  <div class="icon" data-icon="2" style="--random-x: -8; --random-y: 15; --random-rotation: 22; --size-multiplier: 0.6;">💾</div>
+  <div class="icon" data-icon="3" style="--random-x: 20; --random-y: -12; --random-rotation: -8; --size-multiplier: 1.2;">🕹️</div>
+  <div class="icon" data-icon="4" style="--random-x: -15; --random-y: 20; --random-rotation: 35; --size-multiplier: 0.8;">📟</div>
+  <div class="icon" data-icon="5" style="--random-x: 25; --random-y: 5; --random-rotation: -25; --size-multiplier: 1.5;">🌐</div>
+  <div class="icon" data-icon="6" style="--random-x: -20; --random-y: -18; --random-rotation: 12; --size-multiplier: 0.9;">⚡</div>
+  <div class="icon" data-icon="7" style="--random-x: 18; --random-y: 22; --random-rotation: -30; --size-multiplier: 1.4;">🔮</div>
+  <div class="icon" data-icon="8" style="--random-x: -25; --random-y: -10; --random-rotation: 18; --size-multiplier: 0.7;">🎮</div>
+  <div class="icon" data-icon="9" style="--random-x: 10; --random-y: 25; --random-rotation: -12; --size-multiplier: 1.6;">💿</div>
+  <div class="icon" data-icon="10" style="--random-x: -12; --random-y: -22; --random-rotation: 28; --size-multiplier: 0.5;">📡</div>
+  <div class="icon" data-icon="11" style="--random-x: 22; --random-y: -15; --random-rotation: -20; --size-multiplier: 1.8;">🛸</div>
+  <div class="icon" data-icon="12" style="--random-x: -18; --random-y: 12; --random-rotation: 15; --size-multiplier: 0.8;">🔋</div>
+  <div class="icon" data-icon="13" style="--random-x: 15; --random-y: -25; --random-rotation: -35; --size-multiplier: 1.1;">🖥️</div>
+  <div class="icon" data-icon="14" style="--random-x: -22; --random-y: 18; --random-rotation: 8; --size-multiplier: 0.6;">⌨️</div>
+  <a href={siteConfig.links.x} target="_blank" rel="noopener noreferrer" class="icon avatar-icon" data-party-mode style="--random-x: 8; --random-y: 20; --random-rotation: -18; --size-multiplier: 2.8;" data-not-draggable>
+    <Image src={avatar} alt="Matt Venables" class="avatar-img" />
+  </a>
+</div>
+
+<style>
+  .floating-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: visible;
+  }
+
+  .icon {
+    position: absolute;
+    font-size: calc(2rem * var(--size-multiplier, 1));
+    opacity: 0.9;
+    cursor: grab;
+    pointer-events: auto;
+    user-select: none;
+    transition: transform 0.1s ease-out;
+    animation: float-random 15s infinite ease-in-out;
+    animation-delay: calc(var(--random-x) * -0.5s);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .icon:active {
+    cursor: grabbing;
+    animation-play-state: paused;
+  }
+
+  .icon.dragging {
+    animation-play-state: paused;
+    z-index: 100;
+    opacity: 1;
+  }
+
+  .avatar-icon {
+    width: calc(3rem * var(--size-multiplier, 1));
+    height: calc(3rem * var(--size-multiplier, 1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease-out, filter 0.2s ease-out;
+  }
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .avatar-icon:hover {
+    transform: scale(1.15) rotate(8deg);
+    filter: saturate(1.5) brightness(1.1) hue-rotate(15deg);
+    animation-play-state: paused;
+  }
+
+  .avatar-icon:active {
+    transform: scale(1.1) rotate(4deg);
+  }
+
+  /* Random initial positions across the entire viewport */
+  .icon[data-icon="1"] { top: 5%; left: 3%; animation-duration: 18s; }
+  .icon[data-icon="2"] { top: 15%; left: 85%; animation-duration: 22s; }
+  .icon[data-icon="3"] { top: 75%; left: 8%; animation-duration: 20s; }
+  .icon[data-icon="4"] { top: 85%; left: 90%; animation-duration: 25s; }
+  .icon[data-icon="5"] { top: 35%; left: 5%; animation-duration: 19s; }
+  .icon[data-icon="6"] { top: 10%; left: 45%; animation-duration: 24s; }
+  .icon[data-icon="7"] { top: 65%; left: 75%; animation-duration: 21s; }
+  .icon[data-icon="8"] { top: 25%; left: 92%; animation-duration: 17s; }
+  .icon[data-icon="9"] { top: 90%; left: 20%; animation-duration: 23s; }
+  .icon[data-icon="10"] { top: 45%; left: 3%; animation-duration: 26s; }
+  .icon[data-icon="11"] { top: 2%; left: 60%; animation-duration: 16s; }
+  .icon[data-icon="12"] { top: 55%; left: 95%; animation-duration: 28s; }
+  .icon[data-icon="13"] { top: 80%; left: 50%; animation-duration: 20s; }
+  .icon[data-icon="14"] { top: 30%; left: 15%; animation-duration: 22s; }
+  .avatar-icon { top: 50%; left: 40%; animation-duration: 18s; }
+
+  @keyframes float-random {
+    0%, 100% {
+      transform: 
+        translate(0, 0) 
+        rotate(calc(var(--random-rotation) * 0deg));
+    }
+    20% {
+      transform: 
+        translate(calc(var(--random-x) * 3px), calc(var(--random-y) * -2px)) 
+        rotate(calc(var(--random-rotation) * 0.5deg));
+    }
+    40% {
+      transform: 
+        translate(calc(var(--random-x) * -2px), calc(var(--random-y) * 3px)) 
+        rotate(calc(var(--random-rotation) * -0.3deg));
+    }
+    60% {
+      transform: 
+        translate(calc(var(--random-x) * 2px), calc(var(--random-y) * 2px)) 
+        rotate(calc(var(--random-rotation) * 0.7deg));
+    }
+    80% {
+      transform: 
+        translate(calc(var(--random-x) * -3px), calc(var(--random-y) * -1px)) 
+        rotate(calc(var(--random-rotation) * -0.5deg));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .icon {
+      font-size: calc(1.2rem * var(--size-multiplier, 1));
+    }
+
+    .avatar-icon {
+      width: calc(2rem * var(--size-multiplier, 1));
+      height: calc(2rem * var(--size-multiplier, 1));
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    const container = document.getElementById('floating-icons');
+    if (!container) return;
+
+    const dragState = { icon: null, offsetX: 0, offsetY: 0 };
+
+    function setRandomPosition(el) {
+      el.style.top = Math.random() * 85 + 5 + '%';
+      el.style.left = Math.random() * 90 + 2 + '%';
+    }
+
+    function makeDraggable(el) {
+      setRandomPosition(el);
+      el.addEventListener('mousedown', startDrag);
+      el.addEventListener('touchstart', startDrag, { passive: false });
+    }
+
+    function makeAvatar(el) {
+      setRandomPosition(el);
+      el.addEventListener('mouseenter', () => document.documentElement.classList.add('party-mode'));
+      el.addEventListener('mouseleave', () => document.documentElement.classList.remove('party-mode'));
+    }
+
+    container.querySelectorAll('.icon:not([data-not-draggable])').forEach(makeDraggable);
+    container.querySelectorAll('[data-not-draggable]').forEach(makeAvatar);
+
+    function getEventPos(e) {
+      return e.type.includes('touch') ? e.touches[0] : e;
+    }
+
+    function startDrag(e) {
+      e.preventDefault();
+      const icon = e.target.closest('.icon');
+      if (!icon || icon.hasAttribute('data-not-draggable')) return;
+
+      dragState.icon = icon;
+      icon.classList.add('dragging');
+
+      const pos = getEventPos(e);
+      const rect = icon.getBoundingClientRect();
+      dragState.offsetX = pos.clientX - rect.left;
+      dragState.offsetY = pos.clientY - rect.top;
+
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', endDrag);
+      document.addEventListener('touchmove', drag, { passive: false });
+      document.addEventListener('touchend', endDrag);
+    }
+
+    function drag(e) {
+      if (!dragState.icon) return;
+      e.preventDefault();
+
+      const pos = getEventPos(e);
+      const rect = container.getBoundingClientRect();
+
+      dragState.icon.style.left = pos.clientX - rect.left - dragState.offsetX + 'px';
+      dragState.icon.style.top = pos.clientY - rect.top - dragState.offsetY + 'px';
+      dragState.icon.style.transform = 'none';
+    }
+
+    function endDrag() {
+      if (dragState.icon) {
+        dragState.icon.classList.remove('dragging');
+        dragState.icon = null;
+      }
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', endDrag);
+      document.removeEventListener('touchmove', drag);
+      document.removeEventListener('touchend', endDrag);
+    }
+  })();
+</script>
