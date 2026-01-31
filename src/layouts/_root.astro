@@ -22,6 +22,8 @@ const { title, description, image, canonical, article, ...props } = Astro.props
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="application-name" content={siteConfig.name} />
+    <link rel="preload" href="/fonts/display/Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/display/Black.woff2" as="font" type="font/woff2" crossorigin />
     <SEO
       title={title}
       titleTemplate={`%s | ${siteConfig.name}`}
