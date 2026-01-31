@@ -31,7 +31,7 @@ const rotation = (Math.random() * 1 - 0.5)
   <article class="post">
     <!-- Back Link -->
     <nav class="back-link">
-      <a href="/">← Back</a>
+      <a href="/">← Home</a>
     </nav>
 
     <!-- Massive Hero Title -->
@@ -230,10 +230,11 @@ const rotation = (Math.random() * 1 - 0.5)
     padding: 1.5rem;
     overflow-x: auto;
     border: 3px solid var(--color-foreground);
-    box-shadow: 6px 6px 0 var(--color-accent);
+    box-shadow: 6px 6px 0 var(--color-foreground);
     margin: 2rem 0;
     font-size: 0.9rem;
     line-height: 1.6;
+    transform: skewX(-0.5deg);
   }
 
   .post-content :global(pre code) {
@@ -267,8 +268,27 @@ const rotation = (Math.random() * 1 - 0.5)
     max-width: 100%;
     height: auto;
     border: 3px solid var(--color-foreground);
-    box-shadow: 6px 6px 0 var(--color-accent);
     margin: 2rem 0;
+    display: block;
+    position: relative;
+  }
+
+  .post-content :global(p:has(img)) {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .post-content :global(p:has(img)::after) {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: -4px;
+    bottom: -4px;
+    background: var(--color-foreground);
+    z-index: -1;
+    transform: skewX(-2deg);
   }
 
   @media (max-width: 640px) {

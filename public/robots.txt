@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://venabl.es/sitemap-index.xml
