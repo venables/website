@@ -3,6 +3,19 @@ import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
 import { Image } from "astro:assets"
 import { siteConfig } from "@/config/site"
 
+const EMOJI_CDN =
+  "https://cdn.jsdelivr.net/npm/emoji-datasource-apple@16.0.0/img/apple/64"
+
+function emojiToCodepoint(emoji: string): string {
+  return [...emoji]
+    .map((char) => char.codePointAt(0)!.toString(16))
+    .join("-")
+}
+
+function emojiUrl(emoji: string): string {
+  return `${EMOJI_CDN}/${emojiToCodepoint(emoji)}.png`
+}
+
 interface FloatingIcon {
   emoji: string
   offsetX: number
@@ -35,7 +48,15 @@ const icons: FloatingIcon[] = [
       class="icon floating"
       style={`--offset-x: ${icon.offsetX}; --offset-y: ${icon.offsetY}; --rotation: ${icon.rotation}; --scale: ${icon.scale};`}
     >
-      {icon.emoji}
+      <img
+        src={emojiUrl(icon.emoji)}
+        alt=""
+        width="64"
+        height="64"
+        class="emoji-img"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   ))}
   <a
@@ -59,17 +80,25 @@ const icons: FloatingIcon[] = [
     height: 100%;
     pointer-events: none;
     z-index: 50;
-    overflow: visible;
+    overflow: clip;
   }
 
   .icon {
     position: absolute;
-    font-size: calc(2rem * var(--scale, 1));
+    width: calc(2rem * var(--scale, 1));
+    height: calc(2rem * var(--scale, 1));
     opacity: 0.9;
     cursor: grab;
     pointer-events: auto;
     user-select: none;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  .emoji-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
   }
 
   .icon:active {
@@ -174,13 +203,17 @@ const icons: FloatingIcon[] = [
           releaseMass: 1,
           releaseContainerFriction: 0.15,
           velocityMultiplier: 1.2,
-          onGrab() {
+          onGrab(self) {
             const rect = icon.getBoundingClientRect()
             const containerRect = container.getBoundingClientRect()
             icon.classList.remove("floating")
+            icon.classList.add("dragging")
+            self.setX(0, true)
+            self.setY(0, true)
+            self.coords[0] = self.coords[2] = 0
+            self.coords[1] = self.coords[3] = 0
             icon.style.left = `${rect.left - containerRect.left}px`
             icon.style.top = `${rect.top - containerRect.top}px`
-            icon.classList.add("dragging")
           },
           onRelease() {
             icon.classList.remove("dragging")
