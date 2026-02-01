@@ -184,6 +184,78 @@ const icons: FloatingIcon[] = [
 
   const DRAGGABLE_SELECTOR = ".icon:not([data-not-draggable])"
 
+  interface DraggableSelf {
+    x: number
+    y: number
+    released: boolean
+    setX(x: number, mute?: boolean): void
+    setY(y: number, mute?: boolean): void
+    coords: number[]
+  }
+
+  /**
+   * Resets a draggable's internal offset and velocity tracking to zero.
+   */
+  function resetDraggableOffset(self: DraggableSelf): void {
+    self.setX(0, true)
+    self.setY(0, true)
+    self.coords[0] = self.coords[2] = 0
+    self.coords[1] = self.coords[3] = 0
+  }
+
+  /**
+   * Computes a wrapped coordinate value when an icon exits the container bounds.
+   *
+   * Returns the adjusted base position if wrapping occurred, or the original
+   * value if the icon is still within bounds.
+   */
+  function wrapAxis(
+    visualPos: number,
+    iconSize: number,
+    containerSize: number,
+    basePos: number,
+  ): number {
+    if (visualPos + iconSize < 0) return basePos + containerSize + iconSize
+    if (visualPos > containerSize) return basePos - containerSize - iconSize
+    return basePos
+  }
+
+  /**
+   * Wraps an icon's position to the opposite edge when it exits the container.
+   *
+   * When `bakePosition` is true (used on settle), the draggable offset is folded
+   * into the CSS position so the icon stays where it visually landed.
+   */
+  function wrapIconPosition(
+    icon: HTMLElement,
+    self: DraggableSelf,
+    container: HTMLElement,
+    bakePosition = false,
+  ): void {
+    const containerWidth = container.clientWidth
+    const containerHeight = container.clientHeight
+    const left = parseFloat(icon.style.left)
+    const top = parseFloat(icon.style.top)
+    const visualX = left + self.x
+    const visualY = top + self.y
+
+    const wrappedLeft = wrapAxis(visualX, icon.offsetWidth, containerWidth, left)
+    const wrappedTop = wrapAxis(visualY, icon.offsetHeight, containerHeight, top)
+
+    if (wrappedLeft === left && wrappedTop === top) return
+
+    if (bakePosition) {
+      const finalLeft = wrappedLeft + self.x
+      const finalTop = wrappedTop + self.y
+      resetDraggableOffset(self)
+      icon.style.left = `${finalLeft}px`
+      icon.style.top = `${finalTop}px`
+    } else {
+      icon.style.left = `${wrappedLeft}px`
+      icon.style.top = `${wrappedTop}px`
+    }
+  }
+
   function setupFloatingIcons() {
     const container = document.getElementById("floating-icons")
     if (!container) return
@@ -197,23 +269,25 @@ const icons: FloatingIcon[] = [
       .querySelectorAll<HTMLElement>(DRAGGABLE_SELECTOR)
       .forEach((icon) => {
         createDraggable(icon, {
-          container: "#floating-icons",
           releaseStiffness: 40,
           releaseDamping: 8,
           releaseMass: 1,
-          releaseContainerFriction: 0.15,
           velocityMultiplier: 1.2,
           onGrab(self) {
             const rect = icon.getBoundingClientRect()
             const containerRect = container.getBoundingClientRect()
             icon.classList.remove("floating")
             icon.classList.add("dragging")
-            self.setX(0, true)
-            self.setY(0, true)
-            self.coords[0] = self.coords[2] = 0
-            self.coords[1] = self.coords[3] = 0
+            resetDraggableOffset(self)
             icon.style.left = `${rect.left - containerRect.left}px`
             icon.style.top = `${rect.top - containerRect.top}px`
+          },
+          onUpdate(self) {
+            if (!self.released) return
+            wrapIconPosition(icon, self, container)
+          },
+          onSettle(self) {
+            wrapIconPosition(icon, self, container, true)
           },
           onRelease() {
             icon.classList.remove("dragging")
