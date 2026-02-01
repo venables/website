@@ -385,7 +385,7 @@ const description = "I build successful decentralized products."
 
   @media (max-width: 768px) {
     .hero {
-      min-height: 50vh;
+      min-height: 35vh;
     }
 
     .name-line {
@@ -401,7 +401,7 @@ const description = "I build successful decentralized products."
     }
 
     .about-card {
-      transform: rotate(-0.5deg);
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-0.5deg) scale(var(--current-scale, 1));
     }
 
     .card-content {

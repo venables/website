@@ -69,6 +69,7 @@
 
   body {
     @apply bg-background text-foreground min-h-svh;
+    overflow-x: clip;
   }
 
   .party-mode body {
