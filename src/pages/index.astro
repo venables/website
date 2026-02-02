@@ -87,7 +87,7 @@ const description = "I build successful decentralized products."
   }
 
   .name-line {
-    font-size: clamp(4rem, 15vw, 12rem);
+    font-size: clamp(4rem, 15vw, 50rem);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.04em;
@@ -381,6 +381,24 @@ const description = "I build successful decentralized products."
     color: var(--color-background);
     padding: 0 0.25rem;
     margin: 0 -0.25rem;
+  }
+
+  @media (min-width: 1440px) {
+    .name-line {
+      font-size: 18vw;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .name-line {
+      font-size: 22vw;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .name-line {
+      font-size: 26vw;
+    }
   }
 
   @media (max-width: 768px) {
