@@ -1,23 +1,26 @@
 ---
-import avatar from "@/assets/images/matt-venables/avatar-transparent.png"
+import mattAvatar from "@/assets/images/icons/matt-avatar.png"
+import dunkinIced from "@/assets/images/icons/dunkin-iced.png"
 import { Image } from "astro:assets"
 import { siteConfig } from "@/config/site"
 
-const EMOJI_CDN =
-  "https://cdn.jsdelivr.net/npm/emoji-datasource-apple@16.0.0/img/apple/64"
-
-function emojiToCodepoint(emoji: string): string {
-  return [...emoji]
-    .map((char) => char.codePointAt(0)!.toString(16))
-    .join("-")
-}
-
-function emojiUrl(emoji: string): string {
-  return `${EMOJI_CDN}/${emojiToCodepoint(emoji)}.png`
-}
+import rocket from "@/assets/images/icons/rocket.png"
+import floppyDisk from "@/assets/images/icons/floppy-disk.png"
+import joystick from "@/assets/images/icons/joystick.png"
+import pager from "@/assets/images/icons/pager.png"
+import globe from "@/assets/images/icons/globe.png"
+import lightning from "@/assets/images/icons/lightning.png"
+import crystalBall from "@/assets/images/icons/crystal-ball.png"
+import gameController from "@/assets/images/icons/game-controller.png"
+import opticalDisk from "@/assets/images/icons/optical-disk.png"
+import satellite from "@/assets/images/icons/satellite.png"
+import flyingSaucer from "@/assets/images/icons/flying-saucer.png"
+import battery from "@/assets/images/icons/battery.png"
+import desktopComputer from "@/assets/images/icons/desktop-computer.png"
+import keyboard from "@/assets/images/icons/keyboard.png"
 
 interface FloatingIcon {
-  emoji: string
+  image: ImageMetadata
   offsetX: number
   offsetY: number
   rotation: number
@@ -25,20 +28,20 @@ interface FloatingIcon {
 }
 
 const icons: FloatingIcon[] = [
-  { emoji: "\u{1F680}", offsetX: 12, offsetY: 8, rotation: -15, scale: 1.8 },
-  { emoji: "\u{1F4BE}", offsetX: -8, offsetY: 15, rotation: 22, scale: 0.6 },
-  { emoji: "\u{1F579}\u{FE0F}", offsetX: 20, offsetY: -12, rotation: -8, scale: 1.2 },
-  { emoji: "\u{1F4DF}", offsetX: -15, offsetY: 20, rotation: 35, scale: 0.8 },
-  { emoji: "\u{1F310}", offsetX: 25, offsetY: 5, rotation: -25, scale: 1.5 },
-  { emoji: "\u{26A1}", offsetX: -20, offsetY: -18, rotation: 12, scale: 0.9 },
-  { emoji: "\u{1F52E}", offsetX: 18, offsetY: 22, rotation: -30, scale: 1.4 },
-  { emoji: "\u{1F3AE}", offsetX: -25, offsetY: -10, rotation: 18, scale: 0.7 },
-  { emoji: "\u{1F4BF}", offsetX: 10, offsetY: 25, rotation: -12, scale: 1.6 },
-  { emoji: "\u{1F4E1}", offsetX: -12, offsetY: -22, rotation: 28, scale: 0.5 },
-  { emoji: "\u{1F6F8}", offsetX: 22, offsetY: -15, rotation: -20, scale: 1.8 },
-  { emoji: "\u{1F50B}", offsetX: -18, offsetY: 12, rotation: 15, scale: 0.8 },
-  { emoji: "\u{1F5A5}\u{FE0F}", offsetX: 15, offsetY: -25, rotation: -35, scale: 1.1 },
-  { emoji: "\u{2328}\u{FE0F}", offsetX: -22, offsetY: 18, rotation: 8, scale: 0.6 },
+  { image: rocket, offsetX: 12, offsetY: 8, rotation: -15, scale: 1.8 },
+  { image: floppyDisk, offsetX: -8, offsetY: 15, rotation: 22, scale: 0.6 },
+  { image: joystick, offsetX: 20, offsetY: -12, rotation: -8, scale: 1.2 },
+  { image: pager, offsetX: -15, offsetY: 20, rotation: 35, scale: 0.8 },
+  { image: globe, offsetX: 25, offsetY: 5, rotation: -25, scale: 1.5 },
+  { image: lightning, offsetX: -20, offsetY: -18, rotation: 12, scale: 0.9 },
+  { image: crystalBall, offsetX: 18, offsetY: 22, rotation: -30, scale: 1.4 },
+  { image: gameController, offsetX: -25, offsetY: -10, rotation: 18, scale: 0.7 },
+  { image: opticalDisk, offsetX: 10, offsetY: 25, rotation: -12, scale: 1.6 },
+  { image: satellite, offsetX: -12, offsetY: -22, rotation: 28, scale: 0.5 },
+  { image: flyingSaucer, offsetX: 22, offsetY: -15, rotation: -20, scale: 1.8 },
+  { image: battery, offsetX: -18, offsetY: 12, rotation: 15, scale: 0.8 },
+  { image: desktopComputer, offsetX: 15, offsetY: -25, rotation: -35, scale: 1.1 },
+  { image: keyboard, offsetX: -22, offsetY: 18, rotation: 8, scale: 0.6 },
 ]
 ---
 
@@ -48,11 +51,11 @@ const icons: FloatingIcon[] = [
       class="icon floating"
       style={`--offset-x: ${icon.offsetX}; --offset-y: ${icon.offsetY}; --rotation: ${icon.rotation}; --scale: ${icon.scale};`}
     >
-      <img
-        src={emojiUrl(icon.emoji)}
+      <Image
+        src={icon.image}
         alt=""
-        width="64"
-        height="64"
+        width={64}
+        height={64}
         class="emoji-img"
         loading="lazy"
         decoding="async"
@@ -65,9 +68,21 @@ const icons: FloatingIcon[] = [
     rel="noopener noreferrer"
     class="icon avatar-icon floating"
     data-not-draggable
+    data-hover-mode="party-mode"
     style="--offset-x: 8; --offset-y: 20; --rotation: -18; --scale: 2.8;"
   >
-    <Image src={avatar} alt="Matt Venables" class="avatar-img" />
+    <Image src={mattAvatar} alt="Matt Venables" class="avatar-img" />
+  </a>
+  <a
+    href="https://www.youtube.com/watch?v=VV-ByP1_-B0"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="icon link-icon dunkin-icon floating"
+    data-not-draggable
+    data-hover-mode="dunkin-mode"
+    style="--offset-x: -14; --offset-y: 16; --rotation: 12; --scale: 2.8;"
+  >
+    <Image src={dunkinIced} alt="Dunkin' Iced Coffee" width={64} height={64} class="emoji-img" />
   </a>
 </div>
 
@@ -114,6 +129,7 @@ const icons: FloatingIcon[] = [
   .icon.dragging {
     z-index: 100;
     opacity: 1;
+    filter: drop-shadow(4px 8px 12px rgba(0, 0, 0, 0.4));
   }
 
   .avatar-icon {
@@ -123,8 +139,6 @@ const icons: FloatingIcon[] = [
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    border-radius: 50%;
     cursor: pointer;
     text-decoration: none;
     background: transparent;
@@ -136,16 +150,66 @@ const icons: FloatingIcon[] = [
     height: 100%;
     object-fit: cover;
     pointer-events: none;
+    border-radius: 50%;
+    transition: opacity 0.2s ease-out;
   }
 
   .avatar-icon:hover {
     transform: scale(1.15) rotate(8deg);
-    filter: saturate(1.5) brightness(1.1) hue-rotate(15deg);
     animation-play-state: paused;
+  }
+
+  .avatar-icon:hover .avatar-img {
+    opacity: 0.85;
   }
 
   .avatar-icon:active {
     transform: scale(1.1) rotate(4deg);
+  }
+
+  .link-icon {
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease-out, filter 0.2s ease-out;
+  }
+
+  .link-icon:hover {
+    transform: scale(1.15) rotate(-8deg);
+    animation-play-state: paused;
+  }
+
+  .link-icon:active {
+    transform: scale(1.1) rotate(-4deg);
+  }
+
+  .dunkin-icon {
+    width: calc(3rem * var(--scale, 1));
+    height: calc(3rem * var(--scale, 1));
+    opacity: 1;
+  }
+
+  [data-hover-mode]::after {
+    content: "click me!";
+    position: absolute;
+    bottom: -1.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-foreground);
+    background: var(--color-background);
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease-out;
+  }
+
+  [data-hover-mode]:hover::after {
+    opacity: 1;
   }
 
   @keyframes float-random {
@@ -295,14 +359,18 @@ const icons: FloatingIcon[] = [
         })
       })
 
-    container.querySelectorAll("[data-not-draggable]").forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        document.documentElement.classList.add("party-mode")
+    container
+      .querySelectorAll<HTMLElement>("[data-hover-mode]")
+      .forEach((el) => {
+        const mode = el.dataset.hoverMode
+        if (!mode) return
+        el.addEventListener("mouseenter", () => {
+          document.documentElement.classList.add(mode)
+        })
+        el.addEventListener("mouseleave", () => {
+          document.documentElement.classList.remove(mode)
+        })
       })
-      el.addEventListener("mouseleave", () => {
-        document.documentElement.classList.remove("party-mode")
-      })
-    })
 
     setupShakeDetection(container)
   }

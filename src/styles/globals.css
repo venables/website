@@ -6,6 +6,7 @@
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant party-mode (&:is(.party-mode *));
+@custom-variant dunkin-mode (&:is(.dunkin-mode *));
 @custom-variant the-net (&:is(.the-net *));
 
 :root {
@@ -36,6 +37,13 @@
   --background: oklch(0.9234 0.0674 149.53);
   --foreground: oklch(0.1559 0.0053 145.31);
   --muted-foreground: hsl(240 3.8% 46.1%);
+}
+
+.dunkin-mode,
+.dunkin-mode.dark {
+  --background: oklch(0.92 0.06 350);
+  --foreground: oklch(0.2 0.02 350);
+  --muted-foreground: hsl(340 10% 40%);
 }
 
 .the-net,
@@ -72,7 +80,8 @@
     overflow-x: clip;
   }
 
-  .party-mode body {
+  .party-mode body,
+  .dunkin-mode body {
     @apply transition-colors duration-250;
   }
 
