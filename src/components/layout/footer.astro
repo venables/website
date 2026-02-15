@@ -1,8 +1,6 @@
 ---
 import ThemeToggle from "@/components/layout/theme-toggle.astro"
 import { siteConfig } from "@/config/site"
-
-const sha = process.env.CF_PAGES_COMMIT_SHA ?? ""
 ---
 
 <footer class="flex flex-col gap-4 border-t border-foreground/10 pt-8 text-muted-foreground">
@@ -24,16 +22,6 @@ const sha = process.env.CF_PAGES_COMMIT_SHA ?? ""
       <a class="link no-underline" href="/.well-known/did.json">{siteConfig.keys.did}</a>
       <span class="text-muted-foreground/30">|</span>
       <a class="link no-underline" href="/pgp">pgp</a>
-      {sha && (
-        <>
-          <span class="text-muted-foreground/30">|</span>
-          <a
-            class="link no-underline"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`${siteConfig.repository}/commit/${sha}`}>{sha.slice(0, 7)}</a>
-        </>
-      )}
     </span>
     <ThemeToggle />
   </div>
