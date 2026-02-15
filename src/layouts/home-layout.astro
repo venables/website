@@ -28,3 +28,23 @@ const props = Astro.props
   </div>
   {import.meta.env.DEV && <TailwindIndicator />}
 </RootLayout>
+
+<script>
+  const originalTitle = document.title
+  const guilts = [
+    "Come back :(",
+    "I miss you already",
+    "Was it something I said?",
+    "The vibes are off without you",
+    "Hello? Is this thing on?",
+    "Don't leave me with the floating icons",
+  ]
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      document.title = guilts[Math.floor(Math.random() * guilts.length)]!
+    } else {
+      document.title = originalTitle
+    }
+  })
+</script>
