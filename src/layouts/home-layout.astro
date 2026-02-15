@@ -30,6 +30,33 @@ const props = Astro.props
 </RootLayout>
 
 <script>
+  // Konami code: flip the entire page upside down and spin it
+  const konamiCode = [
+    "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+    "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+    "b", "a",
+  ]
+  let konamiIndex = 0
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+      konamiIndex++
+      if (konamiIndex === konamiCode.length) {
+        konamiIndex = 0
+        document.body.style.transition = "transform 2s ease-in-out"
+        document.body.style.transform = "rotate(180deg) scale(0.8)"
+        setTimeout(() => {
+          document.body.style.transform = "rotate(360deg) scale(1)"
+          setTimeout(() => {
+            document.body.style.transform = ""
+          }, 2000)
+        }, 2000)
+      }
+    } else {
+      konamiIndex = 0
+    }
+  })
+
   const originalTitle = document.title
   const guilts = [
     "Come back :(",
