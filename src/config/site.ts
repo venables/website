@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Matt Venables",
-  description: "I build successful decentralized products.",
+  description: "CTO, iced coffee enthusiast, professional meeting survivor.",
 
   repository: "https://github.com/venables/website",
 
