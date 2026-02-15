@@ -22,7 +22,7 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     <div class="about-card">
       <div class="card-header">
         <span class="card-icon">i</span>
-        <span class="card-title">ABOUT.ME</span>
+        <span class="card-title" id="card-title">ABOUT.ME</span>
         <div class="window-buttons">
           <button class="btn minimize" data-action="minimize">_</button>
           <button class="btn maximize" data-action="maximize">□</button>
@@ -544,6 +544,22 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     }
   }
 
+  function randomizeCardTitle() {
+    const titles = [
+      "ABOUT.ME",
+      "DEFINITELY_NOT_A_ROBOT.EXE",
+      "README.MD",
+      "HUMAN_PERSON.TXT",
+      "HIRE_ME_LOL.PDF",
+      "COOL_GUY.SYS",
+      "TOTALLY_NORMAL.CFG",
+    ]
+    const el = document.getElementById("card-title")
+    if (el) {
+      el.textContent = titles[Math.floor(Math.random() * titles.length)]
+    }
+  }
+
   function randomizeTagline() {
     const taglines = [
       "claude converser",
@@ -565,6 +581,7 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     }
   }
 
+  randomizeCardTitle()
   randomizeTagline()
   setupWindowButtons()
 </script>
