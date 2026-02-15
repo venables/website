@@ -17,6 +17,8 @@ const sha = import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "e71ec5571df242790b1
     <a class="link" href="/now">Now</a>
   </nav>
 
+  <p id="visitor-counter" class="text-center text-xs text-muted-foreground/40 font-mono tracking-wider"></p>
+
   <div class="flex items-center justify-between text-xs text-muted-foreground/60">
     <span class="flex items-center gap-2">
       <a class="link no-underline" href="/.well-known/did.json">{siteConfig.keys.did}</a>
@@ -33,3 +35,11 @@ const sha = import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "e71ec5571df242790b1
     <ThemeToggle />
   </div>
 </footer>
+
+<script>
+  const counter = document.getElementById("visitor-counter")
+  if (counter) {
+    const base = 8_675_309 + Math.floor(Math.random() * 42_000)
+    counter.textContent = `You are mass-produced visitor #${base.toLocaleString()}`
+  }
+</script>
