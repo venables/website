@@ -10,7 +10,7 @@ const description = "I build successful decentralized products."
 <Layout title={title} description={description}>
   <section class="hero">
     <div class="hero-content">
-      <p class="tagline">claude converser</p>
+      <p class="tagline" id="tagline">claude converser</p>
       <h1 class="name">
         <span class="name-line">Matt</span>
         <span class="name-line">Venables</span>
@@ -542,5 +542,27 @@ const description = "I build successful decentralized products."
     }
   }
 
+  function randomizeTagline() {
+    const taglines = [
+      "claude converser",
+      "my mother's favorite rapper",
+      "drinking straw advocate",
+      "pun aficionado",
+      "professional meeting survivor",
+      "ctrl+z enthusiast",
+      "certified snack thief",
+      "world's okayest coder",
+      "aspiring nap champion",
+      "semicolon apologist",
+      "dad joke warehouse",
+      "vibes-based architect",
+    ]
+    const el = document.getElementById("tagline")
+    if (el) {
+      el.textContent = taglines[Math.floor(Math.random() * taglines.length)]
+    }
+  }
+
+  randomizeTagline()
   setupWindowButtons()
 </script>
