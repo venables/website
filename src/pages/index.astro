@@ -4,8 +4,7 @@ import Layout from "@/layouts/home-layout.astro"
 import { siteConfig } from "@/config/site"
 
 const title = siteConfig.author.name
-const description =
-  "CTO, iced coffee enthusiast, professional meeting survivor."
+const description = "CTO, cold brew enthusiast, professional meeting survivor."
 ---
 
 <Layout title={title} description={description}>
@@ -35,9 +34,10 @@ const description =
           I am co-founder and CTO of <a href="https://catena.xyz" class="link"
             >Catena Labs</a
           >, giving AI agents financial superpowers. Previously helped create
-          <a href="https://usdc.cool" class="link">USDC</a> at Circle. Mass producer
-          of mass-produced iced coffee. Mass consumer of mass-produced iced coffee.
-          Will mass produce hot takes for free.
+          <a href="https://usdc.cool" class="link">USDC</a> at Circle. Mass consumer
+          of mass-produced cold brew. Will mass produce <span id="mass-produce"
+            >hot takes</span
+          > for free.
         </p>
         <div class="divider">
           <span class="divider-text" id="divider-text">CONNECT</span>
@@ -605,6 +605,16 @@ const description =
     "SEND MEMES TO",
     "COMPLAINTS DEPT",
     "POKE ME"
+  ])
+
+  randomizeText("mass-produce", [
+    "hot takes",
+    "dad jokes",
+    "puns",
+    "openclaw agents",
+    "awkward moments",
+    "unsolicited opinions",
+    "half-baked ideas"
   ])
 
   setupWindowButtons()
