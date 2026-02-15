@@ -9,6 +9,23 @@ const { title = "Recent posts" } = Astro.props
 ---
 
 <section class="mx-auto max-w-[78ch] space-y-4">
-  <p class="text-center font-bold uppercase tracking-[0.3em] text-muted-foreground text-sm transform -rotate-1">{title}</p>
+  <p id="posts-title" class="text-center font-bold uppercase tracking-[0.3em] text-muted-foreground text-sm transform -rotate-1">{title}</p>
   <ArticleList />
 </section>
+
+<script>
+  const titles = [
+    "Recent posts",
+    "Dispatches from the void",
+    "Certified brain dumps",
+    "Things I wrote instead of sleeping",
+    "Hot takes, room temperature delivery",
+    "Unreviewed manuscripts",
+    "Blogs my mom has read",
+    "Stuff I'll regret publishing",
+  ]
+  const el = document.getElementById("posts-title")
+  if (el) {
+    el.textContent = titles[Math.floor(Math.random() * titles.length)]
+  }
+</script>
