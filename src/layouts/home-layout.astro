@@ -30,6 +30,27 @@ const props = Astro.props
 </RootLayout>
 
 <script>
+  // Sparkle cursor trail
+  const sparkles = ["*", "+", "~", "."]
+  document.addEventListener("mousemove", (e) => {
+    if (Math.random() > 0.3) return
+    const spark = document.createElement("span")
+    spark.textContent = sparkles[Math.floor(Math.random() * sparkles.length)]
+    spark.style.cssText = `
+      position: fixed;
+      left: ${e.clientX}px;
+      top: ${e.clientY}px;
+      pointer-events: none;
+      font-size: ${8 + Math.random() * 14}px;
+      color: hsl(${Math.random() * 360}, 80%, 65%);
+      z-index: 9999;
+      animation: sparkle-fade 0.8s ease-out forwards;
+      font-weight: bold;
+    `
+    document.body.appendChild(spark)
+    spark.addEventListener("animationend", () => spark.remove())
+  })
+
   // Konami code: flip the entire page upside down and spin it
   const konamiCode = [
     "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
