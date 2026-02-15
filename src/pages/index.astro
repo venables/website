@@ -38,7 +38,7 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
           Will mass produce hot takes for free.
         </p>
         <div class="divider">
-          <span class="divider-text">CONNECT</span>
+          <span class="divider-text" id="divider-text">CONNECT</span>
         </div>
         <p class="contact">
           Find me on <a href={siteConfig.links.github} class="link">GitHub</a> or
@@ -544,6 +544,22 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     }
   }
 
+  function randomizeDivider() {
+    const labels = [
+      "CONNECT",
+      "SLIDE INTO MY DMs",
+      "REACH OUT (I WON'T BITE)",
+      "YELL AT ME HERE",
+      "SEND MEMES TO",
+      "COMPLAINTS DEPT",
+      "POKE ME",
+    ]
+    const el = document.getElementById("divider-text")
+    if (el) {
+      el.textContent = labels[Math.floor(Math.random() * labels.length)]
+    }
+  }
+
   function randomizeCardTitle() {
     const titles = [
       "ABOUT.ME",
@@ -581,6 +597,7 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     }
   }
 
+  randomizeDivider()
   randomizeCardTitle()
   randomizeTagline()
   setupWindowButtons()
