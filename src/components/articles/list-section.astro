@@ -14,7 +14,9 @@ const { title = "Recent posts" } = Astro.props
 </section>
 
 <script>
-  const titles = [
+  import { randomizeText } from "@/lib/random"
+
+  randomizeText("posts-title", [
     "Recent posts",
     "Dispatches from the void",
     "Certified brain dumps",
@@ -23,9 +25,5 @@ const { title = "Recent posts" } = Astro.props
     "Unreviewed manuscripts",
     "Blogs my mom has read",
     "Stuff I'll regret publishing",
-  ]
-  const el = document.getElementById("posts-title")
-  if (el) {
-    el.textContent = titles[Math.floor(Math.random() * titles.length)]
-  }
+  ])
 </script>

@@ -30,69 +30,83 @@ const props = Astro.props
 </RootLayout>
 
 <script>
-  // Sparkle cursor trail
-  const sparkles = ["*", "+", "~", "."]
-  document.addEventListener("mousemove", (e) => {
-    if (Math.random() > 0.3) return
-    const spark = document.createElement("span")
-    spark.textContent = sparkles[Math.floor(Math.random() * sparkles.length)]
-    spark.style.cssText = `
-      position: fixed;
-      left: ${e.clientX}px;
-      top: ${e.clientY}px;
-      pointer-events: none;
-      font-size: ${8 + Math.random() * 14}px;
-      color: hsl(${Math.random() * 360}, 80%, 65%);
-      z-index: 9999;
-      animation: sparkle-fade 0.8s ease-out forwards;
-      font-weight: bold;
-    `
-    document.body.appendChild(spark)
-    spark.addEventListener("animationend", () => spark.remove())
-  })
+  import { pickRandom } from "@/lib/random"
 
-  // Konami code: flip the entire page upside down and spin it
-  const konamiCode = [
-    "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-    "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
-    "b", "a",
-  ]
-  let konamiIndex = 0
+  function setupSparkleCursor() {
+    const sparkles = ["*", "+", "~", "."] as const
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === konamiCode[konamiIndex]) {
-      konamiIndex++
-      if (konamiIndex === konamiCode.length) {
-        konamiIndex = 0
-        document.body.style.transition = "transform 2s ease-in-out"
-        document.body.style.transform = "rotate(180deg) scale(0.8)"
-        setTimeout(() => {
-          document.body.style.transform = "rotate(360deg) scale(1)"
-          setTimeout(() => {
-            document.body.style.transform = ""
-          }, 2000)
-        }, 2000)
+    document.addEventListener("mousemove", (e) => {
+      if (Math.random() > 0.3) return
+
+      const spark = document.createElement("span")
+      spark.textContent = pickRandom(sparkles)
+      spark.style.cssText = `
+        position: fixed;
+        left: ${e.clientX}px;
+        top: ${e.clientY}px;
+        pointer-events: none;
+        font-size: ${8 + Math.random() * 14}px;
+        color: hsl(${Math.random() * 360}, 80%, 65%);
+        z-index: 9999;
+        animation: sparkle-fade 0.8s ease-out forwards;
+        font-weight: bold;
+      `
+      document.body.appendChild(spark)
+      spark.addEventListener("animationend", () => spark.remove())
+    })
+  }
+
+  function setupKonamiCode() {
+    const sequence = [
+      "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+      "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+      "b", "a",
+    ]
+    let index = 0
+
+    function delay(ms: number): Promise<void> {
+      return new Promise((resolve) => setTimeout(resolve, ms))
+    }
+
+    async function triggerSpin() {
+      document.body.style.transition = "transform 2s ease-in-out"
+      document.body.style.transform = "rotate(180deg) scale(0.8)"
+      await delay(2000)
+      document.body.style.transform = "rotate(360deg) scale(1)"
+      await delay(2000)
+      document.body.style.transform = ""
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === sequence[index]) {
+        index++
+        if (index === sequence.length) {
+          index = 0
+          triggerSpin()
+        }
+      } else {
+        index = 0
       }
-    } else {
-      konamiIndex = 0
-    }
-  })
+    })
+  }
 
-  const originalTitle = document.title
-  const guilts = [
-    "Come back :(",
-    "I miss you already",
-    "Was it something I said?",
-    "The vibes are off without you",
-    "Hello? Is this thing on?",
-    "Don't leave me with the floating icons",
-  ]
+  function setupTabGuiltTrip() {
+    const originalTitle = document.title
+    const guilts = [
+      "Come back :(",
+      "I miss you already",
+      "Was it something I said?",
+      "The vibes are off without you",
+      "Hello? Is this thing on?",
+      "Don't leave me with the floating icons",
+    ] as const
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      document.title = guilts[Math.floor(Math.random() * guilts.length)]!
-    } else {
-      document.title = originalTitle
-    }
-  })
+    document.addEventListener("visibilitychange", () => {
+      document.title = document.hidden ? pickRandom(guilts) : originalTitle
+    })
+  }
+
+  setupSparkleCursor()
+  setupKonamiCode()
+  setupTabGuiltTrip()
 </script>

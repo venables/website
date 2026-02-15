@@ -4,7 +4,8 @@ import Layout from "@/layouts/home-layout.astro"
 import { siteConfig } from "@/config/site"
 
 const title = siteConfig.author.name
-const description = "CTO, iced coffee enthusiast, professional meeting survivor."
+const description =
+  "CTO, iced coffee enthusiast, professional meeting survivor."
 ---
 
 <Layout title={title} description={description}>
@@ -31,10 +32,11 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
       </div>
       <div class="card-content">
         <p class="details">
-          I am co-founder and CTO of <a href="https://catena.xyz" class="link">Catena Labs</a>,
-          giving AI agents financial superpowers. Previously helped create
-          <a href="https://usdc.cool" class="link">USDC</a> at Circle.
-          Mass producer of mass-produced iced coffee. Mass consumer of mass-produced iced coffee.
+          I am co-founder and CTO of <a href="https://catena.xyz" class="link"
+            >Catena Labs</a
+          >, giving AI agents financial superpowers. Previously helped create
+          <a href="https://usdc.cool" class="link">USDC</a> at Circle. Mass producer
+          of mass-produced iced coffee. Mass consumer of mass-produced iced coffee.
           Will mass produce hot takes for free.
         </p>
         <div class="divider">
@@ -115,11 +117,14 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
   }
 
   @keyframes float-name {
-    0%, 100% {
-      transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x)) translateY(0);
+    0%,
+    100% {
+      transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x))
+        translateY(0);
     }
     50% {
-      transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x)) translateY(var(--name-float-y));
+      transform: rotate(var(--name-base-rotate)) translateX(var(--name-base-x))
+        translateY(var(--name-float-y));
     }
   }
 
@@ -138,7 +143,8 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
       4px 4px 0 var(--color-foreground),
       8px 8px 0 rgba(0, 0, 0, 0.1);
     width: 100%;
-    transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(var(--current-scale, 1));
+    transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg)
+      scale(var(--current-scale, 1));
     transition: transform 0.3s ease-out;
     position: relative;
   }
@@ -202,7 +208,9 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     font-size: 0.875rem;
     line-height: 1;
     cursor: pointer;
-    transition: transform 0.1s ease, filter 0.1s ease;
+    transition:
+      transform 0.1s ease,
+      filter 0.1s ease;
   }
 
   .window-buttons .btn:hover {
@@ -249,29 +257,35 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
 
   @keyframes glitch-out {
     0% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(var(--current-scale, 1));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg)
+        scale(var(--current-scale, 1));
       opacity: 1;
       filter: none;
     }
     20% {
-      transform: translate(calc(var(--drag-x, 0px) + 5px), var(--drag-y, 0px)) rotate(2deg) scale(calc(var(--current-scale, 1) * 1.05));
+      transform: translate(calc(var(--drag-x, 0px) + 5px), var(--drag-y, 0px))
+        rotate(2deg) scale(calc(var(--current-scale, 1) * 1.05));
       filter: hue-rotate(90deg) saturate(2);
     }
     40% {
-      transform: translate(calc(var(--drag-x, 0px) - 8px), var(--drag-y, 0px)) rotate(-3deg) scale(calc(var(--current-scale, 1) * 0.95));
+      transform: translate(calc(var(--drag-x, 0px) - 8px), var(--drag-y, 0px))
+        rotate(-3deg) scale(calc(var(--current-scale, 1) * 0.95));
       filter: hue-rotate(180deg) invert(1);
     }
     60% {
-      transform: translate(calc(var(--drag-x, 0px) + 3px), var(--drag-y, 0px)) rotate(4deg) scale(calc(var(--current-scale, 1) * 1.02));
+      transform: translate(calc(var(--drag-x, 0px) + 3px), var(--drag-y, 0px))
+        rotate(4deg) scale(calc(var(--current-scale, 1) * 1.02));
       filter: hue-rotate(270deg) blur(2px);
     }
     80% {
-      transform: translate(calc(var(--drag-x, 0px) - 5px), var(--drag-y, 0px)) rotate(-5deg) scale(calc(var(--current-scale, 1) * 0.9));
+      transform: translate(calc(var(--drag-x, 0px) - 5px), var(--drag-y, 0px))
+        rotate(-5deg) scale(calc(var(--current-scale, 1) * 0.9));
       filter: hue-rotate(45deg) contrast(2);
       opacity: 0.5;
     }
     100% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(10deg) scale(0);
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(10deg)
+        scale(0);
       opacity: 0;
       filter: hue-rotate(360deg) blur(10px);
     }
@@ -279,22 +293,29 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
 
   @keyframes glitch-in {
     0% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(10deg) scale(0);
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(10deg)
+        scale(0);
       opacity: 0;
       filter: hue-rotate(360deg) blur(10px);
     }
     30% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-5deg) scale(calc(var(--current-scale, 1) * 1.1));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-5deg)
+        scale(calc(var(--current-scale, 1) * 1.1));
       opacity: 0.7;
       filter: hue-rotate(180deg) saturate(2);
     }
     60% {
-      transform: translate(calc(var(--drag-x, 0px) * 0.5), calc(var(--drag-y, 0px) * 0.5)) rotate(3deg) scale(calc(var(--current-scale, 1) * 0.95));
+      transform: translate(
+          calc(var(--drag-x, 0px) * 0.5),
+          calc(var(--drag-y, 0px) * 0.5)
+        )
+        rotate(3deg) scale(calc(var(--current-scale, 1) * 0.95));
       opacity: 0.9;
       filter: hue-rotate(90deg);
     }
     100% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(var(--current-scale, 1));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg)
+        scale(var(--current-scale, 1));
       opacity: 1;
       filter: none;
     }
@@ -302,16 +323,20 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
 
   @keyframes pop {
     0% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(calc(var(--current-scale, 1) / 1.05));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg)
+        scale(calc(var(--current-scale, 1) / 1.05));
     }
     15% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(calc(var(--current-scale, 1) / 1.05 * 0.97));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg)
+        scale(calc(var(--current-scale, 1) / 1.05 * 0.97));
     }
     60% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(calc(var(--current-scale, 1) * 1.02));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg)
+        scale(calc(var(--current-scale, 1) * 1.02));
     }
     100% {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg) scale(var(--current-scale, 1));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-1deg)
+        scale(var(--current-scale, 1));
     }
   }
 
@@ -421,7 +446,8 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     }
 
     .about-card {
-      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-0.5deg) scale(var(--current-scale, 1));
+      transform: translate(var(--drag-x, 0px), var(--drag-y, 0px))
+        rotate(-0.5deg) scale(var(--current-scale, 1));
     }
 
     .card-content {
@@ -437,6 +463,8 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
 </style>
 
 <script>
+  import { randomizeText } from "@/lib/random"
+
   function delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
@@ -489,7 +517,7 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
     const actions: Record<string, () => void> = {
       minimize: handleMinimize,
       maximize: handleMaximize,
-      close: handleClose,
+      close: handleClose
     }
 
     buttons.forEach((btn) => {
@@ -540,65 +568,44 @@ const description = "CTO, iced coffee enthusiast, professional meeting survivor.
       reset() {
         currentX = 0
         currentY = 0
-      },
+      }
     }
   }
 
-  function randomizeDivider() {
-    const labels = [
-      "CONNECT",
-      "SLIDE INTO MY DMs",
-      "REACH OUT (I WON'T BITE)",
-      "YELL AT ME HERE",
-      "SEND MEMES TO",
-      "COMPLAINTS DEPT",
-      "POKE ME",
-    ]
-    const el = document.getElementById("divider-text")
-    if (el) {
-      el.textContent = labels[Math.floor(Math.random() * labels.length)]
-    }
-  }
+  randomizeText("tagline", [
+    "claude converser",
+    "my mother's favorite rapper",
+    "drinking straw advocate",
+    "pun aficionado",
+    "professional meeting survivor",
+    "ctrl+z enthusiast",
+    "certified snack thief",
+    "world's okayest coder",
+    "aspiring nap champion",
+    "semicolon apologist",
+    "dad joke warehouse",
+    "vibes-based architect"
+  ])
 
-  function randomizeCardTitle() {
-    const titles = [
-      "ABOUT.ME",
-      "DEFINITELY_NOT_A_ROBOT.EXE",
-      "README.MD",
-      "HUMAN_PERSON.TXT",
-      "HIRE_ME_LOL.PDF",
-      "COOL_GUY.SYS",
-      "TOTALLY_NORMAL.CFG",
-    ]
-    const el = document.getElementById("card-title")
-    if (el) {
-      el.textContent = titles[Math.floor(Math.random() * titles.length)]
-    }
-  }
+  randomizeText("card-title", [
+    "ABOUT.ME",
+    "DEFINITELY_NOT_A_ROBOT.EXE",
+    "README.MD",
+    "HUMAN_PERSON.TXT",
+    "DOX_ME_LOL.PDF",
+    "COOL_GUY.SYS",
+    "TOTALLY_NORMAL.CFG"
+  ])
 
-  function randomizeTagline() {
-    const taglines = [
-      "claude converser",
-      "my mother's favorite rapper",
-      "drinking straw advocate",
-      "pun aficionado",
-      "professional meeting survivor",
-      "ctrl+z enthusiast",
-      "certified snack thief",
-      "world's okayest coder",
-      "aspiring nap champion",
-      "semicolon apologist",
-      "dad joke warehouse",
-      "vibes-based architect",
-    ]
-    const el = document.getElementById("tagline")
-    if (el) {
-      el.textContent = taglines[Math.floor(Math.random() * taglines.length)]
-    }
-  }
+  randomizeText("divider-text", [
+    "CONNECT",
+    "SLIDE INTO MY DMs",
+    "HOLLER",
+    "YELL AT ME HERE",
+    "SEND MEMES TO",
+    "COMPLAINTS DEPT",
+    "POKE ME"
+  ])
 
-  randomizeDivider()
-  randomizeCardTitle()
-  randomizeTagline()
   setupWindowButtons()
 </script>
