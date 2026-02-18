@@ -24,8 +24,8 @@ and it's worth talking about.
 
 When I wrote that post, the mental model was: your agent runs in the cloud,
 talks to APIs, and acts _on your behalf_. It needs credentials, permissions,
-identity — the whole apparatus — because it's operating remotely, autonomously,
-in cloud environments that don't know you.
+identity — everything to prove it should be there — because it's operating
+remotely, autonomously, in cloud environments that don't know you.
 
 That was the trajectory. And for enterprise and cloud-native agents, it still
 is.
@@ -35,6 +35,8 @@ agents started running on your Mac Mini. On your home machine. Logged into your
 browser. Using your cookies, your OAuth tokens, your everything. Not acting _on
 your behalf_ in some delegated sense. Acting _as you_.
 
+![On the internet, nobody knows you're a lobster.](nobody-knows-youre-a-lobster.png)
+
 [OpenClaw](https://openclaw.ai) is probably the best example of this shift. It
 runs on your machine, connects to your messaging apps, browses the web in your
 browser sessions, reads your files, manages your calendar — all using your
@@ -43,10 +45,8 @@ it works remarkably well precisely because it sidesteps the identity problem
 entirely. Your agent doesn't need to prove it's authorized to use your Gmail —
 it's already logged in. **It's not operating on your behalf. It _is_ you.**
 
-![On the internet, nobody knows you're a lobster.](nobody-knows-youre-a-lobster.png)
-
 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and a growing wave
-of similar tools are doing the same thing. The pattern is clear: agents are
+of similar tools are doing the same thing. It's same pattern again: agents are
 inheriting their operator's identity by default.
 
 This is incredibly pragmatic — and in hindsight, inevitable. Why would we expect
@@ -59,6 +59,21 @@ we are.
 So if agents are just running as you, why bother with identity at all? Because
 the moment you have more than one agent, "it was me" stops being a useful
 answer. And the reasons only grow from there.
+
+### Cryptographic Guardrails
+
+Right now, if your agent is running with your credentials, it can do _anything
+you can do_. Send emails. Delete files. Make purchases. Post on social media.
+There's no granularity.
+
+Cryptographic identity fixes this. Give your agent a keypair, issue it signed
+credentials that scope its permissions, and now it can't accidentally spend
+money because it can't cryptographically sign the transaction. The agent can't
+escalate its own permissions because it can't forge the signature. Least
+privilege, enforced by math instead of a config file.
+
+And if the credential is _bound_ to the agent via cryptographic proof then even
+if the agent fumbles the credential and exposes it, nobody else can use it.
 
 ### The Audit Trail
 
@@ -73,20 +88,8 @@ the same credentials, "show me the receipts" becomes a real need.
 And once agents start touching money — making purchases, managing subscriptions,
 executing transactions — you need a clear, auditable trail of which agent did
 what, when, and under what authority. This is where identity infrastructure like
-[ACK-ID](https://www.agentcommercekit.com/ack-id/introduction) becomes a
-prerequisite rather than a nice-to-have.
-
-### Cryptographic Guardrails
-
-Right now, if your agent is running with your credentials, it can do _anything
-you can do_. Send emails. Delete files. Make purchases. Post on social media.
-There's no granularity.
-
-Cryptographic identity fixes this. Give your agent a keypair, issue it signed
-credentials that scope its permissions, and now it can't accidentally spend
-money because it can't cryptographically sign the transaction. The agent can't
-escalate its own permissions because it can't forge the signature. Least
-privilege, enforced by math instead of a config file.
+[ACK-ID](https://www.agentcommercekit.com/ack-id/introduction), or a variation
+of it, becomes a pain-killer rather than a vitamin.
 
 ## SSL: Yes, that analogy again
 
