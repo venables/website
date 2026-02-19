@@ -41,10 +41,11 @@ This is an **Astro** website with the following key technologies:
 
 **Content Management:**
 
-- Blog posts live in `src/content/posts/` as Markdown files
-- Content collections defined in `src/content.config.ts` using Astro's new glob
+- Blog posts live in `content/<slug>/post.md` with colocated images
+- Content collections defined in `src/content.config.ts` using Astro's glob
   loader
 - RSS schema validation for all posts
+- OG images generated at build time via `src/pages/og/[id].png.ts`
 
 **Layouts:**
 
@@ -79,7 +80,9 @@ This is an **Astro** website with the following key technologies:
 
 **Content Creation:**
 
-- Add new blog posts to `src/content/posts/` as `.md` files
+- Create a new directory `content/<slug>/` with a `post.md` file inside
+- Colocate images alongside `post.md` in the same directory
+- Add `ogImage: <filename>` to frontmatter for social card images
 - Posts automatically appear in listings via content collections
 
 **Component Development:**

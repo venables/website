@@ -24,10 +24,12 @@
     "@fontsource-variable/geist-mono": "5.2.7",
     "@fontsource-variable/jetbrains-mono": "5.2.8",
     "@lucide/astro": "0.562.0",
+    "@resvg/resvg-js": "2.6.2",
     "animejs": "4.3.5",
     "astro": "5.16.8",
     "astro-seo": "0.8.4",
     "clsx": "2.1.1",
+    "satori": "0.19.2",
     "tailwind-merge": "3.4.0",
     "valibot": "1.2.0"
   },

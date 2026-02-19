@@ -4,6 +4,7 @@ description:
   "A simple wrapper for managing git worktrees, built for running multiple
   coding agents in parallel."
 pubDate: 2026-01-21
+ogImage: wt.png
 ---
 
 Git worktrees are having a moment. With tools like

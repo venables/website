@@ -9,6 +9,9 @@ import { defineConfig } from "astro/config"
 export default defineConfig({
   site: "https://venabl.es",
   adapter: cloudflare(),
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [tailwindcss()],
+    ssr: { external: ["@resvg/resvg-js"] }
+  },
   integrations: [sitemap(), mdx()]
 })

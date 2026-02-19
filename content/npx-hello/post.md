@@ -4,6 +4,7 @@ description:
   "Introducing 'npx hello', the easiest way to browse GitHub profiles from the
   command line."
 pubDate: 2023-11-20
+ogImage: npx-hello.png
 ---
 
 If you're anything like me, you spend your entire day in and out of the
