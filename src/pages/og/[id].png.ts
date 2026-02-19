@@ -58,7 +58,8 @@ async function loadAvatar(): Promise<string> {
 
 function toDataUri(buffer: Buffer, path: string): string {
   const ext = extname(path).slice(1) || "png"
-  return `data:image/${ext};base64,${buffer.toString("base64")}`
+  const mime = ext === "jpg" ? "jpeg" : ext
+  return `data:image/${mime};base64,${buffer.toString("base64")}`
 }
 
 async function loadPostImage(

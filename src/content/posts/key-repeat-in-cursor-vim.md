@@ -3,6 +3,7 @@ title: Key Repeat for Vim in Cursor
 description:
   "How to enable key-repeat on MacOS in Cursor for tools like VSCode Vim"
 pubDate: 2025-01-14
+ogImage: ai-agents-in-the-computer.jpg
 ---
 
 > NOTE: This post is primarily a reminder for myself for when I set up a new

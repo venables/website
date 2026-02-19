@@ -3,6 +3,7 @@ title: "Your Agent Needs an Identity. And It Should Be Decentralized."
 description:
   "The internet is going agent-native. Identity and trust need to scale with it."
 pubDate: 2025-09-27
+ogImage: nobody-knows-youre-an-agent.png
 ---
 
 By the time ChatGPT launched at the end of 2022, nearly half of all internet
