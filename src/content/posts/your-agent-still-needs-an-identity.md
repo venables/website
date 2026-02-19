@@ -4,6 +4,7 @@ description:
   "People started running their agents on their home computers. Now how the hell
   do we tell them apart?"
 pubDate: 2026-02-11
+ogImage: nobody-knows-youre-a-lobster.png
 ---
 
 _A follow-up to

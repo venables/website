@@ -27,7 +27,7 @@ const date = entry.data.pubDate?.toISOString() ?? new Date().toISOString()
 const rotation = (Math.random() * 1 - 0.5)
 ---
 
-<WideLayout title={title} description={description} article={{ date }}>
+<WideLayout title={title} description={description} article={{ date }} image={{ url: `/og/${id}.png`, alt: title, width: 1200, height: 630 }}>
   <article class="post">
     <!-- Back Link -->
     <nav class="back-link">
