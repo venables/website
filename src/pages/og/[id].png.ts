@@ -2,7 +2,7 @@ import type { APIRoute, GetStaticPaths } from "astro"
 
 import { getCollection } from "astro:content"
 import { readFile } from "node:fs/promises"
-import { dirname, extname, join } from "node:path"
+import { extname, join } from "node:path"
 
 import type { OgFont } from "@/lib/og"
 
@@ -16,7 +16,7 @@ const AVATAR_PATH = join(
   process.cwd(),
   "src/assets/images/matt-venables/avatar-transparent.png"
 )
-const POSTS_DIR = join(process.cwd(), "src/content/posts")
+const CONTENT_DIR = join(process.cwd(), "content")
 
 let fontsCache: OgFont[] | null = null
 let avatarCache: string | null = null
@@ -66,7 +66,7 @@ async function loadPostImage(
   postId: string,
   ogImagePath: string
 ): Promise<string> {
-  const imagePath = join(POSTS_DIR, dirname(postId), ogImagePath)
+  const imagePath = join(CONTENT_DIR, postId, ogImagePath)
   const buffer = await readFile(imagePath)
   return toDataUri(buffer, ogImagePath)
 }
