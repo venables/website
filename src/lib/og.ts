@@ -169,7 +169,7 @@ function buildImagePanel(imageBase64: string): SatoriElement {
           type: "img",
           props: {
             src: imageBase64,
-            width: 380,
+            width: 540,
             style: {
               objectFit: "contain",
               border: `3px solid ${COLORS.foreground}`
