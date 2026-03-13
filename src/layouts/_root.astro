@@ -2,6 +2,7 @@
 import GoogleAnalytics from "@/components/analytics/google-analytics.astro"
 import PostHog from "@/components/analytics/post-hog.astro"
 import { siteConfig } from "@/config/site"
+import { Font } from "astro:assets"
 import { SEO } from "astro-seo"
 import type { HTMLAttributes } from "astro/types"
 import type { RootLayoutProps } from "./_root.types"
@@ -22,7 +23,9 @@ const { title, description, image, canonical, article, ...props } = Astro.props
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="application-name" content={siteConfig.name} />
-
+    <Font cssVariable="--font-sans" preload />
+    <Font cssVariable="--font-mono" preload />
+    <Font cssVariable="--font-display" preload />
     <SEO
       title={title}
       titleTemplate={`%s | ${siteConfig.name}`}
