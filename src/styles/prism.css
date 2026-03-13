@@ -1,34 +1,54 @@
-code[class*="language-"],
-pre[class*="language-"] {
+/*
+ * Prism theme for light/dark mode.
+ *
+ * Tailwind Typography (prose) sets colors on pre/code elements that override
+ * Prism token styles. We reset those here and let Prism own all code coloring.
+ */
+
+.prose pre,
+.prose pre code,
+.prose code {
   color: var(--foreground);
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  tab-size: 2;
-  hyphens: none;
+}
+
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: var(--foreground);
+  background-color: var(--accent);
 }
 
 pre[class*="language-"] {
   overflow: auto;
+  tab-size: 2;
 }
+
+/* --- Comments --- */
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--muted-foreground);
+  color: #6b7280;
   font-style: italic;
 }
 
-.token.punctuation {
-  color: var(--muted-foreground);
+.dark .token.comment,
+.dark .token.prolog,
+.dark .token.doctype,
+.dark .token.cdata {
+  color: #9ca3af;
 }
 
-.token.namespace {
-  opacity: 0.7;
+/* --- Punctuation --- */
+
+.token.punctuation {
+  color: #57534e;
 }
+
+.dark .token.punctuation {
+  color: #a8a29e;
+}
+
+/* --- Tags, numbers, constants --- */
 
 .token.property,
 .token.tag,
@@ -37,7 +57,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: oklch(0.65 0.17 25);
+  color: #b45309;
 }
 
 .dark .token.property,
@@ -47,8 +67,10 @@ pre[class*="language-"] {
 .dark .token.constant,
 .dark .token.symbol,
 .dark .token.deleted {
-  color: oklch(0.78 0.14 25);
+  color: #f59e0b;
 }
+
+/* --- Strings --- */
 
 .token.selector,
 .token.attr-name,
@@ -56,7 +78,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: oklch(0.55 0.15 145);
+  color: #15803d;
 }
 
 .dark .token.selector,
@@ -65,15 +87,17 @@ pre[class*="language-"] {
 .dark .token.char,
 .dark .token.builtin,
 .dark .token.inserted {
-  color: oklch(0.75 0.14 145);
+  color: #4ade80;
 }
+
+/* --- Operators --- */
 
 .token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: oklch(0.6 0.12 70);
+  color: #92400e;
 }
 
 .dark .token.operator,
@@ -81,42 +105,50 @@ pre[class*="language-"] {
 .dark .token.url,
 .dark .language-css .token.string,
 .dark .style .token.string {
-  color: oklch(0.78 0.1 70);
+  color: #fbbf24;
 }
+
+/* --- Keywords --- */
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: oklch(0.55 0.18 265);
+  color: #1d4ed8;
 }
 
 .dark .token.atrule,
 .dark .token.attr-value,
 .dark .token.keyword {
-  color: oklch(0.75 0.14 265);
+  color: #93c5fd;
 }
+
+/* --- Functions --- */
 
 .token.function,
 .token.class-name {
-  color: oklch(0.6 0.16 300);
+  color: #7e22ce;
 }
 
 .dark .token.function,
 .dark .token.class-name {
-  color: oklch(0.78 0.12 300);
+  color: #c4b5fd;
 }
+
+/* --- Regex, variables --- */
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: oklch(0.6 0.14 50);
+  color: #b45309;
 }
 
 .dark .token.regex,
 .dark .token.important,
 .dark .token.variable {
-  color: oklch(0.78 0.12 50);
+  color: #fcd34d;
 }
+
+/* --- Emphasis --- */
 
 .token.important,
 .token.bold {
