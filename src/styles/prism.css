@@ -1,9 +1,10 @@
 /*
- * Prism theme for light/dark mode.
- *
- * Tailwind Typography (prose) sets colors on pre/code elements that override
- * Prism token styles. We reset those here and let Prism own all code coloring.
+ * Gruvbox Prism theme (light + dark).
+ * Based on https://github.com/morhetz/gruvbox
+ * Adapted from prism-themes by Michael Schnerring and Azat S.
  */
+
+/* --- Prose resets (override Tailwind Typography) --- */
 
 .prose pre,
 .prose pre code,
@@ -16,141 +17,182 @@
   background-color: var(--accent);
 }
 
+/* --- Base --- */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #3c3836;
+  tab-size: 2;
+}
+
 pre[class*="language-"] {
   overflow: auto;
-  tab-size: 2;
+}
+
+.dark code[class*="language-"],
+.dark pre[class*="language-"] {
+  color: #ebdbb2;
 }
 
 /* --- Comments --- */
 
 .token.comment,
 .token.prolog,
-.token.doctype,
 .token.cdata {
-  color: #78716c;
-  font-style: italic;
+  color: #7c6f64;
 }
 
 .dark .token.comment,
 .dark .token.prolog,
-.dark .token.doctype,
 .dark .token.cdata {
-  color: #a8a29e;
-}
-
-/* --- Punctuation --- */
-
-.token.punctuation {
-  color: #57534e;
-}
-
-.dark .token.punctuation {
-  color: #d6d3d1;
-}
-
-/* --- Tags, numbers, constants --- */
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #b45309;
-}
-
-.dark .token.property,
-.dark .token.tag,
-.dark .token.boolean,
-.dark .token.number,
-.dark .token.constant,
-.dark .token.symbol,
-.dark .token.deleted {
-  color: #fbbf24;
-}
-
-/* --- Strings --- */
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #166534;
-}
-
-.dark .token.selector,
-.dark .token.attr-name,
-.dark .token.string,
-.dark .token.char,
-.dark .token.builtin,
-.dark .token.inserted {
-  color: #86efac;
-}
-
-/* --- Operators --- */
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #78716c;
-}
-
-.dark .token.operator,
-.dark .token.entity,
-.dark .token.url,
-.dark .language-css .token.string,
-.dark .style .token.string {
-  color: #d6d3d1;
+  color: #a89984;
 }
 
 /* --- Keywords --- */
 
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #9a3412;
+.token.delimiter,
+.token.boolean,
+.token.keyword,
+.token.selector,
+.token.important,
+.token.atrule {
+  color: #9d0006;
 }
 
-.dark .token.atrule,
+.dark .token.delimiter,
+.dark .token.boolean,
+.dark .token.keyword,
+.dark .token.selector,
+.dark .token.important,
+.dark .token.atrule {
+  color: #fb4934;
+}
+
+/* --- Punctuation, operators --- */
+
+.token.operator,
+.token.punctuation,
+.token.attr-name {
+  color: #7c6f64;
+}
+
+.dark .token.operator,
+.dark .token.punctuation,
+.dark .token.attr-name {
+  color: #a89984;
+}
+
+/* --- Tags, builtins --- */
+
+.token.tag,
+.token.tag .punctuation,
+.token.doctype,
+.token.builtin {
+  color: #b57614;
+}
+
+.dark .token.tag,
+.dark .token.tag .punctuation,
+.dark .token.doctype,
+.dark .token.builtin {
+  color: #fabd2f;
+}
+
+/* --- Numbers, symbols --- */
+
+.token.entity,
+.token.number,
+.token.symbol {
+  color: #8f3f71;
+}
+
+.dark .token.entity,
+.dark .token.number,
+.dark .token.symbol {
+  color: #d3869b;
+}
+
+/* --- Properties, constants, variables --- */
+
+.token.property,
+.token.constant,
+.token.variable {
+  color: #9d0006;
+}
+
+.dark .token.property,
+.dark .token.constant,
+.dark .token.variable {
+  color: #fb4934;
+}
+
+/* --- Strings --- */
+
+.token.string,
+.token.char {
+  color: #797403;
+}
+
+.dark .token.string,
+.dark .token.char {
+  color: #b8bb26;
+}
+
+/* --- Attr values --- */
+
+.token.attr-value,
+.token.attr-value .punctuation {
+  color: #7c6f64;
+}
+
 .dark .token.attr-value,
-.dark .token.keyword {
-  color: #fb923c;
+.dark .token.attr-value .punctuation {
+  color: #a89984;
+}
+
+/* --- URLs --- */
+
+.token.url {
+  color: #797403;
+  text-decoration: underline;
+}
+
+.dark .token.url {
+  color: #b8bb26;
 }
 
 /* --- Functions --- */
 
-.token.function,
+.token.function {
+  color: #b57614;
+}
+
+.dark .token.function {
+  color: #fabd2f;
+}
+
+/* --- Class names --- */
+
 .token.class-name {
-  color: #b45309;
+  color: #b57614;
 }
 
-.dark .token.function,
 .dark .token.class-name {
-  color: #fcd34d;
+  color: #fabd2f;
 }
 
-/* --- Regex, variables --- */
+/* --- Regex --- */
 
-.token.regex,
-.token.important,
-.token.variable {
-  color: #166534;
+.token.regex {
+  color: #797403;
 }
 
-.dark .token.regex,
-.dark .token.important,
-.dark .token.variable {
-  color: #86efac;
+.dark .token.regex {
+  color: #b8bb26;
 }
 
 /* --- Emphasis --- */
 
-.token.important,
 .token.bold {
   font-weight: bold;
 }
@@ -161,4 +203,22 @@ pre[class*="language-"] {
 
 .token.entity {
   cursor: help;
+}
+
+/* --- Inserted / deleted --- */
+
+.token.inserted {
+  color: #797403;
+}
+
+.dark .token.inserted {
+  color: #b8bb26;
+}
+
+.token.deleted {
+  color: #9d0006;
+}
+
+.dark .token.deleted {
+  color: #fb4934;
 }
