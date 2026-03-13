@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
-@import "./fonts.css";
+@import "./prism.css";
 @source "../";
 
 @custom-variant dark (&:is(.dark *));
@@ -54,9 +54,6 @@
 }
 
 @theme inline {
-  --font-sans: "Geist Mono Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
-  --font-display: "Font Display", ui-monospace, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);

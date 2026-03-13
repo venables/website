@@ -1,6 +1,5 @@
-import type { APIRoute } from "astro"
-
 import rss from "@astrojs/rss"
+import type { APIRoute } from "astro"
 import { getCollection } from "astro:content"
 
 export const GET: APIRoute = async (context) => {

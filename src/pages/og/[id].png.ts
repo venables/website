@@ -1,12 +1,11 @@
-import type { APIRoute, GetStaticPaths } from "astro"
-
-import { getCollection } from "astro:content"
 import { readFile } from "node:fs/promises"
 import { extname, join } from "node:path"
 
-import type { OgFont } from "@/lib/og"
+import type { APIRoute, GetStaticPaths } from "astro"
+import { getCollection } from "astro:content"
 
 import { siteConfig } from "@/config/site"
+import type { OgFont } from "@/lib/og"
 import { generateOgImage } from "@/lib/og"
 
 export const prerender = true
