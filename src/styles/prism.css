@@ -1,224 +1,161 @@
-/*
- * Gruvbox Prism theme (light + dark).
- * Based on https://github.com/morhetz/gruvbox
- * Adapted from prism-themes by Michael Schnerring and Azat S.
+/**
+ * One Dark theme for prism.js
+ * Based on Atom's One Dark theme
+ * https://github.com/atom/atom/tree/master/packages/one-dark-syntax
  */
 
 /* --- Prose resets (override Tailwind Typography) --- */
 
-.prose pre,
-.prose pre code,
-.prose code {
-  color: var(--foreground);
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: hsl(220, 14%, 71%);
+  background: hsl(220, 13%, 18%);
 }
 
-.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  color: var(--foreground);
-  background-color: var(--accent);
+.prose
+  :where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: inherit;
 }
 
 /* --- Base --- */
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #3c3836;
+  background: hsl(220, 13%, 18%);
+  color: hsl(220, 14%, 71%);
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
   tab-size: 2;
+  hyphens: none;
 }
 
 pre[class*="language-"] {
   overflow: auto;
 }
 
-.dark code[class*="language-"],
-.dark pre[class*="language-"] {
-  color: #ebdbb2;
+/* --- Selection --- */
+
+code[class*="language-"]::selection,
+code[class*="language-"] *::selection,
+pre[class*="language-"] *::selection {
+  background: hsl(220, 13%, 28%);
+  color: inherit;
+  text-shadow: none;
 }
 
-/* --- Comments --- */
+/* --- Tokens --- */
 
 .token.comment,
 .token.prolog,
 .token.cdata {
-  color: #7c6f64;
+  color: hsl(220, 10%, 40%);
+  font-style: italic;
 }
 
-.dark .token.comment,
-.dark .token.prolog,
-.dark .token.cdata {
-  color: #a89984;
-}
-
-/* --- Keywords --- */
-
-.token.delimiter,
-.token.boolean,
-.token.keyword,
-.token.selector,
-.token.important,
-.token.atrule {
-  color: #9d0006;
-}
-
-.dark .token.delimiter,
-.dark .token.boolean,
-.dark .token.keyword,
-.dark .token.selector,
-.dark .token.important,
-.dark .token.atrule {
-  color: #fb4934;
-}
-
-/* --- Punctuation, operators --- */
-
-.token.operator,
-.token.punctuation,
-.token.attr-name {
-  color: #7c6f64;
-}
-
-.dark .token.operator,
-.dark .token.punctuation,
-.dark .token.attr-name {
-  color: #a89984;
-}
-
-/* --- Tags, builtins --- */
-
-.token.tag,
-.token.tag .punctuation,
 .token.doctype,
-.token.builtin {
-  color: #b57614;
+.token.punctuation,
+.token.entity {
+  color: hsl(220, 14%, 71%);
 }
 
-.dark .token.tag,
-.dark .token.tag .punctuation,
-.dark .token.doctype,
-.dark .token.builtin {
-  color: #fabd2f;
-}
-
-/* --- Numbers, symbols --- */
-
-.token.entity,
+.token.attr-name,
+.token.class-name,
+.token.boolean,
+.token.constant,
 .token.number,
-.token.symbol {
-  color: #8f3f71;
+.token.atrule {
+  color: hsl(29, 54%, 61%);
 }
 
-.dark .token.entity,
-.dark .token.number,
-.dark .token.symbol {
-  color: #d3869b;
+.token.keyword {
+  color: hsl(286, 60%, 67%);
 }
-
-/* --- Properties, constants, variables --- */
 
 .token.property,
-.token.constant,
-.token.variable {
-  color: #9d0006;
+.token.tag,
+.token.symbol,
+.token.deleted,
+.token.important {
+  color: hsl(355, 65%, 65%);
 }
 
-.dark .token.property,
-.dark .token.constant,
-.dark .token.variable {
-  color: #fb4934;
-}
-
-/* --- Strings --- */
-
+.token.selector,
 .token.string,
-.token.char {
-  color: #797403;
-}
-
-.dark .token.string,
-.dark .token.char {
-  color: #b8bb26;
-}
-
-/* --- Attr values --- */
-
+.token.char,
+.token.builtin,
+.token.inserted,
+.token.regex,
 .token.attr-value,
-.token.attr-value .punctuation {
-  color: #7c6f64;
+.token.attr-value > .token.punctuation {
+  color: hsl(95, 38%, 62%);
 }
 
-.dark .token.attr-value,
-.dark .token.attr-value .punctuation {
-  color: #a89984;
+.token.variable,
+.token.operator,
+.token.function {
+  color: hsl(207, 82%, 66%);
 }
-
-/* --- URLs --- */
 
 .token.url {
-  color: #797403;
-  text-decoration: underline;
+  color: hsl(187, 47%, 55%);
 }
 
-.dark .token.url {
-  color: #b8bb26;
+/* --- Language overrides --- */
+
+.token.attr-value > .token.punctuation.attr-equals,
+.token.special-attr > .token.attr-value > .token.value.css {
+  color: hsl(220, 14%, 71%);
 }
 
-/* --- Functions --- */
-
-.token.function {
-  color: #b57614;
+.language-css .token.selector {
+  color: hsl(355, 65%, 65%);
 }
 
-.dark .token.function {
-  color: #fabd2f;
+.language-css .token.property {
+  color: hsl(220, 14%, 71%);
 }
 
-/* --- Class names --- */
-
-.token.class-name {
-  color: #b57614;
+.language-css .token.function,
+.language-css .token.url > .token.function {
+  color: hsl(187, 47%, 55%);
 }
 
-.dark .token.class-name {
-  color: #fabd2f;
+.language-css .token.url > .token.string.url {
+  color: hsl(95, 38%, 62%);
 }
 
-/* --- Regex --- */
-
-.token.regex {
-  color: #797403;
+.language-css .token.important,
+.language-css .token.atrule .token.rule {
+  color: hsl(286, 60%, 67%);
 }
 
-.dark .token.regex {
-  color: #b8bb26;
+.language-javascript .token.operator {
+  color: hsl(286, 60%, 67%);
 }
 
-/* --- Emphasis --- */
+.language-javascript
+  .token.template-string
+  > .token.interpolation
+  > .token.interpolation-punctuation.punctuation {
+  color: hsl(5, 48%, 51%);
+}
+
+.language-json .token.operator {
+  color: hsl(220, 14%, 71%);
+}
+
+.language-json .token.null.keyword {
+  color: hsl(29, 54%, 61%);
+}
+
+/* --- General --- */
 
 .token.bold {
   font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
 }
 
 .token.entity {
   cursor: help;
 }
 
-/* --- Inserted / deleted --- */
-
-.token.inserted {
-  color: #797403;
-}
-
-.dark .token.inserted {
-  color: #b8bb26;
-}
-
-.token.deleted {
-  color: #9d0006;
-}
-
-.dark .token.deleted {
-  color: #fb4934;
+.token.namespace {
+  opacity: 0.8;
 }

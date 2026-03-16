@@ -27,7 +27,6 @@
     "astro": "6.0.4",
     "astro-seo": "0.8.4",
     "clsx": "2.1.1",
-    "prism-themes": "1.9.0",
     "satori": "0.19.2",
     "tailwind-merge": "3.4.0",
     "valibot": "1.2.0"
