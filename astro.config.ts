@@ -83,8 +83,7 @@ export default defineConfig({
     syntaxHighlight: "prism"
   },
   vite: {
-    plugins: [tailwindcss()],
-    ssr: { external: ["@resvg/resvg-js"] }
+    plugins: [tailwindcss()]
   },
   integrations: [sitemap(), mdx()]
 })

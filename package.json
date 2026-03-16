@@ -22,7 +22,7 @@
   "dependencies": {
     "@astrojs/cloudflare": "13.1.1",
     "@lucide/astro": "0.562.0",
-    "@resvg/resvg-js": "2.6.2",
+    "@resvg/resvg-wasm": "2.6.2",
     "animejs": "4.3.5",
     "astro": "6.0.4",
     "astro-seo": "0.8.4",

@@ -1,5 +1,22 @@
-import { Resvg } from "@resvg/resvg-js"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
+
+import { Resvg, initWasm } from "@resvg/resvg-wasm"
 import satori from "satori"
+
+let wasmInitialized = false
+
+async function ensureWasm(): Promise<void> {
+  if (wasmInitialized) return
+
+  const wasmPath = join(
+    process.cwd(),
+    "node_modules/@resvg/resvg-wasm/index_bg.wasm"
+  )
+  const wasmBuffer = await readFile(wasmPath)
+  await initWasm(wasmBuffer)
+  wasmInitialized = true
+}
 
 const WIDTH = 1200
 const HEIGHT = 630
@@ -246,6 +263,8 @@ export async function generateOgImage(
   options: OgImageOptions,
   fonts: readonly OgFont[]
 ): Promise<ArrayBuffer> {
+  await ensureWasm()
+
   const element = buildLayout(options)
 
   const svg = await renderSvg(element, {
