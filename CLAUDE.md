@@ -12,30 +12,30 @@ This is an **Astro** website with the following key technologies:
 - **Tailwind CSS v4** for styling
 - **MDX** for content authoring
 - **Cloudflare** for deployment
-- **bun** as package manager
+- **pnpm** as package manager
 
 ## Development Commands
 
 **Primary commands:**
 
-- `bun dev` - Start development server
-- `bun build` - Build for production
-- `bun check` - Run all quality checks (format, lint, typecheck, test)
-- `bun fix` - Auto-fix formatting and linting issues
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm check` - Run all quality checks (format, lint, typecheck, test)
+- `pnpm fix` - Auto-fix formatting and linting issues
 
 **Quality assurance:**
 
-- `bun format` - Format code with oxfmt
-- `bun format:check` - Check formatting without changes
-- `bun lint` - Lint with oxlint
-- `bun typecheck` - TypeScript type checking
-- `bun test` - Run tests
+- `pnpm format` - Format code with oxfmt
+- `pnpm format:check` - Check formatting without changes
+- `pnpm lint` - Lint with oxlint
+- `pnpm typecheck` - TypeScript type checking
+- `pnpm test` - Run tests
 
 **Utilities:**
 
-- `bun clean` - Clean build artifacts
-- `bun nuke` - Clean everything including node_modules
-- `bun outdated` - Interactive dependency updates
+- `pnpm clean` - Clean build artifacts
+- `pnpm nuke` - Clean everything including node_modules
+- `pnpm outdated` - Interactive dependency updates
 
 ## Architecture & Structure
 
@@ -99,4 +99,4 @@ This is an **Astro** website with the following key technologies:
 
 - All code is formatted with oxfmt and linted with oxlint
 - TypeScript strict mode enabled
-- Run `bun check` before committing changes
+- Run `pnpm check` before committing changes
