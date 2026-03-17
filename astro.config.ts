@@ -14,9 +14,9 @@ export default defineConfig({
         resources: [
           "'self'",
           "https://www.googletagmanager.com",
-          "https://us.i.posthog.com"
-        ],
-        strictDynamic: true
+          "https://us.i.posthog.com",
+          "https://us-assets.i.posthog.com"
+        ]
       },
       styleDirective: {
         resources: ["'self'", "'unsafe-inline'"]
