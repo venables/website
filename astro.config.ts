@@ -8,21 +8,6 @@ import { defineConfig, fontProviders } from "astro/config"
 export default defineConfig({
   site: "https://venabl.es",
   adapter: cloudflare({ imageService: "compile" }),
-  security: {
-    csp: {
-      scriptDirective: {
-        resources: [
-          "'self'",
-          "https://www.googletagmanager.com",
-          "https://us.i.posthog.com",
-          "https://us-assets.i.posthog.com"
-        ]
-      },
-      styleDirective: {
-        resources: ["'self'", "'unsafe-inline'"]
-      }
-    }
-  },
   fonts: [
     {
       provider: fontProviders.fontsource(),
