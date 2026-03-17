@@ -9,7 +9,19 @@ export default defineConfig({
   site: "https://venabl.es",
   adapter: cloudflare({ imageService: "compile" }),
   security: {
-    csp: true
+    csp: {
+      scriptDirective: {
+        resources: [
+          "'self'",
+          "https://www.googletagmanager.com",
+          "https://us.i.posthog.com"
+        ],
+        strictDynamic: true
+      },
+      styleDirective: {
+        resources: ["'self'", "'unsafe-inline'"]
+      }
+    }
   },
   fonts: [
     {
