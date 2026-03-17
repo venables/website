@@ -7,7 +7,7 @@ import { defineConfig, fontProviders } from "astro/config"
 // https://astro.build/config
 export default defineConfig({
   site: "https://venabl.es",
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: "compile" }),
   security: {
     csp: true
   },
