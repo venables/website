@@ -43,11 +43,10 @@ So the name laid dormant.
 
 Until today.
 
-While browsing Github profiles for candidates at
-[Catena Labs](https://catena.xyz) (psst: **We're hiring!**), the thought
-occurred to me: **wouldn't it be great if everyone had a consistent CV?** And
-even better, it should be accessible via the command line! So, I tossed together
-v0 of this project.
+While browsing Github profiles for candidates at [Catena](https://catena.com)
+(psst: **We're hiring!**), the thought occurred to me: **wouldn't it be great if
+everyone had a consistent CV?** And even better, it should be accessible via the
+command line! So, I tossed together v0 of this project.
 
 Check out the [source code](https://github.com/hello-js/hello) if you're
 interested. It's a simple Typescript project built from the

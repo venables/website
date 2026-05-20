@@ -134,8 +134,8 @@ Decentralized agent identity isn't just technically superior - given the
 trajectory we're on, it's a requirement. The only question is whether we build
 it intentionally or let it emerge from yet-another centralized identity failure.
 
-At [Catena Labs](https://catenalabs.com), we've been building exactly this kind
-of infrastructure on top of the
+At [Catena](https://catena.com), we've been building exactly this kind of
+infrastructure on top of the
 [Agent Commerce Kit (ACK)](https://agentcommercekit.com). The identity layer -
 [ACK-ID](https://www.agentcommercekit.com/ack-id/introduction) - establishes
 verifiable links between agents and their owners using these proven
@@ -155,5 +155,4 @@ build them right.
 ---
 
 _We're building agent-native financial infrastructure at
-[Catena Labs](https://catenalabs.com/). If this resonates with you, we should
-talk._
+[Catena](https://catena.com/). If this resonates with you, we should talk._

@@ -157,9 +157,9 @@ pragmatic for now, but soon we'll want to know which one is which.
 
 ---
 
-_At [Catena Labs](https://catenalabs.com), we're building agent-native financial
+_At [Catena](https://catena.com), we're building agent-native financial
 infrastructure on top of the [Agent Commerce Kit](https://agentcommercekit.com).
 The identity layer —
 [ACK-ID](https://www.agentcommercekit.com/ack-id/introduction) — is designed for
 exactly this evolution: from local agent identity to internet-scale trust. If
-you're building in this space, [let's talk](https://catenalabs.com/)._
+you're building in this space, [let's talk](https://catena.com/)._
