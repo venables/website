@@ -11,7 +11,10 @@ export default defineConfig({
   build: {
     format: "file"
   },
-  adapter: cloudflare({ imageService: "compile" }),
+  adapter: cloudflare({
+    imageService: "compile",
+    prerenderEnvironment: "node"
+  }),
   fonts: [
     {
       provider: fontProviders.fontsource(),
