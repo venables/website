@@ -1,6 +1,4 @@
 allowBuilds:
-  esbuild: true
-  sharp: true
   workerd: true
 # https://pnpm.io/settings#blockexoticsubdeps
 blockExoticSubdeps: true
