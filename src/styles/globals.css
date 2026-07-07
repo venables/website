@@ -1,65 +1,43 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 @import "./prism.css";
 @source "../";
 
 @custom-variant dark (&:is(.dark *));
-@custom-variant party-mode (&:is(.party-mode *));
-@custom-variant dunkin-mode (&:is(.dunkin-mode *));
-@custom-variant the-net (&:is(.the-net *));
 
 :root {
   --background: oklch(0.9768 0.0045 78.3);
-  --foreground: oklch(0.1559 0.0053 145.31);
-  --accent: oklch(0.92 0.01 80);
-  --border: oklch(0.85 0.01 80);
-  --muted: hsl(240 4.8% 95.9%);
-  --muted-foreground: hsl(240 3.8% 46.1%);
-
-  --the-net-dark: #191f1d;
-  --the-net-mid: #555a57;
-  --the-net-noise: url(/images/the-net/noise.png);
-  --the-net-static: url(/images/the-net/static.gif);
+  --foreground: oklch(0.22 0.006 145);
+  --muted: oklch(0.95 0.004 78);
+  --muted-foreground: oklch(0.52 0.006 145);
+  --accent: oklch(0.94 0.006 78);
+  --border: oklch(0.9 0.006 78);
 }
 
 .dark {
-  --background: oklch(0.1559 0.0053 145.31);
-  --foreground: oklch(0.9905 0.0162 142.56);
-  --accent: oklch(0.25 0.01 80);
-  --border: oklch(0.3 0.01 80);
-  --muted: hsl(240 3.7% 15.9%);
-  --muted-foreground: hsl(240 5% 64.9%);
-}
-
-.party-mode,
-.party-mode.dark {
-  --background: oklch(0.9234 0.0674 149.53);
-  --foreground: oklch(0.1559 0.0053 145.31);
-  --muted-foreground: hsl(240 3.8% 46.1%);
-}
-
-.dunkin-mode,
-.dunkin-mode.dark {
-  --background: oklch(0.92 0.06 350);
-  --foreground: oklch(0.2 0.02 350);
-  --muted-foreground: hsl(340 10% 40%);
-}
-
-.the-net,
-.the-net.dark {
-  --background: oklch(0.1559 0.0053 145.31);
-  --foreground: oklch(0.9905 0.0162 142.56);
-  --muted-foreground: oklch(0.9485 0.2077 117.5);
+  --background: oklch(0.165 0.005 145);
+  --foreground: oklch(0.94 0.01 142);
+  --muted: oklch(0.24 0.006 145);
+  --muted-foreground: oklch(0.62 0.008 145);
+  --accent: oklch(0.24 0.006 145);
+  --border: oklch(0.29 0.006 145);
 }
 
 @theme inline {
+  --font-sans: var(--font-newsreader);
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-geist-mono);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-border: var(--border);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+}
+
+@utility label {
+  @apply text-muted-foreground font-mono text-xs tracking-[0.15em] uppercase;
 }
 
 @layer base {
@@ -73,125 +51,23 @@
   }
 
   body {
-    @apply bg-background text-foreground min-h-svh;
-    overflow-x: clip;
-  }
-
-  .party-mode body,
-  .dunkin-mode body {
-    @apply transition-colors duration-250;
-  }
-
-  .the-net body {
-    margin: 0;
-    padding: 0;
-    display: grid;
-    height: 100%;
-    width: 100%;
-    background-image: linear-gradient(
-      150deg,
-      var(--the-net-dark) 60.2%,
-      var(--the-net-mid) 60.28%,
-      var(--the-net-mid) 60.7%,
-      var(--the-net-dark) 60.78%,
-      var(--the-net-dark) 61.4%,
-      var(--the-net-mid) 61.48%,
-      var(--the-net-mid) 62.6%,
-      var(--the-net-dark) 62.68%,
-      var(--the-net-dark) 63.4%,
-      var(--the-net-mid) 63.48%,
-      var(--the-net-mid) 64.6%,
-      var(--the-net-dark) 64.68%,
-      var(--the-net-dark) 65.4%,
-      var(--the-net-mid) 65.48%,
-      var(--the-net-mid) 67.4%,
-      var(--the-net-dark) 67.48%,
-      var(--the-net-dark) 68.4%,
-      var(--the-net-mid) 68.48%,
-      var(--the-net-mid) 71.4%,
-      var(--the-net-dark) 71.48%,
-      var(--the-net-dark) 72.4%,
-      var(--the-net-mid) 72.48%,
-      var(--the-net-mid) 76.4%,
-      var(--the-net-dark) 76.48%,
-      var(--the-net-dark) 77.4%,
-      var(--the-net-mid) 77.48%,
-      var(--the-net-mid) 81.4%,
-      var(--the-net-dark) 81.48%,
-      var(--the-net-dark) 82.4%,
-      var(--the-net-mid) 82.48%,
-      var(--the-net-mid) 87.4%,
-      var(--the-net-dark) 87.48%
-    );
-    box-sizing: border-box;
-    animation: spawn 2s ease-in-out forwards;
-  }
-
-  .the-net body:before {
-    content: "";
-    display: flex;
-    position: fixed;
-    background-image: var(--the-net-noise);
-    height: 100%;
-    width: 100%;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    z-index: 3;
-  }
-
-  .the-net body:after {
-    content: "";
-    display: flex;
-    position: fixed;
-    background-image: var(--the-net-static);
-    height: 100%;
-    width: 100%;
-    translate: 0px 0px;
-    background-repeat: no-repeat;
-    background-position-y: -20px;
-    background-size: cover;
-    mix-blend-mode: screen;
-    pointer-events: none;
-    opacity: 64%;
-    z-index: 3;
-  }
-
-  .the-net img {
-    @apply invert;
+    @apply bg-background text-foreground min-h-svh font-serif antialiased;
   }
 
   a.link {
-    @apply underline underline-offset-4 transition-colors duration-100;
+    @apply decoration-border underline underline-offset-4 transition-colors duration-100;
   }
 
-  a.link:hover {
-    @apply bg-foreground text-background no-underline;
-  }
-
+  a.link:hover,
   a.link:focus-visible {
-    @apply bg-foreground text-background no-underline outline-none;
-  }
-
-  a:active {
-    @apply translate-y-px duration-75 select-none;
+    @apply decoration-foreground outline-none;
   }
 
   .footnotes {
-    @apply text-xs;
+    @apply text-sm;
   }
 
   .footnotes h2#footnote-label {
-    @apply !text-xs tracking-wider uppercase underline;
-  }
-}
-
-@keyframes sparkle-fade {
-  0% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(0deg);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-20px) scale(0) rotate(180deg);
+    @apply label mb-2;
   }
 }

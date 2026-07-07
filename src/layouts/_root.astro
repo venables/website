@@ -25,9 +25,8 @@ const canonicalHref = canonical ?? canonicalUrl(Astro.url.pathname, Astro.site)
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="application-name" content={siteConfig.name} />
-    <Font cssVariable="--font-sans" preload />
-    <Font cssVariable="--font-mono" preload />
-    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-newsreader" preload />
+    <Font cssVariable="--font-geist-mono" preload />
     <SEO
       title={title}
       titleTemplate={`%s | ${siteConfig.name}`}

@@ -3,9 +3,14 @@ import Layout from "@/layouts/layout.astro"
 ---
 
 <Layout title="Not Found" description="Page not found">
-  <h1>404 Not Found</h1>
-  <p>Looks like you've followed a broken link or entered a URL that doesn't exist here.</p>
-  <p>
-    <a href="/" class="link">Go back to the home page</a>
-  </p>
+  <div class="flex flex-col gap-4">
+    <p class="label">404</p>
+    <h1 class="font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
+      Page not found
+    </h1>
+    <p class="max-w-prose text-muted-foreground">
+      You followed a broken link or entered a URL that doesn't exist here.
+    </p>
+    <p><a href="/" class="link">Back to the home page</a></p>
+  </div>
 </Layout>

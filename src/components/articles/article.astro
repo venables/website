@@ -9,8 +9,14 @@ const { class: className, ...props } = Astro.props
 
 <article
   class={cn(
-    "prose max-w-none sm:prose-sm dark:not-party-mode:not-dunkin-mode:prose-invert prose-a:inline-block prose-a:px-px prose-a:underline prose-a:underline-offset-4 prose-a:hover:bg-accent prose-a:hover:text-foreground prose-a:hover:no-underline prose-a:active:translate-y-px prose-a:active:duration-75 prose-a:dark:hover:text-background prose-code:text-sm the-net:prose-invert",
-    className,
+    "prose prose-neutral max-w-none dark:prose-invert",
+    "prose-headings:font-serif prose-headings:font-normal prose-headings:tracking-tight",
+    "prose-h1:hidden",
+    "prose-a:font-normal prose-a:text-foreground prose-a:decoration-border prose-a:underline-offset-4 hover:prose-a:decoration-foreground",
+    "prose-code:font-mono prose-code:text-[0.85em] prose-code:before:content-none prose-code:after:content-none",
+    "prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:border-border prose-blockquote:text-muted-foreground",
+    "prose-hr:border-border prose-img:rounded-none",
+    className
   )}
   {...props}
 >

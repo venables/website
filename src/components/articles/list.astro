@@ -3,36 +3,29 @@ import { getCollection } from "astro:content"
 
 const allPosts = await getCollection("posts")
 const posts = allPosts.toSorted((a, b) => {
-  const dateA = a.data.pubDate?.getTime() ?? Date.now()
-  const dateB = b.data.pubDate?.getTime() ?? Date.now()
+  const dateA = a.data.pubDate?.getTime() ?? 0
+  const dateB = b.data.pubDate?.getTime() ?? 0
   return dateB - dateA
 })
 
-function formatDate(date: Date | undefined, options: Intl.DateTimeFormatOptions): string {
-  return (date ?? new Date()).toLocaleDateString("en-US", options)
-}
-
-const ROTATIONS = [-2, -1, 0, 1, 2]
-const OFFSETS = [0, 8, -4, 4, -8]
-
-function cycleValue(values: number[], index: number): number {
-  return values[index % values.length]!
+function formatYear(date: Date | undefined): string {
+  return (date ?? new Date()).getFullYear().toString()
 }
 ---
 
-<ul class="not-prose list-none space-y-4 ps-0">
+<ul class="not-prose flex list-none flex-col ps-0">
   {
-    posts.map((post, index) => (
-      <li style={`transform: rotate(${cycleValue(ROTATIONS, index)}deg) translateX(${cycleValue(OFFSETS, index)}px)`} class="bg-background transition-all duration-200 hover:scale-[1.02] hover:bg-accent dark:hover:bg-muted">
+    posts.map((post) => (
+      <li>
         <a
           href={`/${post.id}`}
-          class="group block border-2 border-foreground bg-background p-4 no-underline shadow-[4px_4px_0_var(--foreground)] transition-all duration-150 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--foreground)] hover:bg-accent/10 active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0_var(--foreground)] dark:border-muted dark:shadow-[4px_4px_0_var(--muted)]"
+          class="group flex items-baseline justify-between gap-4 border-b border-border py-3 no-underline"
         >
-          <span class="flex items-start justify-between gap-4">
-            <span class="text-base font-bold uppercase tracking-tight min-w-0 md:whitespace-nowrap group-hover:tracking-wide transition-all duration-200">{post.data.title}</span>
-            <span class="shrink-0 text-xs font-mono text-muted-foreground uppercase tracking-wider border border-foreground/30 px-1.5 py-0.5">
-              {formatDate(post.data.pubDate, { month: "short", year: "numeric" })}
-            </span>
+          <span class="font-serif text-xl leading-snug tracking-tight transition-transform duration-150 group-hover:translate-x-1">
+            {post.data.title}
+          </span>
+          <span class="label shrink-0 tabular-nums transition-colors group-hover:text-foreground">
+            {formatYear(post.data.pubDate)}
           </span>
         </a>
       </li>

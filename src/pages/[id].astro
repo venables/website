@@ -1,6 +1,7 @@
 ---
+import Article from "@/components/articles/article.astro"
+import Layout from "@/layouts/layout.astro"
 import { getCollection, getEntry, render } from "astro:content"
-import WideLayout from "../layouts/wide-layout.astro"
 
 export async function getStaticPaths() {
   const allPosts = await getCollection("posts")
@@ -17,6 +18,11 @@ async function getContent(id: string) {
   return { entry, Content }
 }
 
+function readingTime(body: string | undefined): number {
+  const words = (body ?? "").trim().split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.round(words / 200))
+}
+
 const { id } = Astro.params
 const { entry, Content } = await getContent(id)
 
@@ -24,293 +30,40 @@ const title = entry.data.title ?? "Untitled"
 const description = entry.data.description ?? ""
 const date = entry.data.pubDate?.toISOString() ?? new Date().toISOString()
 
-const rotation = (Math.random() * 1 - 0.5)
+const meta = [
+  entry.data.pubDate?.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }),
+  `${readingTime(entry.body)} min read`
+]
+  .filter(Boolean)
+  .join(" · ")
 ---
 
-<WideLayout title={title} description={description} article={{ date }} image={{ url: `${Astro.site}og/${id}.png`, alt: title, width: 1200, height: 630 }}>
-  <article class="post">
-    <!-- Back Link -->
-    <nav class="back-link">
-      <a href="/">← Home</a>
-    </nav>
-
-    <!-- Massive Hero Title -->
-    <header class="post-header" style={`transform: rotate(${rotation}deg)`}>
-      <h1 class="post-title">{title}</h1>
-      {entry.data.pubDate && (
-        <time class="post-date">{entry.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>
-      )}
+<Layout
+  title={title}
+  description={description}
+  article={{ date }}
+  image={{
+    url: `${Astro.site}og/${id}.png`,
+    alt: title,
+    width: 1200,
+    height: 630
+  }}
+>
+  <article class="flex flex-col gap-10">
+    <header class="flex flex-col gap-3">
+      <p class="label">{meta}</p>
+      <h1
+        class="font-serif text-4xl leading-tight tracking-tight text-balance sm:text-5xl"
+      >
+        {title}
+      </h1>
     </header>
-
-    <!-- Diagonal Divider -->
-    <div class="diagonal-divider"></div>
-
-    <!-- Content -->
-    <div class="post-content">
+    <Article>
       <Content />
-    </div>
+    </Article>
   </article>
-</WideLayout>
-
-<style>
-  .post {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .back-link {
-    padding: 1rem clamp(1rem, 5vw, 3rem);
-    font-family: "JetBrains Mono Variable", monospace;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .back-link a {
-    color: var(--color-muted-foreground);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-
-  .back-link a:hover {
-    color: var(--color-foreground);
-    text-decoration: underline;
-    text-decoration-style: wavy;
-  }
-
-  .post-header {
-    padding: clamp(2rem, 6vh, 4rem) clamp(1rem, 5vw, 3rem);
-    background: var(--color-background);
-    transition: transform 0.3s ease-out;
-    text-align: center;
-  }
-
-  .post-header:hover {
-    transform: rotate(0deg);
-  }
-
-  .post-title {
-    font-size: clamp(2rem, 10vw, 6rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
-    color: var(--color-foreground);
-    margin: 0;
-    word-break: break-word;
-    text-shadow: 3px 3px 0 var(--color-accent);
-  }
-
-  .post-date {
-    display: block;
-    margin-top: 1rem;
-    font-family: "JetBrains Mono Variable", monospace;
-    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-muted-foreground);
-  }
-
-  .diagonal-divider {
-    width: 100%;
-    height: 40px;
-    background: var(--color-background);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .diagonal-divider::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -5%;
-    right: -5%;
-    height: 100%;
-    background: var(--color-foreground);
-    clip-path: polygon(0 0, 100% 0, 100% 2px, 0 100%);
-  }
-
-  .post-content {
-    padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 5vw, 3rem);
-    max-width: 75ch;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .post-content :global(h1) {
-    display: none;
-  }
-
-  .post-content :global(h2) {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-    color: var(--color-foreground);
-    transform: rotate(-1deg);
-    line-height: 1.4;
-  }
-
-  .post-content :global(h3) {
-    font-size: clamp(1.25rem, 4vw, 1.75rem);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.01em;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--color-foreground);
-    transform: rotate(1deg);
-    line-height: 1.4;
-  }
-
-  .post-content :global(p) {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    line-height: 1.8;
-    margin-bottom: 1.75rem;
-    color: var(--color-foreground);
-  }
-
-  .post-content :global(ul), .post-content :global(ol) {
-    padding-left: 1.5rem;
-    margin-bottom: 1.75rem;
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    line-height: 1.8;
-  }
-
-  .post-content :global(li) {
-    margin-bottom: 0.75rem;
-  }
-
-  .post-content :global(li::marker) {
-    color: var(--color-foreground);
-    font-weight: 700;
-  }
-
-  .post-content :global(a) {
-    color: var(--color-foreground);
-    text-decoration: underline;
-    text-decoration-style: wavy;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-    font-weight: 600;
-    transition: all 0.15s ease;
-  }
-
-  .post-content :global(a:hover) {
-    text-decoration-style: solid;
-    background: var(--color-foreground);
-    color: var(--color-background);
-    padding: 0 0.25rem;
-    margin: 0 -0.25rem;
-  }
-
-  .post-content :global(strong) {
-    font-weight: 800;
-    color: var(--color-foreground);
-  }
-
-  .post-content :global(em) {
-    font-style: italic;
-    color: var(--color-foreground);
-  }
-
-  .post-content :global(code) {
-    background: var(--color-accent);
-    padding: 0.15rem 0.4rem;
-    font-family: "JetBrains Mono Variable", monospace;
-    font-size: 0.85em;
-    border: 1px solid var(--color-foreground);
-    font-weight: 500;
-  }
-
-  .post-content :global(pre) {
-    background: var(--color-foreground);
-    color: var(--color-background);
-    padding: 1.5rem;
-    overflow-x: auto;
-    border: 3px solid var(--color-foreground);
-    box-shadow: 6px 6px 0 var(--color-foreground);
-    margin: 2rem 0;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    transform: skewX(-0.5deg);
-  }
-
-  .post-content :global(pre code) {
-    background: transparent;
-    border: none;
-    padding: 0;
-    font-size: inherit;
-  }
-
-  .post-content :global(blockquote) {
-    border-left: 4px solid var(--color-foreground);
-    padding-left: 1.5rem;
-    margin: 2rem 0;
-    font-style: italic;
-    font-size: clamp(1.1rem, 3vw, 1.35rem);
-    line-height: 1.7;
-    color: var(--color-foreground);
-  }
-
-  .post-content :global(blockquote p) {
-    margin-bottom: 0;
-  }
-
-  .post-content :global(hr) {
-    border: none;
-    border-top: 3px solid var(--color-foreground);
-    margin: 3rem 0;
-  }
-
-  .post-content :global(img) {
-    max-width: 100%;
-    height: auto;
-    border: 3px solid var(--color-foreground);
-    margin: 2rem 0;
-    display: block;
-    position: relative;
-  }
-
-  .post-content :global(p:has(img)) {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-  }
-
-  .post-content :global(p:has(img)::after) {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    right: -4px;
-    bottom: -4px;
-    background: var(--color-foreground);
-    z-index: -1;
-    transform: skewX(-2deg);
-  }
-
-  @media (max-width: 640px) {
-    .post-content {
-      padding: 1.5rem 1rem;
-    }
-
-    .post-header {
-      padding: 1.5rem 1rem;
-    }
-
-    .post-title {
-      font-size: clamp(1.75rem, 8vw, 2.5rem);
-      text-shadow: 2px 2px 0 var(--color-accent);
-    }
-
-    .back-link {
-      padding: 0.75rem 1rem;
-    }
-  }
-</style>
+</Layout>

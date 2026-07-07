@@ -4,6 +4,8 @@ import sitemap from "@astrojs/sitemap"
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig, fontProviders } from "astro/config"
 
+const isDev = process.argv.includes("dev")
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://venabl.es",
@@ -12,75 +14,26 @@ export default defineConfig({
     format: "file"
   },
   adapter: cloudflare({
-    imageService: "compile",
+    // `compile` optimizes images with Sharp at build time. Its runtime endpoint
+    // imports `cloudflare:workers`, which `astro dev` can't resolve, so fall back
+    // to a no-op passthrough in dev (the site is fully static, so production is
+    // unaffected).
+    imageService: isDev ? "passthrough" : "compile",
     prerenderEnvironment: "node"
   }),
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: "Geist Mono",
-      cssVariable: "--font-sans",
-      weights: ["100 900"]
+      name: "Newsreader",
+      cssVariable: "--font-newsreader",
+      weights: ["200 800"],
+      styles: ["normal", "italic"]
     },
     {
       provider: fontProviders.fontsource(),
-      name: "JetBrains Mono",
-      cssVariable: "--font-mono",
+      name: "Geist Mono",
+      cssVariable: "--font-geist-mono",
       weights: ["100 900"]
-    },
-    {
-      provider: fontProviders.local(),
-      name: "Font Display",
-      cssVariable: "--font-display",
-      options: {
-        variants: [
-          {
-            weight: 400,
-            style: "normal",
-            src: ["./src/assets/fonts/display/Regular.woff2"]
-          },
-          {
-            weight: 400,
-            style: "italic",
-            src: ["./src/assets/fonts/display/RegularItalic.woff2"]
-          },
-          {
-            weight: 600,
-            style: "normal",
-            src: ["./src/assets/fonts/display/Semibold.woff2"]
-          },
-          {
-            weight: 600,
-            style: "italic",
-            src: ["./src/assets/fonts/display/SemiboldItalic.woff2"]
-          },
-          {
-            weight: 700,
-            style: "normal",
-            src: ["./src/assets/fonts/display/Bold.woff2"]
-          },
-          {
-            weight: 700,
-            style: "italic",
-            src: ["./src/assets/fonts/display/BoldItalic.woff2"]
-          },
-          {
-            weight: 800,
-            style: "normal",
-            src: ["./src/assets/fonts/display/Extrabold.woff2"]
-          },
-          {
-            weight: 900,
-            style: "normal",
-            src: ["./src/assets/fonts/display/Black.woff2"]
-          },
-          {
-            weight: 900,
-            style: "italic",
-            src: ["./src/assets/fonts/display/BlackItalic.woff2"]
-          }
-        ]
-      }
     }
   ],
   markdown: {

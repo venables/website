@@ -5,25 +5,10 @@ interface Props {
   title?: string
 }
 
-const { title = "Recent posts" } = Astro.props
+const { title = "Writing" } = Astro.props
 ---
 
-<section class="mx-auto min-w-0 max-w-[78ch] space-y-4">
-  <p id="posts-title" class="text-center font-bold uppercase tracking-[0.3em] text-muted-foreground text-sm transform -rotate-1">{title}</p>
+<section class="flex flex-col gap-4">
+  <h2 class="label">{title}</h2>
   <ArticleList />
 </section>
-
-<script>
-  import { randomizeText } from "@/lib/random"
-
-  randomizeText("posts-title", [
-    "Recent posts",
-    "Dispatches from the void",
-    "Certified brain dumps",
-    "Things I wrote instead of sleeping",
-    "Hot takes, room temperature delivery",
-    "Unreviewed manuscripts",
-    "Blogs my mom has read",
-    "Stuff I'll regret publishing",
-  ])
-</script>

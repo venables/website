@@ -3,7 +3,6 @@ import "@/styles/globals.css"
 import Footer from "@/components/layout/footer.astro"
 import Header from "@/components/layout/header.astro"
 import TailwindIndicator from "@/components/layout/tailwind-indicator.astro"
-import TheNet from "@/components/layout/the-net.astro"
 import RootLayout from "./_root.astro"
 import type { RootLayoutProps } from "./_root.types"
 
@@ -12,17 +11,13 @@ type Props = RootLayoutProps
 const props = Astro.props
 ---
 
-<RootLayout
-  class="min-h-svh font-sans text-base leading-7 antialiased selection:bg-accent dark:selection:text-background"
-  {...props}
->
-  <div class="relative flex min-h-svh max-w-2xl flex-col gap-12 p-6 sm:p-12">
-    <Header title={props.title} />
-    <main class="flex grow flex-col gap-12">
+<RootLayout {...props}>
+  <div class="flex min-h-svh w-full max-w-2xl flex-col gap-16 px-6 py-12 sm:px-8 sm:py-16">
+    <Header />
+    <main class="flex grow flex-col gap-16">
       <slot />
     </main>
     <Footer />
-    <TheNet />
   </div>
   {import.meta.env.DEV && <TailwindIndicator />}
 </RootLayout>

@@ -1,62 +1,31 @@
 ---
 import ThemeToggle from "@/components/layout/theme-toggle.astro"
 import { siteConfig } from "@/config/site"
+
+const links = [
+  { href: siteConfig.links.github, label: "GitHub", external: true },
+  { href: siteConfig.links.x, label: "X", external: true },
+  { href: siteConfig.links.email, label: "Email", external: true },
+  { href: siteConfig.links.linkedin, label: "LinkedIn", external: true },
+  { href: "/rss.xml", label: "RSS", external: false }
+]
 ---
 
-<footer
-  class="flex flex-col gap-4 border-t border-foreground/10 pt-8 text-muted-foreground"
->
-  <nav class="flex flex-wrap gap-x-4 gap-y-1">
-    <a
-      class="link"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={siteConfig.links.github}>GitHub</a
-    >
-    <a
-      class="link"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={siteConfig.links.x}>X</a
-    >
-    <a
-      class="link"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={siteConfig.links.signal}>Signal</a
-    >
-    <a
-      class="link"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={siteConfig.links.telegram}>Telegram</a
-    >
-    <a
-      class="link"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={siteConfig.links.email}>Email</a
-    >
-    <a
-      class="link"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={siteConfig.links.linkedin}>LinkedIn</a
-    >
-    <a class="link" href="/rss.xml">RSS</a>
-    <a class="link" href="/now">Now</a>
+<footer class="flex items-center justify-between gap-4 border-t border-border pt-6">
+  <nav class="flex flex-wrap gap-x-5 gap-y-2">
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class="label transition-colors hover:text-foreground"
+          {...link.external
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {}}
+        >
+          {link.label}
+        </a>
+      ))
+    }
   </nav>
-
-  <div
-    class="flex items-center justify-between text-xs text-muted-foreground/60"
-  >
-    <span class="flex items-center gap-2">
-      <a class="link no-underline" href="/.well-known/did.json"
-        >{siteConfig.keys.did}</a
-      >
-      <span class="text-muted-foreground/30">|</span>
-      <a class="link no-underline" href="/pgp">pgp</a>
-    </span>
-    <ThemeToggle />
-  </div>
+  <ThemeToggle class="label" />
 </footer>
