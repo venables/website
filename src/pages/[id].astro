@@ -55,17 +55,13 @@ const meta = [
   }}
 >
   <article class="flex flex-col gap-12">
-    <header
-      class="-mx-6 bg-muted px-6 py-10 sm:-mx-8 sm:px-8 sm:py-14"
-    >
-      <div class="ml-auto flex max-w-xl flex-col items-end gap-4 text-right">
-        <h1
-          class="font-serif text-4xl leading-[1.08] tracking-tight text-balance sm:text-5xl"
-        >
-          {title}
-        </h1>
-        <p class="label">{meta}</p>
-      </div>
+    <header class="-mx-6 flex flex-col gap-4 bg-muted px-6 py-10 sm:-mx-8 sm:px-8 sm:py-14">
+      <h1
+        class="font-serif text-4xl leading-[1.08] tracking-tight text-balance sm:text-5xl"
+      >
+        {title}
+      </h1>
+      <p class="label">{meta}</p>
     </header>
     <Article>
       <Content />
