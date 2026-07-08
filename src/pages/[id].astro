@@ -1,5 +1,6 @@
 ---
 import Article from "@/components/articles/article.astro"
+import PageHero from "@/components/layout/page-hero.astro"
 import Layout from "@/layouts/layout.astro"
 import { getCollection, getEntry, render } from "astro:content"
 
@@ -32,6 +33,7 @@ const date = entry.data.pubDate?.toISOString() ?? new Date().toISOString()
 
 const meta = [
   entry.data.pubDate?.toLocaleDateString("en-US", {
+    timeZone: "UTC",
     year: "numeric",
     month: "long",
     day: "numeric"
@@ -46,7 +48,6 @@ const meta = [
   title={title}
   description={description}
   article={{ date }}
-  breadcrumbs={[{ label: "writing", href: "/" }, { label: title }]}
   image={{
     url: `${Astro.site}og/${id}.png`,
     alt: title,
@@ -55,14 +56,9 @@ const meta = [
   }}
 >
   <article class="flex flex-col gap-12">
-    <header class="-mx-6 flex flex-col gap-4 bg-muted px-6 py-10 sm:-mx-8 sm:px-8 sm:py-14">
-      <h1
-        class="font-serif text-4xl leading-[1.08] tracking-tight text-balance sm:text-5xl"
-      >
-        {title}
-      </h1>
+    <PageHero title={title}>
       <p class="label">{meta}</p>
-    </header>
+    </PageHero>
     <Article>
       <Content />
     </Article>

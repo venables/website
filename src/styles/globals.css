@@ -28,7 +28,7 @@
 @theme inline {
   --font-sans: "iA Writer Quattro V", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Perfectly Nineties", "Georgia", serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-mono: var(--font-geist-mono);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -55,6 +55,7 @@
 
   body {
     @apply bg-background text-foreground min-h-svh font-sans antialiased;
+    overflow-x: clip;
   }
 
   ::selection {
