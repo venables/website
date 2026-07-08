@@ -9,11 +9,12 @@ const posts = allPosts.toSorted((a, b) => {
 })
 
 function year(date: Date | undefined): number {
-  return (date ?? new Date()).getFullYear()
+  return (date ?? new Date()).getUTCFullYear()
 }
 
 function shortDate(date: Date | undefined): string {
   return (date ?? new Date()).toLocaleDateString("en-US", {
+    timeZone: "UTC",
     month: "short",
     day: "2-digit"
   })
@@ -26,21 +27,24 @@ const groups = years.map((y) => ({
 }))
 ---
 
-<div class="not-prose flex flex-col gap-10">
+<div class="not-prose group/list flex flex-col gap-10">
   {
     groups.map((group) => (
       <section class="flex flex-col">
-        <h2 class="mb-1 border-b border-border pb-2 font-mono text-sm tabular-nums">
+        <h3 class="mb-1 border-b border-border pb-2 font-mono text-sm tabular-nums">
           {group.year}
-        </h2>
-        <ul class="group/list flex flex-col">
+        </h3>
+        <ul class="flex flex-col">
           {group.posts.map((post) => (
             <li>
               <a
                 href={`/${post.id}`}
                 class="grid grid-cols-[3.5rem_1fr] gap-x-4 py-3 no-underline transition-opacity duration-200 group-hover/list:opacity-40 hover:!opacity-100 sm:grid-cols-[4.5rem_1fr]"
               >
-                <time class="pt-[0.35rem] font-mono text-xs tabular-nums text-muted-foreground">
+                <time
+                  datetime={post.data.pubDate?.toISOString()}
+                  class="pt-[0.35rem] font-mono text-xs tabular-nums text-muted-foreground"
+                >
                   {shortDate(post.data.pubDate)}
                 </time>
                 <span class="flex min-w-0 flex-col gap-1">
