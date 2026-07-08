@@ -1,32 +1,34 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "./fonts.css";
 @import "./prism.css";
 @source "../";
 
 @custom-variant dark (&:is(.dark *));
 
+/* Warm, sepia-leaning neutrals. No accent hue: black + white + gray. */
 :root {
-  --background: oklch(0.9768 0.0045 78.3);
-  --foreground: oklch(0.22 0.006 145);
-  --muted: oklch(0.95 0.004 78);
-  --muted-foreground: oklch(0.52 0.006 145);
-  --accent: oklch(0.94 0.006 78);
-  --border: oklch(0.9 0.006 78);
+  --background: oklch(0.988 0.003 85);
+  --foreground: oklch(0.22 0.006 65);
+  --muted: oklch(0.955 0.004 85);
+  --muted-foreground: oklch(0.55 0.012 70);
+  --accent: oklch(0.93 0.005 85);
+  --border: oklch(0.9 0.005 85);
 }
 
 .dark {
-  --background: oklch(0.165 0.005 145);
-  --foreground: oklch(0.94 0.01 142);
-  --muted: oklch(0.24 0.006 145);
-  --muted-foreground: oklch(0.62 0.008 145);
-  --accent: oklch(0.24 0.006 145);
-  --border: oklch(0.29 0.006 145);
+  --background: oklch(0.175 0.004 70);
+  --foreground: oklch(0.93 0.004 85);
+  --muted: oklch(0.225 0.004 70);
+  --muted-foreground: oklch(0.63 0.009 75);
+  --accent: oklch(0.26 0.004 70);
+  --border: oklch(0.29 0.005 70);
 }
 
 @theme inline {
-  --font-sans: var(--font-newsreader);
-  --font-serif: var(--font-newsreader);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "iA Writer Quattro V", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Perfectly Nineties", "Georgia", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -36,8 +38,9 @@
   --color-muted-foreground: var(--muted-foreground);
 }
 
+/* Small mono metadata: dates, section labels, kickers. */
 @utility label {
-  @apply text-muted-foreground font-mono text-xs tracking-[0.15em] uppercase;
+  @apply text-muted-foreground font-mono text-xs tracking-[0.12em] uppercase;
 }
 
 @layer base {
@@ -51,7 +54,11 @@
   }
 
   body {
-    @apply bg-background text-foreground min-h-svh font-serif antialiased;
+    @apply bg-background text-foreground min-h-svh font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-foreground text-background;
   }
 
   a.link {

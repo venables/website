@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Matt Venables",
-  description: "CTO, iced coffee enthusiast, professional meeting survivor.",
+  description: "Co-founder and CTO of Catena.",
 
   repository: "https://github.com/venables/website",
 

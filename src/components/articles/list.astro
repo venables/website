@@ -8,27 +8,56 @@ const posts = allPosts.toSorted((a, b) => {
   return dateB - dateA
 })
 
-function formatYear(date: Date | undefined): string {
-  return (date ?? new Date()).getFullYear().toString()
+function year(date: Date | undefined): number {
+  return (date ?? new Date()).getFullYear()
 }
+
+function shortDate(date: Date | undefined): string {
+  return (date ?? new Date()).toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit"
+  })
+}
+
+const years = [...new Set(posts.map((post) => year(post.data.pubDate)))]
+const groups = years.map((y) => ({
+  year: y,
+  posts: posts.filter((post) => year(post.data.pubDate) === y)
+}))
 ---
 
-<ul class="not-prose flex list-none flex-col ps-0">
+<div class="not-prose flex flex-col gap-10">
   {
-    posts.map((post) => (
-      <li>
-        <a
-          href={`/${post.id}`}
-          class="group flex items-baseline justify-between gap-4 border-b border-border py-3 no-underline"
-        >
-          <span class="font-serif text-xl leading-snug tracking-tight transition-transform duration-150 group-hover:translate-x-1">
-            {post.data.title}
-          </span>
-          <span class="label shrink-0 tabular-nums transition-colors group-hover:text-foreground">
-            {formatYear(post.data.pubDate)}
-          </span>
-        </a>
-      </li>
+    groups.map((group) => (
+      <section class="flex flex-col">
+        <h2 class="mb-1 border-b border-border pb-2 font-mono text-sm tabular-nums">
+          {group.year}
+        </h2>
+        <ul class="group/list flex flex-col">
+          {group.posts.map((post) => (
+            <li>
+              <a
+                href={`/${post.id}`}
+                class="grid grid-cols-[3.5rem_1fr] gap-x-4 py-3 no-underline transition-opacity duration-200 group-hover/list:opacity-40 hover:!opacity-100 sm:grid-cols-[4.5rem_1fr]"
+              >
+                <time class="pt-[0.35rem] font-mono text-xs tabular-nums text-muted-foreground">
+                  {shortDate(post.data.pubDate)}
+                </time>
+                <span class="flex flex-col gap-1">
+                  <span class="font-serif text-lg leading-snug">
+                    {post.data.title}
+                  </span>
+                  {post.data.description && (
+                    <span class="text-sm leading-snug text-muted-foreground">
+                      {post.data.description}
+                    </span>
+                  )}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     ))
   }
-</ul>
+</div>

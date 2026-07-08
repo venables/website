@@ -1,10 +1,9 @@
 ---
-import { siteConfig } from "@/config/site"
+import Logo from "@/components/layout/logo.astro"
 
 const nav = [
   { href: "/", label: "Writing" },
-  { href: "/projects", label: "Projects" },
-  { href: "/now", label: "Now" }
+  { href: "/projects", label: "Projects" }
 ]
 
 const { pathname } = Astro.url
@@ -14,20 +13,21 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
+<header class="flex items-center justify-between gap-6">
   <a
     href="/"
-    class="font-mono text-sm uppercase tracking-[0.2em] transition-colors hover:text-muted-foreground"
+    aria-label="Matt Venables — home"
+    class="text-foreground transition-colors hover:text-muted-foreground"
   >
-    {siteConfig.name}
+    <Logo class="h-7 w-auto" />
   </a>
-  <nav class="flex gap-5">
+  <nav class="flex items-center gap-4 sm:gap-5">
     {
       nav.map((item) => (
         <a
           href={item.href}
           class:list={[
-            "label transition-colors hover:text-foreground",
+            "font-mono text-xs text-muted-foreground transition-colors hover:text-foreground",
             isActive(item.href) && "text-foreground"
           ]}
         >

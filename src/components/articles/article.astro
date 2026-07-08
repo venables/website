@@ -12,10 +12,10 @@ const { class: className, ...props } = Astro.props
     "prose prose-neutral max-w-none dark:prose-invert",
     "prose-headings:font-serif prose-headings:font-normal prose-headings:tracking-tight",
     "prose-h1:hidden",
-    "prose-a:font-normal prose-a:text-foreground prose-a:decoration-border prose-a:underline-offset-4 hover:prose-a:decoration-foreground",
+    "prose-a:font-normal prose-a:text-foreground prose-a:decoration-border prose-a:underline-offset-4 prose-a:hover:decoration-foreground",
     "prose-code:font-mono prose-code:text-[0.85em] prose-code:before:content-none prose-code:after:content-none",
-    "prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:border-border prose-blockquote:text-muted-foreground",
-    "prose-hr:border-border prose-img:rounded-none",
+    "prose-blockquote:font-serif prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:border-border prose-blockquote:text-muted-foreground",
+    "prose-hr:border-border prose-img:rounded-none prose-img:border prose-img:border-border",
     className
   )}
   {...props}

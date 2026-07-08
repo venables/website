@@ -46,6 +46,7 @@ const meta = [
   title={title}
   description={description}
   article={{ date }}
+  breadcrumbs={[{ label: "writing", href: "/" }, { label: title }]}
   image={{
     url: `${Astro.site}og/${id}.png`,
     alt: title,
@@ -53,14 +54,18 @@ const meta = [
     height: 630
   }}
 >
-  <article class="flex flex-col gap-10">
-    <header class="flex flex-col gap-3">
-      <p class="label">{meta}</p>
-      <h1
-        class="font-serif text-4xl leading-tight tracking-tight text-balance sm:text-5xl"
-      >
-        {title}
-      </h1>
+  <article class="flex flex-col gap-12">
+    <header
+      class="-mx-6 bg-muted px-6 py-10 sm:-mx-8 sm:px-8 sm:py-14"
+    >
+      <div class="ml-auto flex max-w-xl flex-col items-end gap-4 text-right">
+        <h1
+          class="font-serif text-4xl leading-[1.08] tracking-tight text-balance sm:text-5xl"
+        >
+          {title}
+        </h1>
+        <p class="label">{meta}</p>
+      </div>
     </header>
     <Article>
       <Content />

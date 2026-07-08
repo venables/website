@@ -10,6 +10,9 @@ const isDev = process.argv.includes("dev")
 export default defineConfig({
   site: "https://venabl.es",
   trailingSlash: "never",
+  redirects: {
+    "/now": "/projects"
+  },
   build: {
     format: "file"
   },
@@ -22,13 +25,6 @@ export default defineConfig({
     prerenderEnvironment: "node"
   }),
   fonts: [
-    {
-      provider: fontProviders.fontsource(),
-      name: "Newsreader",
-      cssVariable: "--font-newsreader",
-      weights: ["200 800"],
-      styles: ["normal", "italic"]
-    },
     {
       provider: fontProviders.fontsource(),
       name: "Geist Mono",

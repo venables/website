@@ -1,0 +1,47 @@
+/* Perfectly Nineties - self-hosted serif, used as a display accent */
+
+@font-face {
+  font-family: "Perfectly Nineties";
+  src: url("/fonts/perfectly-nineties/PerfectlyNineties-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Perfectly Nineties";
+  src: url("/fonts/perfectly-nineties/PerfectlyNineties-RegularItalic.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Perfectly Nineties";
+  src: url("/fonts/perfectly-nineties/PerfectlyNineties-Semibold.woff2")
+    format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* iA Writer Quattro - self-hosted variable body/UI font */
+
+@font-face {
+  font-family: "iA Writer Quattro V";
+  src: url("/fonts/ia-writer-quattro/iAWriterQuattroV.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "iA Writer Quattro V";
+  src: url("/fonts/ia-writer-quattro/iAWriterQuattroV-Italic.woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}

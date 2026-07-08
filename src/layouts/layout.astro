@@ -1,20 +1,43 @@
 ---
 import "@/styles/globals.css"
+import Breadcrumbs, {
+  type Crumb
+} from "@/components/layout/breadcrumbs.astro"
 import Footer from "@/components/layout/footer.astro"
 import Header from "@/components/layout/header.astro"
 import TailwindIndicator from "@/components/layout/tailwind-indicator.astro"
 import RootLayout from "./_root.astro"
 import type { RootLayoutProps } from "./_root.types"
 
-type Props = RootLayoutProps
+type Props = RootLayoutProps & { breadcrumbs?: Crumb[] }
 
-const props = Astro.props
+const { breadcrumbs, ...props } = Astro.props
+
+function deriveCrumbs(pathname: string): Crumb[] {
+  const segments = pathname.split("/").filter(Boolean)
+  if (segments.length === 0) {
+    return []
+  }
+
+  return segments.map((segment, i) => ({
+    label: segment.replace(/-/g, " "),
+    href:
+      i < segments.length - 1
+        ? `/${segments.slice(0, i + 1).join("/")}`
+        : undefined
+  }))
+}
+
+const derived = breadcrumbs ?? deriveCrumbs(Astro.url.pathname)
+const crumbs: Crumb[] =
+  derived.length > 0 ? [{ label: "~", href: "/" }, ...derived] : []
 ---
 
 <RootLayout {...props}>
-  <div class="flex min-h-svh w-full max-w-2xl flex-col gap-16 px-6 py-12 sm:px-8 sm:py-16">
+  <div class="mx-auto flex min-h-svh w-full max-w-2xl flex-col px-6 py-10 sm:px-8 sm:py-14">
     <Header />
-    <main class="flex grow flex-col gap-16">
+    <main class="flex grow flex-col gap-16 pt-14">
+      {crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
       <slot />
     </main>
     <Footer />

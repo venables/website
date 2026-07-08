@@ -1,41 +1,32 @@
 ---
-import ArticleListSection from "@/components/articles/list-section.astro"
+import ArticleList from "@/components/articles/list.astro"
 import Layout from "@/layouts/layout.astro"
 import { siteConfig } from "@/config/site"
 
 const title = siteConfig.author.name
-const description = "CTO, cold brew enthusiast, professional meeting survivor."
+const description = "Co-founder and CTO of Catena."
 ---
 
 <Layout title={title} description={description}>
-  <section class="flex flex-col gap-4">
-    <p class="max-w-prose text-lg leading-relaxed">
+  <section class="flex flex-col gap-5">
+    <div class="flex flex-col gap-2">
+      <h1 class="font-serif text-5xl leading-[1.05] tracking-tight sm:text-6xl">
+        Matt Venables
+      </h1>
+      <p class="label">Co-founder &amp; CTO, Catena</p>
+    </div>
+    <p class="max-w-prose leading-relaxed text-muted-foreground">
       I am co-founder and CTO of <a href="https://catena.com" class="link"
         >Catena</a
       >, giving AI agents financial superpowers. Previously helped create <a
         href="https://usdc.cool"
         class="link">USDC</a
-      > at Circle. Mass consumer of mass-produced cold brew.
-    </p>
-    <p class="label">
-      <a
-        href={siteConfig.links.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="transition-colors hover:text-foreground">GitHub</a
-      > &nbsp;/&nbsp; <a
-        href={siteConfig.links.x}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="transition-colors hover:text-foreground">X</a
-      > &nbsp;/&nbsp; <a
-        href={siteConfig.links.telegram}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="transition-colors hover:text-foreground">Telegram</a
-      >
+      > at Circle.
     </p>
   </section>
 
-  <ArticleListSection />
+  <section class="flex flex-col gap-6">
+    <p class="label">Writing</p>
+    <ArticleList />
+  </section>
 </Layout>
