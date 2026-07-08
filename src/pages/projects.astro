@@ -74,11 +74,14 @@ const description = "A snapshot of what I've built."
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex flex-col gap-1 py-3 no-underline transition-opacity duration-200 group-hover/list:opacity-40 hover:!opacity-100"
+              class="flex flex-col gap-1 py-3 no-underline transition-opacity duration-200 group-has-[a:hover]/list:opacity-40 hover:!opacity-100"
             >
               <span class="font-serif text-lg leading-snug">
                 {project.name}
-                <span class="ms-1 font-mono text-xs text-muted-foreground">
+                <span
+                  aria-hidden="true"
+                  class="ms-1 font-mono text-xs text-muted-foreground"
+                >
                   ↗
                 </span>
               </span>

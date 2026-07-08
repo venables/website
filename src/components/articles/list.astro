@@ -2,18 +2,16 @@
 import { getCollection } from "astro:content"
 
 const allPosts = await getCollection("posts")
-const posts = allPosts.toSorted((a, b) => {
-  const dateA = a.data.pubDate?.getTime() ?? 0
-  const dateB = b.data.pubDate?.getTime() ?? 0
-  return dateB - dateA
-})
+const posts = allPosts.toSorted(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+)
 
-function year(date: Date | undefined): number {
-  return (date ?? new Date()).getUTCFullYear()
+function year(date: Date): number {
+  return date.getUTCFullYear()
 }
 
-function shortDate(date: Date | undefined): string {
-  return (date ?? new Date()).toLocaleDateString("en-US", {
+function shortDate(date: Date): string {
+  return date.toLocaleDateString("en-US", {
     timeZone: "UTC",
     month: "short",
     day: "2-digit"
@@ -39,10 +37,10 @@ const groups = years.map((y) => ({
             <li>
               <a
                 href={`/${post.id}`}
-                class="grid grid-cols-[3.5rem_1fr] gap-x-4 py-3 no-underline transition-opacity duration-200 group-hover/list:opacity-40 hover:!opacity-100 sm:grid-cols-[4.5rem_1fr]"
+                class="grid grid-cols-[3.5rem_1fr] gap-x-4 py-3 no-underline transition-opacity duration-200 group-has-[a:hover]/list:opacity-40 hover:!opacity-100 sm:grid-cols-[4.5rem_1fr]"
               >
                 <time
-                  datetime={post.data.pubDate?.toISOString()}
+                  datetime={post.data.pubDate.toISOString()}
                   class="pt-[0.35rem] font-mono text-xs tabular-nums text-muted-foreground"
                 >
                   {shortDate(post.data.pubDate)}

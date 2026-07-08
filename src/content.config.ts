@@ -9,6 +9,7 @@ const posts = defineCollection({
     generateId: ({ entry }) => entry.split("/")[0]
   }),
   schema: rssSchema.extend({
+    pubDate: z.coerce.date(),
     ogImage: z.string().optional()
   })
 })

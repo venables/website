@@ -29,19 +29,17 @@ const { entry, Content } = await getContent(id)
 
 const title = entry.data.title ?? "Untitled"
 const description = entry.data.description ?? ""
-const date = entry.data.pubDate?.toISOString() ?? new Date().toISOString()
+const date = entry.data.pubDate.toISOString()
 
 const meta = [
-  entry.data.pubDate?.toLocaleDateString("en-US", {
+  entry.data.pubDate.toLocaleDateString("en-US", {
     timeZone: "UTC",
     year: "numeric",
     month: "long",
     day: "numeric"
   }),
   `${readingTime(entry.body)} min read`
-]
-  .filter(Boolean)
-  .join(" · ")
+].join(" · ")
 ---
 
 <Layout
