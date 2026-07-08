@@ -1,5 +1,6 @@
 ---
 import Article from "@/components/articles/article.astro"
+import PageHero from "@/components/layout/page-hero.astro"
 import Layout from "@/layouts/layout.astro"
 import { siteConfig } from "@/config/site"
 
@@ -8,10 +9,8 @@ const fingerprint = siteConfig.keys.pgp
 ---
 
 <Layout title={title} description={`PGP public key for ${siteConfig.name}`}>
-  <div class="flex flex-col gap-8">
-    <h1 class="font-serif text-4xl leading-[1.08] tracking-tight sm:text-5xl">
-      {title}
-    </h1>
+  <div class="flex flex-col gap-12">
+    <PageHero title={title} />
 
     <Article>
       <p>

@@ -1,18 +1,14 @@
 ---
+import PageHero from "@/components/layout/page-hero.astro"
 import Layout from "@/layouts/layout.astro"
 ---
 
 <Layout title="Not Found" description="Page not found">
-  <div class="flex flex-col gap-4">
-    <p class="label">404</p>
-    <h1
-      class="font-serif text-4xl leading-[1.08] tracking-tight sm:text-5xl"
-    >
-      Page not found
-    </h1>
-    <p class="max-w-prose text-muted-foreground">
-      You followed a broken link or entered a URL that doesn't exist here.
-    </p>
+  <div class="flex flex-col gap-8">
+    <PageHero
+      title="Page not found"
+      description="You followed a broken link or entered a URL that doesn't exist here."
+    />
     <p><a href="/" class="link">Back to the home page</a></p>
   </div>
 </Layout>
