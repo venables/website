@@ -27,7 +27,7 @@
 
 @theme inline {
   --font-sans: "iA Writer Quattro V", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Perfectly Nineties", "Georgia", serif;
+  --font-serif: "Title Font", "Georgia", serif;
   --font-mono: var(--font-geist-mono);
 
   --color-background: var(--background);

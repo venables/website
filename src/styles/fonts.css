@@ -1,27 +1,24 @@
-/* Perfectly Nineties - self-hosted serif, used as a display accent */
+/* Self-hosted serif, used as a display accent */
 
 @font-face {
-  font-family: "Perfectly Nineties";
-  src: url("/fonts/perfectly-nineties/PerfectlyNineties-Regular.woff2")
-    format("woff2");
+  font-family: "Title Font";
+  src: url("/fonts/title-font/regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Perfectly Nineties";
-  src: url("/fonts/perfectly-nineties/PerfectlyNineties-RegularItalic.woff2")
-    format("woff2");
+  font-family: "Title Font";
+  src: url("/fonts/title-font/regular-italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Perfectly Nineties";
-  src: url("/fonts/perfectly-nineties/PerfectlyNineties-Semibold.woff2")
-    format("woff2");
+  font-family: "Title Font";
+  src: url("/fonts/title-font/semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
