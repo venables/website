@@ -1,0 +1,43 @@
+---
+import CodeTitle from "@/components/ui/code-title.astro"
+import HoverListItem from "@/components/ui/hover-list-item.astro"
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  post: CollectionEntry<"posts">
+}
+
+const { post } = Astro.props
+
+function shortDate(date: Date): string {
+  return date.toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    month: "short",
+    day: "2-digit"
+  })
+}
+---
+
+<HoverListItem
+  href={`/${post.id}`}
+  class="grid grid-cols-[3.5rem_1fr] gap-x-4 sm:grid-cols-[4.5rem_1fr]"
+>
+  <time
+    datetime={post.data.pubDate.toISOString()}
+    class="pt-[0.35rem] font-mono text-xs tabular-nums text-muted-foreground"
+  >
+    {shortDate(post.data.pubDate)}
+  </time>
+  <span class="flex min-w-0 flex-col gap-1">
+    <span class="font-serif text-lg leading-snug">
+      <CodeTitle text={post.data.title} />
+    </span>
+    {
+      post.data.description && (
+        <span class="text-sm leading-snug text-muted-foreground">
+          {post.data.description}
+        </span>
+      )
+    }
+  </span>
+</HoverListItem>

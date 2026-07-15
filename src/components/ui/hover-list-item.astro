@@ -1,0 +1,30 @@
+---
+import { cn } from "@/lib/utils"
+import type { HTMLAttributes } from "astro/types"
+
+interface Props extends HTMLAttributes<"li"> {
+  href: string
+  external?: boolean
+  class?: string
+}
+
+const { href, external, class: className, ...rest } = Astro.props
+
+const externalAttrs = external
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : {}
+---
+
+<li {...rest}>
+  <a
+    href={href}
+    {...externalAttrs}
+    class={cn(
+      "-mx-3 block rounded-lg px-3 py-3 no-underline transition duration-300",
+      "group-has-[a:hover]/list:opacity-45 hover:!opacity-100 hover:bg-accent",
+      className
+    )}
+  >
+    <slot />
+  </a>
+</li>

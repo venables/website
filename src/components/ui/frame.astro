@@ -1,0 +1,15 @@
+---
+import { cn } from "@/lib/utils"
+import Crosshairs from "./crosshairs.astro"
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<div class={cn("relative border border-border", className)}>
+  <Crosshairs />
+  <slot />
+</div>

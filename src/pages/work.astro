@@ -1,0 +1,74 @@
+---
+import PageHero from "@/components/layout/page-hero.astro"
+import ProjectRow from "@/components/projects/project-row.astro"
+import Frame from "@/components/ui/frame.astro"
+import HoverList from "@/components/ui/hover-list.astro"
+import Layout from "@/layouts/layout.astro"
+import { projects, projectTypes } from "@/config/projects"
+import { siteConfig } from "@/config/site"
+
+const title = "Work"
+const description = "Things I think I built"
+
+const filters = [{ value: "all", label: "All" }, ...projectTypes]
+---
+
+<Layout title={title} description={description}>
+  <article class="flex flex-col gap-12">
+    <PageHero title={title} subtitle={description} />
+
+    <div class="flex flex-col gap-6">
+      <div
+        class="flex flex-wrap gap-2"
+        role="group"
+        aria-label="Filter projects by type"
+      >
+        {
+          filters.map((filter, index) => (
+            <button
+              type="button"
+              data-filter={filter.value}
+              data-active={index === 0 ? "true" : "false"}
+              class="rounded-full border border-border px-3 py-1 font-mono text-xs tracking-wider uppercase text-muted-foreground transition-colors hover:text-foreground data-[active=true]:border-foreground data-[active=true]:bg-foreground data-[active=true]:text-background"
+            >
+              {filter.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <Frame class="px-5 py-6 sm:px-7 sm:py-8">
+        <HoverList>
+          {projects.map((project) => <ProjectRow project={project} />)}
+        </HoverList>
+      </Frame>
+    </div>
+
+    <p class="text-center text-sm text-muted-foreground">
+      See more of my open source work on <a
+        href={siteConfig.links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link font-medium text-foreground">GitHub</a
+      >.
+    </p>
+  </article>
+</Layout>
+
+<script>
+  const pills = document.querySelectorAll<HTMLButtonElement>("[data-filter]")
+  const items = document.querySelectorAll<HTMLLIElement>("[data-type]")
+
+  function apply(filter: string) {
+    for (const item of items) {
+      item.hidden = filter !== "all" && item.dataset.type !== filter
+    }
+    for (const pill of pills) {
+      pill.dataset.active = String(pill.dataset.filter === filter)
+    }
+  }
+
+  for (const pill of pills) {
+    pill.addEventListener("click", () => apply(pill.dataset.filter ?? "all"))
+  }
+</script>

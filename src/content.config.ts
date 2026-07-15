@@ -10,7 +10,8 @@ const posts = defineCollection({
   }),
   schema: rssSchema.extend({
     pubDate: z.coerce.date(),
-    ogImage: z.string().optional()
+    ogImage: z.string().optional(),
+    project: z.string().optional()
   })
 })
 

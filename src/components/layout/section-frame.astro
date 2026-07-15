@@ -1,0 +1,29 @@
+---
+import Frame from "@/components/ui/frame.astro"
+
+interface Props {
+  index: number
+  total?: number
+  label: string
+}
+
+const { index, total, label } = Astro.props
+
+const pad = (n: number) => String(n).padStart(2, "0")
+---
+
+<section class="flex flex-col gap-4">
+  <div class="label flex items-center gap-2">
+    <span aria-hidden="true">[</span>
+    <span class="text-foreground">{pad(index)}</span>
+    {total && <span>/</span>}
+    {total && <span>{pad(total)}</span>}
+    <span aria-hidden="true">]</span>
+    <span aria-hidden="true">&middot;</span>
+    <span>{label}</span>
+  </div>
+
+  <Frame class="px-5 py-6 sm:px-7 sm:py-8">
+    <slot />
+  </Frame>
+</section>

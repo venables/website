@@ -1,0 +1,30 @@
+---
+import HoverListItem from "@/components/ui/hover-list-item.astro"
+import type { Project } from "@/config/projects"
+
+interface Props {
+  project: Project
+}
+
+const { project } = Astro.props
+---
+
+<HoverListItem
+  href={project.href}
+  external
+  data-type={project.type}
+  class="flex flex-col gap-1"
+>
+  <span class="flex items-center justify-between gap-3">
+    <span class="font-serif text-lg leading-snug">{project.name}</span>
+    <span class="flex shrink-0 items-center gap-2">
+      {project.company && <span class="label text-[0.65rem]">{project.company}</span>}
+      <span aria-hidden="true" class="font-mono text-xs text-muted-foreground">
+        ↗
+      </span>
+    </span>
+  </span>
+  <span class="text-sm leading-snug text-muted-foreground">
+    {project.description}
+  </span>
+</HoverListItem>

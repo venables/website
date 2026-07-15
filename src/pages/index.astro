@@ -1,20 +1,21 @@
 ---
 import ArticleList from "@/components/articles/list.astro"
+import PageHero from "@/components/layout/page-hero.astro"
+import SectionFrame from "@/components/layout/section-frame.astro"
+import ProjectRow from "@/components/projects/project-row.astro"
+import HoverList from "@/components/ui/hover-list.astro"
 import Layout from "@/layouts/layout.astro"
+import { projects } from "@/config/projects"
 import { siteConfig } from "@/config/site"
 
 const title = siteConfig.author.name
 const description = siteConfig.description
+
+const featuredProjects = projects.slice(0, 4)
 ---
 
 <Layout title={title} description={description}>
-  <section class="flex flex-col gap-5">
-    <div class="flex flex-col gap-2">
-      <h1 class="font-serif text-5xl leading-[1.05] tracking-tight sm:text-6xl">
-        {siteConfig.author.name}
-      </h1>
-      <p class="label">Co-founder &amp; CTO, Catena</p>
-    </div>
+  <PageHero title={siteConfig.author.name} subtitle="Co-founder & CTO, Catena">
     <p class="max-w-prose leading-relaxed text-muted-foreground">
       I am co-founder and CTO of <a href="https://catena.com" class="link"
         >Catena</a
@@ -23,10 +24,31 @@ const description = siteConfig.description
         class="link">USDC</a
       > at Circle.
     </p>
-  </section>
+  </PageHero>
 
-  <section class="flex flex-col gap-6">
-    <h2 class="label">Writing</h2>
-    <ArticleList />
-  </section>
+  <SectionFrame index={1} label="Recent Writing">
+    <div class="flex flex-col gap-6">
+      <ArticleList limit={4} />
+      <a
+        href="/writing"
+        class="label self-end transition-colors hover:text-foreground"
+      >
+        All writing →
+      </a>
+    </div>
+  </SectionFrame>
+
+  <SectionFrame index={2} label="Featured Work">
+    <div class="flex flex-col gap-6">
+      <HoverList>
+        {featuredProjects.map((project) => <ProjectRow project={project} />)}
+      </HoverList>
+      <a
+        href="/work"
+        class="label self-end transition-colors hover:text-foreground"
+      >
+        All work →
+      </a>
+    </div>
+  </SectionFrame>
 </Layout>

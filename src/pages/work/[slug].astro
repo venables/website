@@ -1,0 +1,68 @@
+---
+import ArticleRow from "@/components/articles/article-row.astro"
+import PageHero from "@/components/layout/page-hero.astro"
+import Frame from "@/components/ui/frame.astro"
+import HoverList from "@/components/ui/hover-list.astro"
+import Layout from "@/layouts/layout.astro"
+import { projects, projectTypes, type Project } from "@/config/projects"
+import type { GetStaticPaths } from "astro"
+import { getCollection } from "astro:content"
+
+export const getStaticPaths = (() =>
+  projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project }
+  }))) satisfies GetStaticPaths
+
+interface Props {
+  project: Project
+}
+
+const { project } = Astro.props
+
+const related = (await getCollection("posts"))
+  .filter((post) => post.data.project === project.id)
+  .toSorted((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+
+const typeLabel =
+  projectTypes.find((type) => type.value === project.type)?.label ?? ""
+const subtitle = project.company ?? typeLabel
+---
+
+<Layout title={project.name} description={project.description}>
+  <article class="flex flex-col gap-12">
+    <PageHero
+      title={project.name}
+      subtitle={subtitle}
+      description={project.description}
+    >
+      <a
+        href={project.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="label transition-colors hover:text-foreground"
+      >
+        Visit {project.name} ↗
+      </a>
+    </PageHero>
+
+    {
+      related.length > 0 && (
+        <div class="flex flex-col gap-4">
+          <p class="label">Writing about {project.name}</p>
+          <Frame class="px-5 py-6 sm:px-7 sm:py-8">
+            <HoverList>
+              {related.map((post) => (
+                <ArticleRow post={post} />
+              ))}
+            </HoverList>
+          </Frame>
+        </div>
+      )
+    }
+
+    <a href="/work" class="label transition-colors hover:text-foreground">
+      ← All work
+    </a>
+  </article>
+</Layout>

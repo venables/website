@@ -5,6 +5,7 @@ description:
   coding agents in parallel."
 pubDate: 2026-01-21
 ogImage: wt.png
+project: wt
 ---
 
 Git worktrees are having a moment. With tools like

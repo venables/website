@@ -43,6 +43,148 @@
   @apply text-muted-foreground font-mono text-xs tracking-[0.12em] uppercase;
 }
 
+/* Blueprint crosshair marks. Drop into any `position: relative` box; each
+   mark centers on a corner. Shared by <Crosshairs> and framed post images. */
+.crosshair-mark {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+
+.crosshair-mark::before,
+.crosshair-mark::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.crosshair-mark::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.crosshair-mark::after {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.crosshair-mark--tl {
+  top: -1px;
+  left: -1px;
+  transform: translate(-50%, -50%);
+}
+
+.crosshair-mark--tr {
+  top: -1px;
+  right: -1px;
+  transform: translate(50%, -50%);
+}
+
+.crosshair-mark--bl {
+  bottom: -1px;
+  left: -1px;
+  transform: translate(-50%, 50%);
+}
+
+.crosshair-mark--br {
+  bottom: -1px;
+  right: -1px;
+  transform: translate(50%, 50%);
+}
+
+/* Wrapper injected around post images by rehype-crosshair-frames. It is the
+   crosshair frame: a bordered, padded box with corner marks, holding the image
+   as an inset panel (same anatomy as the section frames and code blocks). */
+.prose .image-frame {
+  position: relative;
+  display: block;
+  border: 1px solid var(--border);
+  padding: 0.6rem;
+}
+
+.prose .image-frame > img {
+  display: block;
+  width: 100%;
+  margin-block: 0;
+}
+
+/* Code blocks read as a crosshair frame: the <pre> is a transparent, padded,
+   bordered frame carrying the corner marks, and the highlighted <code> sits
+   inside as a dark inset panel. Scrolling moves onto <code> so the <pre> never
+   needs `overflow` (which would clip the marks). A wrapper element can't be
+   used: Astro's build strips block wrappers injected around highlighted <pre>,
+   so the four corner marks are drawn with the <pre> and <code> pseudo-elements
+   instead. <code> is not positioned, so its pseudos resolve against the <pre>'s
+   padding box too, letting all four straddle the frame's border-box corners. */
+.prose pre[class*="language-"] {
+  --crosshair: var(--muted-foreground);
+  position: relative;
+  overflow: visible;
+  padding: 0.7rem;
+  background-color: transparent;
+}
+
+.prose pre[class*="language-"] > code {
+  display: block;
+  overflow-x: auto;
+  padding: 0.85rem 1rem;
+  background-color: hsl(220, 13%, 18%);
+}
+
+.prose pre[class*="language-"]::before,
+.prose pre[class*="language-"]::after,
+.prose pre[class*="language-"] > code::before,
+.prose pre[class*="language-"] > code::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  background-image:
+    linear-gradient(var(--crosshair), var(--crosshair)),
+    linear-gradient(var(--crosshair), var(--crosshair));
+  background-repeat: no-repeat;
+  background-size:
+    9px 1px,
+    1px 9px;
+  background-position: center;
+  pointer-events: none;
+}
+
+/* Offsets account for the 1px border: the padding box (containing block) sits
+   1px inside the border box, so -1px lands each mark on the border corner. */
+.prose pre[class*="language-"]::before {
+  top: -1px;
+  left: -1px;
+  transform: translate(-50%, -50%);
+}
+
+.prose pre[class*="language-"]::after {
+  top: -1px;
+  right: -1px;
+  transform: translate(50%, -50%);
+}
+
+.prose pre[class*="language-"] > code::before {
+  bottom: -1px;
+  left: -1px;
+  transform: translate(-50%, 50%);
+}
+
+.prose pre[class*="language-"] > code::after {
+  bottom: -1px;
+  right: -1px;
+  transform: translate(50%, 50%);
+}
+
 @layer base {
   * {
     @apply border-border;

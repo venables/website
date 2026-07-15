@@ -2,6 +2,7 @@
 import Article from "@/components/articles/article.astro"
 import PageHero from "@/components/layout/page-hero.astro"
 import Layout from "@/layouts/layout.astro"
+import { getProject } from "@/config/projects"
 import { getCollection, getEntry, render } from "astro:content"
 
 export async function getStaticPaths() {
@@ -28,8 +29,10 @@ const { id } = Astro.params
 const { entry, Content } = await getContent(id)
 
 const title = entry.data.title ?? "Untitled"
+const plainTitle = title.replaceAll("`", "")
 const description = entry.data.description ?? ""
 const date = entry.data.pubDate.toISOString()
+const project = entry.data.project ? getProject(entry.data.project) : undefined
 
 const meta = [
   entry.data.pubDate.toLocaleDateString("en-US", {
@@ -43,19 +46,31 @@ const meta = [
 ---
 
 <Layout
-  title={title}
+  title={plainTitle}
   description={description}
   article={{ date }}
   image={{
     url: `${Astro.site}og/${id}.png`,
-    alt: title,
+    alt: plainTitle,
     width: 1200,
     height: 630
   }}
 >
   <article class="flex flex-col gap-12">
     <PageHero title={title}>
-      <p class="label">{meta}</p>
+      <div class="flex flex-col gap-2">
+        <p class="label">{meta}</p>
+        {
+          project && (
+            <a
+              href={`/work/${project.id}`}
+              class="label w-fit transition-colors hover:text-foreground"
+            >
+              Part of {project.name} →
+            </a>
+          )
+        }
+      </div>
     </PageHero>
     <Article>
       <Content />

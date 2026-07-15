@@ -1,5 +1,12 @@
 ---
+import ArticleRow from "@/components/articles/article-row.astro"
 import { getCollection } from "astro:content"
+
+interface Props {
+  limit?: number
+}
+
+const { limit } = Astro.props
 
 const allPosts = await getCollection("posts")
 const posts = allPosts.toSorted(
@@ -10,14 +17,6 @@ function year(date: Date): number {
   return date.getUTCFullYear()
 }
 
-function shortDate(date: Date): string {
-  return date.toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    month: "short",
-    day: "2-digit"
-  })
-}
-
 const years = [...new Set(posts.map((post) => year(post.data.pubDate)))]
 const groups = years.map((y) => ({
   year: y,
@@ -25,41 +24,29 @@ const groups = years.map((y) => ({
 }))
 ---
 
-<div class="not-prose group/list flex flex-col gap-10">
-  {
-    groups.map((group) => (
-      <section class="flex flex-col">
-        <h3 class="mb-1 border-b border-border pb-2 font-mono text-sm tabular-nums">
-          {group.year}
-        </h3>
-        <ul class="flex flex-col">
-          {group.posts.map((post) => (
-            <li>
-              <a
-                href={`/${post.id}`}
-                class="grid grid-cols-[3.5rem_1fr] gap-x-4 py-3 no-underline transition-opacity duration-200 group-has-[a:hover]/list:opacity-40 hover:!opacity-100 sm:grid-cols-[4.5rem_1fr]"
-              >
-                <time
-                  datetime={post.data.pubDate.toISOString()}
-                  class="pt-[0.35rem] font-mono text-xs tabular-nums text-muted-foreground"
-                >
-                  {shortDate(post.data.pubDate)}
-                </time>
-                <span class="flex min-w-0 flex-col gap-1">
-                  <span class="font-serif text-lg leading-snug">
-                    {post.data.title}
-                  </span>
-                  {post.data.description && (
-                    <span class="text-sm leading-snug text-muted-foreground">
-                      {post.data.description}
-                    </span>
-                  )}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))
-  }
-</div>
+{
+  limit ? (
+    <div class="not-prose group/list flex flex-col">
+      <ul class="flex flex-col">
+        {posts.slice(0, limit).map((post) => (
+          <ArticleRow post={post} />
+        ))}
+      </ul>
+    </div>
+  ) : (
+    <div class="not-prose group/list flex flex-col gap-10">
+      {groups.map((group) => (
+        <section class="flex flex-col">
+          <h3 class="mb-1 border-b border-border pb-2 font-mono text-sm tabular-nums">
+            {group.year}
+          </h3>
+          <ul class="flex flex-col">
+            {group.posts.map((post) => (
+              <ArticleRow post={post} />
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  )
+}

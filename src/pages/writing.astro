@@ -1,0 +1,19 @@
+---
+import ArticleList from "@/components/articles/list.astro"
+import PageHero from "@/components/layout/page-hero.astro"
+import Frame from "@/components/ui/frame.astro"
+import Layout from "@/layouts/layout.astro"
+
+const title = "Writing"
+const description = "Things I think I think"
+---
+
+<Layout title={title} description={description}>
+  <article class="flex flex-col gap-12">
+    <PageHero title={title} subtitle={description} />
+
+    <Frame class="px-5 py-6 sm:px-7 sm:py-8">
+      <ArticleList />
+    </Frame>
+  </article>
+</Layout>

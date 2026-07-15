@@ -89,7 +89,7 @@ export const GET: APIRoute = async ({ props }) => {
 
   const png = await generateOgImage(
     {
-      title: post.data.title ?? "Untitled",
+      title: (post.data.title ?? "Untitled").replaceAll("`", ""),
       author: siteConfig.author.name,
       avatarBase64,
       imageBase64

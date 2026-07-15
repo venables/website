@@ -6,6 +6,7 @@ description:
   create."
 pubDate: 2026-06-15
 ogImage: ./wt-cleanup.png
+project: wt
 ---
 
 ![wt cleanup picker](./wt-cleanup.png)

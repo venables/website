@@ -4,6 +4,8 @@ import sitemap from "@astrojs/sitemap"
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig, fontProviders } from "astro/config"
 
+import rehypeCrosshairFrames from "./src/lib/rehype-crosshair-frames"
+
 const isDev = process.argv.includes("dev")
 
 // https://astro.build/config
@@ -11,7 +13,8 @@ export default defineConfig({
   site: "https://venabl.es",
   trailingSlash: "never",
   redirects: {
-    "/now": "/projects"
+    "/now": "/work",
+    "/projects": "/work"
   },
   build: {
     format: "file"
@@ -33,7 +36,8 @@ export default defineConfig({
     }
   ],
   markdown: {
-    syntaxHighlight: "prism"
+    syntaxHighlight: "prism",
+    rehypePlugins: [rehypeCrosshairFrames]
   },
   vite: {
     plugins: [tailwindcss()]

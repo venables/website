@@ -1,0 +1,23 @@
+---
+interface Props {
+  text: string
+}
+
+const { text } = Astro.props
+
+/* Split a title on `backtick` spans, keeping the delimiters so each segment
+   renders as either plain text or inline monospace code. */
+const segments = text.split(/(`[^`]+`)/).filter(Boolean)
+---
+
+{
+  segments.map((segment) =>
+    segment.startsWith("`") && segment.endsWith("`") ? (
+      <code class="font-mono text-[0.82em] font-normal tracking-normal">
+        {segment.slice(1, -1)}
+      </code>
+    ) : (
+      segment
+    )
+  )
+}

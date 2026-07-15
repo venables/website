@@ -14,7 +14,7 @@ export const GET: APIRoute = async (context) => {
     site: context.site ?? "https://venabl.es",
     trailingSlash: false,
     items: posts.map((post) => ({
-      title: post.data.title,
+      title: post.data.title?.replaceAll("`", ""),
       description: post.data.description,
       pubDate: post.data.pubDate,
       link: `/${post.id}`,

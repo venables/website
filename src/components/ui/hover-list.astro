@@ -1,0 +1,13 @@
+---
+import { cn } from "@/lib/utils"
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<ul class={cn("group/list flex flex-col", className)}>
+  <slot />
+</ul>
