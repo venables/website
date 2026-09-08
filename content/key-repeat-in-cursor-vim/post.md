@@ -6,7 +6,7 @@ pubDate: 2025-01-14
 ogImage: ai-agents-in-the-computer.jpg
 ---
 
-> NOTE: This post is primarily a reminder for myself for when I set up a new
+> [!NOTE] This post is primarily a reminder for myself for when I set up a new
 > laptop.
 
 I love vim (and neovim). But I also love the niceities of a modern editor,

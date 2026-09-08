@@ -6,6 +6,9 @@ description:
 pubDate: 2026-07-17
 ---
 
+> [!NOTE] I recommend just learning the Herdr prefix (`ctrl+b`) and skipping all
+> of this. Herdr is great out of the box.
+
 I got tired of keeping a cheat sheet open for [Herdr](https://herdr.dev)'s
 keyboard shortcuts, so I made them match the macOS native shortcuts: `cmd+t` for
 a new tab, `cmd+w` to close, `cmd+d` to split, `cmd+1..9` to jump workspaces.
