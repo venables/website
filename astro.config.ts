@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite"
 import { defineConfig, fontProviders } from "astro/config"
 
 import rehypeCrosshairFrames from "./src/lib/rehype-crosshair-frames"
+import rehypeGithubAlerts from "./src/lib/rehype-github-alerts"
 
 const isDev = process.argv.includes("dev")
 
@@ -37,7 +38,7 @@ export default defineConfig({
   ],
   markdown: {
     syntaxHighlight: "prism",
-    rehypePlugins: [rehypeCrosshairFrames]
+    rehypePlugins: [rehypeCrosshairFrames, rehypeGithubAlerts]
   },
   vite: {
     plugins: [tailwindcss()]
