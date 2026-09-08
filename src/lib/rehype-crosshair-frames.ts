@@ -1,5 +1,7 @@
 import type { Element, Root } from "hast"
 
+import { crosshairMarks } from "./crosshair-marks"
+
 /**
  * Rehype plugin that wraps post images in a crosshair frame: four blueprint
  * corner marks matching the framed sections used across the site. Images become
@@ -8,26 +10,12 @@ import type { Element, Root } from "hast"
  * (Astro's build strips block wrappers injected around highlighted <pre>).
  */
 
-const corners = ["tl", "tr", "bl", "br"] as const
-
-function mark(corner: (typeof corners)[number]): Element {
-  return {
-    type: "element",
-    tagName: "span",
-    properties: {
-      className: ["crosshair-mark", `crosshair-mark--${corner}`],
-      "aria-hidden": "true"
-    },
-    children: []
-  }
-}
-
 function frameImage(img: Element): Element {
   return {
     type: "element",
     tagName: "span",
     properties: { className: ["image-frame"] },
-    children: [img, ...corners.map(mark)]
+    children: [img, ...crosshairMarks()]
   }
 }
 
