@@ -1,4 +1,5 @@
 import cloudflare from "@astrojs/cloudflare"
+import { unified } from "@astrojs/markdown-remark"
 import mdx from "@astrojs/mdx"
 import sitemap from "@astrojs/sitemap"
 import tailwindcss from "@tailwindcss/vite"
@@ -38,7 +39,11 @@ export default defineConfig({
   ],
   markdown: {
     syntaxHighlight: "prism",
-    rehypePlugins: [rehypeCrosshairFrames, rehypeGithubAlerts]
+    // Astro 7 defaults to the Sätteri processor; `unified` keeps the
+    // remark/rehype pipeline these plugins are written against.
+    processor: unified({
+      rehypePlugins: [rehypeCrosshairFrames, rehypeGithubAlerts]
+    })
   },
   vite: {
     plugins: [tailwindcss()]
